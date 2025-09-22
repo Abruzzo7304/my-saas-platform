@@ -7,7 +7,7 @@ const AdminDashboard: React.FC = () => {
   return (
     <div style={{ padding: '2rem' }}>
       <div style={{ marginBottom: '2rem' }}>
-        <h1>Admin Dashboard</h1>
+        <h1>Admin dashboard</h1>
         <p style={{ color: '#666' }}>Welcome back, {user?.name || user?.email}</p>
       </div>
       
@@ -24,7 +24,7 @@ const AdminDashboard: React.FC = () => {
           borderRadius: '8px',
           border: '1px solid #e9ecef'
         }}>
-          <h3 style={{ margin: '0 0 0.5rem 0', color: '#495057' }}>Active Subcontractors</h3>
+          <h3 style={{ margin: '0 0 0.5rem 0', color: '#495057' }}>Active subcontractors</h3>
           <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#28a745' }}>12</div>
           <p style={{ margin: '0.5rem 0 0 0', color: '#6c757d', fontSize: '0.9rem' }}>
             3 pending approval
@@ -37,7 +37,7 @@ const AdminDashboard: React.FC = () => {
           borderRadius: '8px',
           border: '1px solid #e9ecef'
         }}>
-          <h3 style={{ margin: '0 0 0.5rem 0', color: '#495057' }}>Open Jobs</h3>
+          <h3 style={{ margin: '0 0 0.5rem 0', color: '#495057' }}>Open jobs</h3>
           <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#007bff' }}>8</div>
           <p style={{ margin: '0.5rem 0 0 0', color: '#6c757d', fontSize: '0.9rem' }}>
             2 urgent priority
@@ -50,7 +50,7 @@ const AdminDashboard: React.FC = () => {
           borderRadius: '8px',
           border: '1px solid #e9ecef'
         }}>
-          <h3 style={{ margin: '0 0 0.5rem 0', color: '#495057' }}>Jobs This Week</h3>
+          <h3 style={{ margin: '0 0 0.5rem 0', color: '#495057' }}>Jobs this week</h3>
           <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#ffc107' }}>24</div>
           <p style={{ margin: '0.5rem 0 0 0', color: '#6c757d', fontSize: '0.9rem' }}>
             18 completed
@@ -70,7 +70,7 @@ const AdminDashboard: React.FC = () => {
           borderRadius: '8px',
           border: '1px solid #e9ecef'
         }}>
-          <h3 style={{ marginTop: 0 }}>Recent Activity</h3>
+          <h3 style={{ marginTop: 0 }}>Recent activity</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div style={{ 
               display: 'flex', 
@@ -89,7 +89,7 @@ const AdminDashboard: React.FC = () => {
               backgroundColor: '#f8f9fa',
               borderRadius: '4px'
             }}>
-              <span>New job created: Kitchen Renovation - Bondi</span>
+              <span>New job created: Kitchen renovation - Bondi</span>
               <span style={{ color: '#6c757d', fontSize: '0.9rem' }}>4 hours ago</span>
             </div>
             <div style={{ 
@@ -112,7 +112,7 @@ const AdminDashboard: React.FC = () => {
           borderRadius: '8px',
           border: '1px solid #e9ecef'
         }}>
-          <h3 style={{ marginTop: 0 }}>Quick Actions</h3>
+          <h3 style={{ marginTop: 0 }}>Quick actions</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             <button style={{ 
               padding: '0.75rem', 
@@ -122,7 +122,7 @@ const AdminDashboard: React.FC = () => {
               borderRadius: '4px',
               cursor: 'pointer'
             }}>
-              Add New Job
+              Add new job
             </button>
             <button style={{ 
               padding: '0.75rem', 
@@ -132,7 +132,7 @@ const AdminDashboard: React.FC = () => {
               borderRadius: '4px',
               cursor: 'pointer'
             }}>
-              Invite Subcontractor
+              Invite subcontractor
             </button>
             <button style={{ 
               padding: '0.75rem', 
@@ -142,7 +142,7 @@ const AdminDashboard: React.FC = () => {
               borderRadius: '4px',
               cursor: 'pointer'
             }}>
-              Review Applications
+              Review applications
             </button>
             <button style={{ 
               padding: '0.75rem', 
@@ -152,7 +152,7 @@ const AdminDashboard: React.FC = () => {
               borderRadius: '4px',
               cursor: 'pointer'
             }}>
-              System Settings
+              System settings
             </button>
           </div>
         </div>

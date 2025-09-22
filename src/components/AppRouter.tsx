@@ -41,8 +41,8 @@ const AppRouter: React.FC = () => {
           {userRole === 'admin' && (
             <>
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
-              <Route path="/admin/users" element={<div style={{padding: '2rem'}}>User Management (Coming Soon)</div>} />
-              <Route path="/admin/system" element={<div style={{padding: '2rem'}}>System Configuration (Coming Soon)</div>} />
+              <Route path="/admin/users" element={<div style={{padding: '2rem'}}>User management (coming soon)</div>} />
+              <Route path="/admin/system" element={<div style={{padding: '2rem'}}>System configuration (coming soon)</div>} />
             </>
           )}
           
@@ -50,14 +50,14 @@ const AppRouter: React.FC = () => {
           {(userRole === 'reviewer' || userRole === 'admin') && (
             <>
               <Route path="/reviewer/dashboard" element={<ReviewerDashboard />} />
-              <Route path="/reviewer/jobs" element={<div style={{padding: '2rem'}}>Job Management (Coming Soon)</div>} />
+              <Route path="/reviewer/jobs" element={<div style={{padding: '2rem'}}>Job management (coming soon)</div>} />
             </>
           )}
           
           {/* Subcontractor routes */}
           <Route path="/subcontractor/dashboard" element={<SubcontractorDashboard />} />
-          <Route path="/subcontractor/jobs" element={<div style={{padding: '2rem'}}>Available Jobs (Coming Soon)</div>} />
-          <Route path="/subcontractor/profile" element={<div style={{padding: '2rem'}}>My Profile (Coming Soon)</div>} />
+          <Route path="/subcontractor/jobs" element={<div style={{padding: '2rem'}}>Available jobs (coming soon)</div>} />
+          <Route path="/subcontractor/profile" element={<div style={{padding: '2rem'}}>My profile (coming soon)</div>} />
           
           <Route path="*" element={<Navigate to={getDefaultRoute()} replace />} />
         </Routes>

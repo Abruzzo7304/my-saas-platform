@@ -7,7 +7,7 @@ const SubcontractorDashboard: React.FC = () => {
   return (
     <div style={{ padding: '2rem' }}>
       <div style={{ marginBottom: '2rem' }}>
-        <h1>My Dashboard</h1>
+        <h1>My dashboard</h1>
         <p style={{ color: '#666' }}>Welcome, {user?.name || user?.email}</p>
       </div>
       
@@ -23,7 +23,7 @@ const SubcontractorDashboard: React.FC = () => {
           borderRadius: '8px',
           border: '1px solid #28a745'
         }}>
-          <h3 style={{ margin: '0 0 0.5rem 0', color: '#155724' }}>Available Jobs</h3>
+          <h3 style={{ margin: '0 0 0.5rem 0', color: '#155724' }}>Available jobs</h3>
           <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#28a745' }}>5</div>
           <p style={{ margin: '0.5rem 0 0 0', color: '#155724', fontSize: '0.9rem' }}>
             2 in your area
@@ -36,7 +36,7 @@ const SubcontractorDashboard: React.FC = () => {
           borderRadius: '8px',
           border: '1px solid #ffc107'
         }}>
-          <h3 style={{ margin: '0 0 0.5rem 0', color: '#856404' }}>In Progress</h3>
+          <h3 style={{ margin: '0 0 0.5rem 0', color: '#856404' }}>In progress</h3>
           <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#ffc107' }}>2</div>
           <p style={{ margin: '0.5rem 0 0 0', color: '#856404', fontSize: '0.9rem' }}>
             1 due today
@@ -69,7 +69,7 @@ const SubcontractorDashboard: React.FC = () => {
           borderRadius: '8px',
           border: '1px solid #e9ecef'
         }}>
-          <h3 style={{ marginTop: 0 }}>Available Jobs</h3>
+          <h3 style={{ marginTop: 0 }}>Available jobs</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div style={{ 
               padding: '1rem',
@@ -79,9 +79,9 @@ const SubcontractorDashboard: React.FC = () => {
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
                 <div>
-                  <h4 style={{ margin: '0 0 0.5rem 0' }}>Bathroom Renovation</h4>
+                  <h4 style={{ margin: '0 0 0.5rem 0' }}>Bathroom renovation</h4>
                   <p style={{ margin: 0, color: '#6c757d', fontSize: '0.9rem' }}>Bondi, NSW</p>
-                  <p style={{ margin: '0.5rem 0', fontSize: '0.9rem' }}>Plumbing, Tiling</p>
+                  <p style={{ margin: '0.5rem 0', fontSize: '0.9rem' }}>Plumbing, tiling</p>
                 </div>
                 <span style={{ 
                   backgroundColor: '#28a745', 
@@ -102,7 +102,7 @@ const SubcontractorDashboard: React.FC = () => {
                 borderRadius: '4px',
                 cursor: 'pointer'
               }}>
-                View Details
+                View details
               </button>
             </div>
 
@@ -114,9 +114,9 @@ const SubcontractorDashboard: React.FC = () => {
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
                 <div>
-                  <h4 style={{ margin: '0 0 0.5rem 0' }}>Kitchen Install</h4>
+                  <h4 style={{ margin: '0 0 0.5rem 0' }}>Kitchen install</h4>
                   <p style={{ margin: 0, color: '#6c757d', fontSize: '0.9rem' }}>Manly, NSW</p>
-                  <p style={{ margin: '0.5rem 0', fontSize: '0.9rem' }}>Electrical, Plumbing</p>
+                  <p style={{ margin: '0.5rem 0', fontSize: '0.9rem' }}>Electrical, plumbing</p>
                 </div>
                 <span style={{ 
                   backgroundColor: '#ffc107', 
@@ -125,7 +125,7 @@ const SubcontractorDashboard: React.FC = () => {
                   borderRadius: '4px', 
                   fontSize: '0.8rem' 
                 }}>
-                  URGENT
+                  Urgent
                 </span>
               </div>
               <button style={{ 
@@ -137,7 +137,7 @@ const SubcontractorDashboard: React.FC = () => {
                 borderRadius: '4px',
                 cursor: 'pointer'
               }}>
-                View Details
+                View details
               </button>
             </div>
           </div>
@@ -150,10 +150,10 @@ const SubcontractorDashboard: React.FC = () => {
           borderRadius: '8px',
           border: '1px solid #e9ecef'
         }}>
-          <h3 style={{ marginTop: 0 }}>Profile Status</h3>
+          <h3 style={{ marginTop: 0 }}>Profile status</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span>Profile Complete</span>
+              <span>Profile complete</span>
               <span style={{ 
                 backgroundColor: '#28a745', 
                 color: 'white', 
@@ -161,12 +161,12 @@ const SubcontractorDashboard: React.FC = () => {
                 borderRadius: '4px', 
                 fontSize: '0.8rem' 
               }}>
-                ✓ COMPLETE
+                ✓ complete
               </span>
             </div>
             
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span>License Verification</span>
+              <span>License verification</span>
               <span style={{ 
                 backgroundColor: '#28a745', 
                 color: 'white', 
@@ -174,12 +174,12 @@ const SubcontractorDashboard: React.FC = () => {
                 borderRadius: '4px', 
                 fontSize: '0.8rem' 
               }}>
-                ✓ VERIFIED
+                ✓ verified
               </span>
             </div>
             
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span>Insurance Documents</span>
+              <span>Insurance documents</span>
               <span style={{ 
                 backgroundColor: '#ffc107', 
                 color: '#212529', 
@@ -187,7 +187,7 @@ const SubcontractorDashboard: React.FC = () => {
                 borderRadius: '4px', 
                 fontSize: '0.8rem' 
               }}>
-                EXPIRES SOON
+                Expires soon
               </span>
             </div>
             
@@ -200,7 +200,7 @@ const SubcontractorDashboard: React.FC = () => {
               borderRadius: '4px',
               cursor: 'pointer'
             }}>
-              Update Documents
+              Update documents
             </button>
           </div>
         </div>

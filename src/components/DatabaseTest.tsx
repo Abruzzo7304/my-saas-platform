@@ -33,7 +33,7 @@ const DatabaseTest: React.FC = () => {
 
   return (
     <div style={{ padding: '2rem' }}>
-      <h2>Database Connection Test</h2>
+      <h2>Database connection test</h2>
       
       <div style={{ marginBottom: '2rem' }}>
         <h3>Subcontractors ({subcontractors.length})</h3>

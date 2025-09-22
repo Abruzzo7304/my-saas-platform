@@ -5,6 +5,7 @@ import { useUserRole } from '../hooks/useUserRole';
 const Navigation: React.FC = () => {
   const { logout } = useAuth0();
   const { user, userRole, isAdmin, isReviewer, isSubcontractor, setTestRole, clearTestRole } = useUserRole();
+  const displayRole = userRole ? `${userRole.charAt(0).toUpperCase()}${userRole.slice(1)}` : 'User';
 
   const handleLogout = () => {
     logout({ 
@@ -39,14 +40,13 @@ const Navigation: React.FC = () => {
     }}>
       <div>
         <h2 style={{ margin: 0, color: '#333' }}>
-          Workforce Management Platform
+          Workforce management platform
         </h2>
         <span style={{ 
           color: '#666', 
-          fontSize: '0.9rem',
-          textTransform: 'capitalize'
+          fontSize: '0.9rem'
         }}>
-          {userRole} Dashboard
+          {`${displayRole} dashboard`}
         </span>
       </div>
       
@@ -80,20 +80,20 @@ const Navigation: React.FC = () => {
             <option value="admin">Admin</option>
             <option value="reviewer">Reviewer</option>
             <option value="subcontractor">Subcontractor</option>
-            <option value="reset">Reset to Actual Role</option>
+            <option value="reset">Reset to actual role</option>
           </select>
         </div>
 
         {isAdmin && (
           <div style={{ display: 'flex', gap: '0.5rem' }}>
             <button onClick={() => handleNavigation('/admin/dashboard')} style={linkStyle}>
-              Admin Dashboard
+              Admin dashboard
             </button>
             <button onClick={() => handleNavigation('/admin/users')} style={linkStyle}>
-              User Management
+              User management
             </button>
             <button onClick={() => handleNavigation('/admin/system')} style={linkStyle}>
-              System Config
+              System config
             </button>
           </div>
         )}
@@ -101,10 +101,10 @@ const Navigation: React.FC = () => {
         {(isReviewer || isAdmin) && (
           <div style={{ display: 'flex', gap: '0.5rem' }}>
             <button onClick={() => handleNavigation('/reviewer/dashboard')} style={linkStyle}>
-              Review Dashboard
+              Review dashboard
             </button>
             <button onClick={() => handleNavigation('/reviewer/jobs')} style={linkStyle}>
-              Job Management
+              Job management
             </button>
           </div>
         )}
@@ -112,13 +112,13 @@ const Navigation: React.FC = () => {
         {isSubcontractor && (
           <div style={{ display: 'flex', gap: '0.5rem' }}>
             <button onClick={() => handleNavigation('/subcontractor/dashboard')} style={linkStyle}>
-              My Dashboard
+              My dashboard
             </button>
             <button onClick={() => handleNavigation('/subcontractor/jobs')} style={linkStyle}>
-              Available Jobs
+              Available jobs
             </button>
             <button onClick={() => handleNavigation('/subcontractor/profile')} style={linkStyle}>
-              My Profile
+              My profile
             </button>
           </div>
         )}
@@ -138,7 +138,7 @@ const Navigation: React.FC = () => {
               cursor: 'pointer'
             }}
           >
-            Logout
+            Log out
           </button>
         </div>
       </div>

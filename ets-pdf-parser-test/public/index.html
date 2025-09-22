@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ETS PDF Processor</title>
+    <title>Ets pdf processor</title>
     <style>
         * {
             margin: 0;
@@ -238,8 +238,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>ETS PDF Processor</h1>
-            <p>Drag & drop ETS work order PDFs for automatic processing</p>
+            <h1>Ets pdf processor</h1>
+            <p>Drag & drop ets work order pdfs for automatic processing</p>
         </div>
 
         <div class="stats-bar">
@@ -263,27 +263,27 @@
 
         <div class="main-content">
             <div class="upload-section">
-                <h2 style="margin-bottom: 20px; color: #1f2937;">Upload ETS PDFs</h2>
+                <h2 style="margin-bottom: 20px; color: #1f2937;">Upload ets pdfs</h2>
                 
                 <div class="upload-zone" id="uploadZone">
                     <input type="file" class="file-input" id="fileInput" accept=".pdf" multiple>
                     <div class="upload-icon">📄</div>
-                    <div class="upload-text">Drop PDF files here or click to browse</div>
-                    <div class="upload-subtext">Supports multiple ETS work order PDFs</div>
+                    <div class="upload-text">Drop pdf files here or click to browse</div>
+                    <div class="upload-subtext">Supports multiple ets work order pdfs</div>
                 </div>
 
                 <div class="loading" id="loading">
                     <div class="spinner"></div>
-                    <div>Processing PDF...</div>
+                    <div>Processing pdf...</div>
                 </div>
             </div>
 
             <div class="results-section">
-                <h2 style="margin-bottom: 20px; color: #1f2937;">Processing Results</h2>
+                <h2 style="margin-bottom: 20px; color: #1f2937;">Processing results</h2>
                 
                 <div class="processing-list" id="processingList">
                     <div style="text-align: center; color: #6b7280; padding: 40px;">
-                        No files processed yet. Upload some ETS PDFs to get started.
+                        No files processed yet. Upload some ets pdfs to get started.
                     </div>
                 </div>
             </div>
@@ -327,7 +327,7 @@
             if (files.length > 0) {
                 processFiles(files);
             } else {
-                alert('Please upload PDF files only.');
+                alert('Please upload pdf files only.');
             }
         }
 
@@ -408,7 +408,7 @@ function updateProcessingItem(id, status, result, originalFilename) {
                 font-size: 0.8rem;
                 cursor: pointer;
                 margin-right: 8px;
-            ">View Details</button>
+            ">View details</button>
             <a href="/view-pdf/${originalFilename}" target="_blank" style="
                 display: inline-block;
                 background: #ef4444;
@@ -417,7 +417,7 @@ function updateProcessingItem(id, status, result, originalFilename) {
                 padding: 6px 12px;
                 border-radius: 4px;
                 font-size: 0.8rem;
-            ">View PDF</a>
+            ">View pdf</a>
         `;
         buttonContainer.style.display = 'block';
         

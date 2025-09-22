@@ -7,7 +7,7 @@ const ReviewerDashboard: React.FC = () => {
   return (
     <div style={{ padding: '2rem' }}>
       <div style={{ marginBottom: '2rem' }}>
-        <h1>Reviewer Dashboard</h1>
+        <h1>Reviewer dashboard</h1>
         <p style={{ color: '#666' }}>Welcome, {user?.name || user?.email}</p>
       </div>
       
@@ -23,7 +23,7 @@ const ReviewerDashboard: React.FC = () => {
           borderRadius: '8px',
           border: '1px solid #ffc107'
         }}>
-          <h3 style={{ margin: '0 0 0.5rem 0', color: '#856404' }}>Pending Reviews</h3>
+          <h3 style={{ margin: '0 0 0.5rem 0', color: '#856404' }}>Pending reviews</h3>
           <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#ffc107' }}>7</div>
           <p style={{ margin: '0.5rem 0 0 0', color: '#856404', fontSize: '0.9rem' }}>
             3 applications, 4 renewals
@@ -36,7 +36,7 @@ const ReviewerDashboard: React.FC = () => {
           borderRadius: '8px',
           border: '1px solid #17a2b8'
         }}>
-          <h3 style={{ margin: '0 0 0.5rem 0', color: '#0c5460' }}>Active Jobs</h3>
+          <h3 style={{ margin: '0 0 0.5rem 0', color: '#0c5460' }}>Active jobs</h3>
           <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#17a2b8' }}>15</div>
           <p style={{ margin: '0.5rem 0 0 0', color: '#0c5460', fontSize: '0.9rem' }}>
             8 assigned, 7 unassigned
@@ -49,7 +49,7 @@ const ReviewerDashboard: React.FC = () => {
           borderRadius: '8px',
           border: '1px solid #28a745'
         }}>
-          <h3 style={{ margin: '0 0 0.5rem 0', color: '#155724' }}>Completed Today</h3>
+          <h3 style={{ margin: '0 0 0.5rem 0', color: '#155724' }}>Completed today</h3>
           <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#28a745' }}>4</div>
           <p style={{ margin: '0.5rem 0 0 0', color: '#155724', fontSize: '0.9rem' }}>
             12 this week
@@ -69,7 +69,7 @@ const ReviewerDashboard: React.FC = () => {
           borderRadius: '8px',
           border: '1px solid #e9ecef'
         }}>
-          <h3 style={{ marginTop: 0 }}>Pending Applications</h3>
+          <h3 style={{ marginTop: 0 }}>Pending applications</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div style={{ 
               padding: '1rem',
@@ -90,7 +90,7 @@ const ReviewerDashboard: React.FC = () => {
                   borderRadius: '4px', 
                   fontSize: '0.8rem' 
                 }}>
-                  REVIEW
+                  Review
                 </span>
               </div>
               <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem' }}>
@@ -136,7 +136,7 @@ const ReviewerDashboard: React.FC = () => {
                   borderRadius: '4px', 
                   fontSize: '0.8rem' 
                 }}>
-                  URGENT
+                  Urgent
                 </span>
               </div>
               <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem' }}>
@@ -172,7 +172,7 @@ const ReviewerDashboard: React.FC = () => {
           borderRadius: '8px',
           border: '1px solid #e9ecef'
         }}>
-          <h3 style={{ marginTop: 0 }}>Unassigned Jobs</h3>
+          <h3 style={{ marginTop: 0 }}>Unassigned jobs</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <div style={{ 
               padding: '1rem',
@@ -182,9 +182,9 @@ const ReviewerDashboard: React.FC = () => {
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
                 <div>
-                  <h4 style={{ margin: '0 0 0.5rem 0' }}>Office Renovation</h4>
+                  <h4 style={{ margin: '0 0 0.5rem 0' }}>Office renovation</h4>
                   <p style={{ margin: 0, color: '#6c757d', fontSize: '0.9rem' }}>Sydney CBD</p>
-                  <p style={{ margin: '0.5rem 0', fontSize: '0.9rem' }}>Electrical, Carpentry</p>
+                  <p style={{ margin: '0.5rem 0', fontSize: '0.9rem' }}>Electrical, carpentry</p>
                 </div>
                 <span style={{ 
                   backgroundColor: '#17a2b8', 
@@ -205,7 +205,7 @@ const ReviewerDashboard: React.FC = () => {
                 borderRadius: '4px',
                 cursor: 'pointer'
               }}>
-                Assign Contractor
+                Assign contractor
               </button>
             </div>
 
@@ -217,7 +217,7 @@ const ReviewerDashboard: React.FC = () => {
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
                 <div>
-                  <h4 style={{ margin: '0 0 0.5rem 0' }}>Emergency Plumbing</h4>
+                  <h4 style={{ margin: '0 0 0.5rem 0' }}>Emergency plumbing</h4>
                   <p style={{ margin: 0, color: '#6c757d', fontSize: '0.9rem' }}>Bondi Beach</p>
                   <p style={{ margin: '0.5rem 0', fontSize: '0.9rem' }}>Plumbing</p>
                 </div>
@@ -228,7 +228,7 @@ const ReviewerDashboard: React.FC = () => {
                   borderRadius: '4px', 
                   fontSize: '0.8rem' 
                 }}>
-                  URGENT
+                  Urgent
                 </span>
               </div>
               <button style={{ 
@@ -240,7 +240,7 @@ const ReviewerDashboard: React.FC = () => {
                 borderRadius: '4px',
                 cursor: 'pointer'
               }}>
-                Assign Now
+                Assign now
               </button>
             </div>
           </div>

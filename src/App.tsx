@@ -36,7 +36,7 @@ function App() {
         flexDirection: 'column',
         gap: '1rem'
       }}>
-        <h1>Workforce Management Platform</h1>
+        <h1>Workforce management platform</h1>
         <button 
           onClick={() => loginWithRedirect()}
           style={{ 
@@ -49,7 +49,7 @@ function App() {
             cursor: 'pointer'
           }}
         >
-          Log In
+          Log in
         </button>
       </div>
     );
