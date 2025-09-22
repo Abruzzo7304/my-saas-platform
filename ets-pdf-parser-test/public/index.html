@@ -398,6 +398,160 @@
             margin-bottom: 0;
         }
 
+        /* Quick Review Section */
+        .quick-review-section {
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 12px;
+            padding: 16px;
+            border: 2px solid #f59e0b;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+        }
+
+        .quick-review-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #92400e;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .quick-review-icon {
+            font-size: 1.1rem;
+        }
+
+        .quick-review-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .quick-review-section-main {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quick-review-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .quick-review-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 200px;
+            flex: 1;
+        }
+
+        .quick-review-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #92400e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .quick-review-value {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1f2937;
+            line-height: 1.3;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .quick-review-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .urgency-section {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            padding: 12px;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .urgency-header {
+            margin-bottom: 8px;
+        }
+
+        .urgency-level {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .urgency-level.critical {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fca5a5;
+        }
+
+        .urgency-level.urgent {
+            background: #fef3c7;
+            color: #d97706;
+            border: 1px solid #fcd34d;
+        }
+
+        .urgency-level.standard {
+            background: #f0fdf4;
+            color: #16a34a;
+            border: 1px solid #86efac;
+        }
+
+        .urgency-details {
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .urgency-response, .urgency-scheduling {
+            margin-bottom: 4px;
+            color: #374151;
+        }
+
+        .urgency-note {
+            color: #dc2626;
+            font-weight: 600;
+            margin-top: 8px;
+            font-size: 0.75rem;
+        }
+
+        .time-constraints-section {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            padding: 12px;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .time-constraints-header {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #92400e;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .time-constraints-content {
+            font-size: 0.8rem;
+            line-height: 1.4;
+            color: #374151;
+        }
+
         .field-section-title {
             font-size: 0.95rem;
             font-weight: 600;
@@ -1389,6 +1543,270 @@
                         "job_description": { value: "Multi-trade construction: carpentry, electrical, certification, roof repairs, solar work", confidence: 90, type: "textarea" }
                     }
                 }
+            },
+            {
+                name: "PO38935_Farmcote.pdf",
+                pages: 1,
+                confidence: 96,
+                processedAt: new Date(Date.now() - 12 * 60 * 60 * 1000),
+                status: 'review',
+                urgency: 'Standard',
+                originalUrl: "http://localhost:8080/pdfs/PO38935_Farmcote.pdf",
+                parsedFields: {
+                    "Source Company": {
+                        "company_name": { value: "Highforce Pty Ltd", confidence: 99 }
+                    },
+                    "Company Details": {
+                        "phone": { value: "0420 524 997", confidence: 98 },
+                        "email": { value: "admin@highforce.com.au", confidence: 98 },
+                        "website": { value: "www.highforce.com.au", confidence: 97 },
+                        "abn": { value: "62 115 431 865", confidence: 99 }
+                    },
+                    "Work Order Details": {
+                        "order_number": { value: "PO38935", confidence: 99 },
+                        "document_type": { value: "Purchase Order", confidence: 99, type: "select", options: ["Work Order", "Quote Request", "Purchase Order"] },
+                        "work_type": { value: "Electrical Installation", confidence: 95 },
+                        "job_description": { value: "Supply and install 10m of 25mm² armoured cable for shed connection at Farmcote property", confidence: 94, type: "textarea" },
+                        "date_issued": { value: "15 Sep 2024", confidence: 96 },
+                        "assigned_to": { value: "Highforce Electrical Team", confidence: 98 },
+                        "total_amount": { value: "$2,450.00", confidence: 94 }
+                    },
+                    "Company Contact (Email Sender)": {
+                        "first_name": { value: "Sarah", confidence: 95 },
+                        "last_name": { value: "Mitchell", confidence: 95 },
+                        "email": { value: "sarah@highforce.com.au", confidence: 98 },
+                        "phone": { value: "0420 524 997", confidence: 98 },
+                        "role": { value: "Project Manager", confidence: 96 },
+                        "company": { value: "Highforce Pty Ltd", confidence: 99 }
+                    },
+                    "Site Contact": {
+                        "first": { value: "David", confidence: 96 },
+                        "last": { value: "Farmcote", confidence: 96 },
+                        "type": { value: "PROPERTY_MANAGER", confidence: 99, type: "select", options: ["JOB", "BILLING", "PROPERTY_MANAGER"] },
+                        "is_primary_contact": { value: "true", confidence: 95, type: "select", options: ["true", "false"] },
+                        "mobile": { value: "0487 621 334", confidence: 94 },
+                        "email": { value: "david@farmcote.com.au", confidence: 96 }
+                    },
+                    "Job Location": {
+                        "site_address": { value: "1247 Kyogle Road, Uki NSW 2484", confidence: 98, type: "textarea" },
+                        "site_city": { value: "Uki", confidence: 98 },
+                        "site_state": { value: "NSW", confidence: 99 },
+                        "site_postcode": { value: "2484", confidence: 99 },
+                        "country": { value: "Australia", confidence: 99 },
+                        "latitude": { value: "-28.3667", confidence: 85 },
+                        "longitude": { value: "153.3167", confidence: 85 }
+                    },
+                    "ServiceM8 API Fields": {
+                        "job_uuid": { value: "9c0dc93f-6f0c-49d8-9b57-427cc79g5dfd", confidence: 85 },
+                        "job_active": { value: "1", confidence: 99, type: "select", options: ["0", "1"] },
+                        "job_address": { value: "1247 Kyogle Road, Uki NSW 2484", confidence: 98 },
+                        "billing_address": { value: "1247 Kyogle Road, Uki NSW 2484", confidence: 98 },
+                        "job_status": { value: "Quote", confidence: 95, type: "select", options: ["Quote", "Pending", "Work Order", "Completed"] },
+                        "quote_date": { value: "2024-09-15", confidence: 96 },
+                        "work_order_date": { value: "", confidence: 0 },
+                        "work_done_description": { value: "Electrical cable installation for shed connection", confidence: 92 },
+                        "generated_job_id": { value: "5", confidence: 88 },
+                        "completion_date": { value: "", confidence: 0 },
+                        "payment_date": { value: "", confidence: 0 },
+                        "payment_method": { value: "", confidence: 0 },
+                        "payment_amount": { value: "2450.00", confidence: 94 },
+                        "edit_date": { value: "2024-09-15 10:30", confidence: 96 },
+                        "ready_to_invoice": { value: "0", confidence: 95, type: "select", options: ["0", "1"] },
+                        "company_uuid": { value: "58g3h554-45c7-5b26-955c-316bb79h6gge", confidence: 85 },
+                        "geo_is_valid": { value: "1", confidence: 85, type: "select", options: ["0", "1"] },
+                        "job_lng": { value: "153.3167", confidence: 85 },
+                        "job_lat": { value: "-28.3667", confidence: 85 },
+                        "geo_country": { value: "Australia", confidence: 99 },
+                        "geo_postcode": { value: "2484", confidence: 99 },
+                        "geo_state": { value: "NSW", confidence: 99 },
+                        "geo_city": { value: "Uki", confidence: 98 },
+                        "geo_street": { value: "Kyogle Road", confidence: 98 },
+                        "geo_number": { value: "1247", confidence: 98 },
+                        "payment_processed": { value: "0", confidence: 0, type: "select", options: ["0", "1"] },
+                        "payment_received": { value: "0", confidence: 0, type: "select", options: ["0", "1"] },
+                        "total_invoice_amount": { value: "2450.00", confidence: 94 },
+                        "purchase_order_number": { value: "PO38935", confidence: 99 },
+                        "job_description": { value: "Supply and install armoured cable for shed connection", confidence: 92, type: "textarea" }
+                    }
+                }
+            },
+            {
+                name: "Jobcard_For_Job_No_58815.pdf",
+                pages: 2,
+                confidence: 94,
+                processedAt: new Date(Date.now() - 6 * 60 * 60 * 1000),
+                status: 'review',
+                urgency: 'Standard',
+                originalUrl: "http://localhost:8080/pdfs/Jobcard_For_Job_No_58815.pdf",
+                parsedFields: {
+                    "Source Company": {
+                        "company_name": { value: "O'Brien Electrical & Plumbing Lismore", confidence: 99 }
+                    },
+                    "Company Details": {
+                        "phone": { value: "02 6621 3399", confidence: 98 },
+                        "email": { value: "admin@obrienelectrical.com.au", confidence: 98 },
+                        "website": { value: "www.obrienelectrical.com.au", confidence: 97 },
+                        "abn": { value: "78 763 607 712", confidence: 99 },
+                        "license": { value: "256184C", confidence: 98 }
+                    },
+                    "Work Order Details": {
+                        "order_number": { value: "58815", confidence: 99 },
+                        "document_type": { value: "Job Card", confidence: 99, type: "select", options: ["Work Order", "Quote Request", "Job Card"] },
+                        "work_type": { value: "Electrical Repair", confidence: 95 },
+                        "job_description": { value: "TV screen not operating - investigate and repair electrical fault", confidence: 94, type: "textarea" },
+                        "date_issued": { value: "22 Sep 2024", confidence: 96 },
+                        "assigned_to": { value: "O'Brien Electrical Team", confidence: 98 },
+                        "work_limit": { value: "$300", confidence: 94 }
+                    },
+                    "Company Contact (Email Sender)": {
+                        "first_name": { value: "Lisa", confidence: 95 },
+                        "last_name": { value: "O'Brien", confidence: 95 },
+                        "email": { value: "lisa@obrienelectrical.com.au", confidence: 98 },
+                        "phone": { value: "02 6621 3399", confidence: 98 },
+                        "role": { value: "Office Manager", confidence: 96 },
+                        "company": { value: "O'Brien Electrical & Plumbing Lismore", confidence: 99 }
+                    },
+                    "Site Contact": {
+                        "first": { value: "Reception", confidence: 85 },
+                        "last": { value: "Desk", confidence: 85 },
+                        "type": { value: "JOB", confidence: 99, type: "select", options: ["JOB", "BILLING", "PROPERTY_MANAGER"] },
+                        "is_primary_contact": { value: "true", confidence: 95, type: "select", options: ["true", "false"] },
+                        "mobile": { value: "02 6620 1911", confidence: 94 },
+                        "email": { value: "reception@lifeblood.com.au", confidence: 96 }
+                    },
+                    "Job Location": {
+                        "site_address": { value: "1/26 Bounty Street, Lismore NSW 2480", confidence: 98, type: "textarea" },
+                        "site_city": { value: "Lismore", confidence: 98 },
+                        "site_state": { value: "NSW", confidence: 99 },
+                        "site_postcode": { value: "2480", confidence: 99 },
+                        "country": { value: "Australia", confidence: 99 },
+                        "latitude": { value: "-28.8122", confidence: 85 },
+                        "longitude": { value: "153.2778", confidence: 85 },
+                        "venue_name": { value: "Lifeblood Lismore Donor Centre", confidence: 96 }
+                    },
+                    "ServiceM8 API Fields": {
+                        "job_uuid": { value: "ad3ef45g-7h8i-50j9-ak6l-538dd90m7nop", confidence: 85 },
+                        "job_active": { value: "1", confidence: 99, type: "select", options: ["0", "1"] },
+                        "job_address": { value: "1/26 Bounty Street, Lismore NSW 2480", confidence: 98 },
+                        "billing_address": { value: "1/26 Bounty Street, Lismore NSW 2480", confidence: 98 },
+                        "job_status": { value: "Work Order", confidence: 95, type: "select", options: ["Quote", "Pending", "Work Order", "Completed"] },
+                        "quote_date": { value: "2024-09-22", confidence: 96 },
+                        "work_order_date": { value: "2024-09-22", confidence: 96 },
+                        "work_done_description": { value: "Electrical repair - TV screen not operating", confidence: 92 },
+                        "generated_job_id": { value: "4", confidence: 88 },
+                        "completion_date": { value: "", confidence: 0 },
+                        "payment_date": { value: "", confidence: 0 },
+                        "payment_method": { value: "", confidence: 0 },
+                        "payment_amount": { value: "0", confidence: 0 },
+                        "edit_date": { value: "2024-09-22 14:30", confidence: 96 },
+                        "ready_to_invoice": { value: "0", confidence: 95, type: "select", options: ["0", "1"] },
+                        "company_uuid": { value: "68h4i665-56d8-6c37-a66d-427dd80i7hhf", confidence: 85 },
+                        "geo_is_valid": { value: "1", confidence: 85, type: "select", options: ["0", "1"] },
+                        "job_lng": { value: "153.2778", confidence: 85 },
+                        "job_lat": { value: "-28.8122", confidence: 85 },
+                        "geo_country": { value: "Australia", confidence: 99 },
+                        "geo_postcode": { value: "2480", confidence: 99 },
+                        "geo_state": { value: "NSW", confidence: 99 },
+                        "geo_city": { value: "Lismore", confidence: 98 },
+                        "geo_street": { value: "Bounty Street", confidence: 98 },
+                        "geo_number": { value: "1/26", confidence: 95 },
+                        "payment_processed": { value: "0", confidence: 0, type: "select", options: ["0", "1"] },
+                        "payment_received": { value: "0", confidence: 0, type: "select", options: ["0", "1"] },
+                        "total_invoice_amount": { value: "0.0000", confidence: 0 },
+                        "purchase_order_number": { value: "3391", confidence: 99 },
+                        "job_description": { value: "Electrical repair - TV screen not operating", confidence: 92, type: "textarea" }
+                    }
+                }
+            },
+            {
+                name: "QR11604-BU01-001_66 Wollombi Rd Cessnock NSW 2325.pdf",
+                pages: 2,
+                confidence: 92,
+                processedAt: new Date(Date.now() - 18 * 60 * 60 * 1000),
+                status: 'committed',
+                urgency: 'Standard',
+                originalUrl: "http://localhost:8080/pdfs/QR11604-BU01-001_66%20Wollombi%20Rd%20Cessnock%20NSW%202325.pdf",
+                parsedFields: {
+                    "Source Company": {
+                        "company_name": { value: "Emergency Trade Services Pty Ltd", confidence: 99 }
+                    },
+                    "Company Details": {
+                        "phone": { value: "1300 755 455", confidence: 98 },
+                        "email": { value: "admin@etsaus.com.au", confidence: 98 },
+                        "website": { value: "www.etsaus.com.au", confidence: 97 },
+                        "abn": { value: "73 805 498 934", confidence: 99 }
+                    },
+                    "Work Order Details": {
+                        "order_number": { value: "QR11604-BU01-001", confidence: 99 },
+                        "document_type": { value: "Quote Request", confidence: 99, type: "select", options: ["Work Order", "Quote Request"] },
+                        "work_type": { value: "Fire Safety Inspection", confidence: 95 },
+                        "job_description": { value: "Annual fire safety inspection and testing of building safety systems", confidence: 94, type: "textarea" },
+                        "date_issued": { value: "20 Aug 2024", confidence: 96 },
+                        "assigned_to": { value: "Fire Safety Solutions", confidence: 98 }
+                    },
+                    "Company Contact (Email Sender)": {
+                        "first_name": { value: "", confidence: 0 },
+                        "last_name": { value: "", confidence: 0 },
+                        "email": { value: "", confidence: 0 },
+                        "phone": { value: "", confidence: 0 },
+                        "role": { value: "", confidence: 0 },
+                        "company": { value: "Emergency Trade Services Pty Ltd", confidence: 99 }
+                    },
+                    "Site Contact": {
+                        "first": { value: "Margaret", confidence: 95 },
+                        "last": { value: "Chen", confidence: 95 },
+                        "type": { value: "BILLING", confidence: 99, type: "select", options: ["JOB", "BILLING", "PROPERTY_MANAGER"] },
+                        "is_primary_contact": { value: "true", confidence: 95, type: "select", options: ["true", "false"] },
+                        "mobile": { value: "0423 891 556", confidence: 94 },
+                        "email": { value: "margaret.chen@cessnockhealth.nsw.gov.au", confidence: 96 }
+                    },
+                    "Job Location": {
+                        "site_address": { value: "66 Wollombi Rd, Cessnock NSW 2325", confidence: 98, type: "textarea" },
+                        "site_city": { value: "Cessnock", confidence: 98 },
+                        "site_state": { value: "NSW", confidence: 99 },
+                        "site_postcode": { value: "2325", confidence: 99 },
+                        "country": { value: "Australia", confidence: 99 },
+                        "latitude": { value: "-32.8341", confidence: 85 },
+                        "longitude": { value: "151.3561", confidence: 85 }
+                    },
+                    "QR Code Data": {
+                        "qr_content": { value: "https://etsaus.com.au/risk-assessment?job=QR11604-BU01-001", confidence: 85, type: "textarea" },
+                        "qr_type": { value: "Risk Assessment Link", confidence: 90 },
+                        "qr_instructions": { value: "Please scan & complete site risk assessment before proceeding with works", confidence: 95, type: "textarea" }
+                    },
+                    "ServiceM8 API Fields": {
+                        "job_uuid": { value: "ad3ef45g-7h8i-50j9-ak6l-538dd90m7nop", confidence: 85 },
+                        "job_active": { value: "1", confidence: 99, type: "select", options: ["0", "1"] },
+                        "job_address": { value: "66 Wollombi Rd, Cessnock NSW 2325", confidence: 98 },
+                        "billing_address": { value: "66 Wollombi Rd, Cessnock NSW 2325", confidence: 98 },
+                        "job_status": { value: "Completed", confidence: 95, type: "select", options: ["Quote", "Pending", "Work Order", "Completed"] },
+                        "quote_date": { value: "2024-08-20", confidence: 96 },
+                        "work_order_date": { value: "2024-08-25", confidence: 96 },
+                        "work_done_description": { value: "Fire safety inspection and testing completed successfully", confidence: 92 },
+                        "generated_job_id": { value: "6", confidence: 88 },
+                        "completion_date": { value: "2024-08-27", confidence: 96 },
+                        "payment_date": { value: "2024-09-05", confidence: 94 },
+                        "payment_method": { value: "EFT", confidence: 95 },
+                        "payment_amount": { value: "850.00", confidence: 94 },
+                        "edit_date": { value: "2024-08-27 16:45", confidence: 96 },
+                        "ready_to_invoice": { value: "1", confidence: 95, type: "select", options: ["0", "1"] },
+                        "company_uuid": { value: "47f2f443-34b6-4a15-944b-205aa4d9f06b", confidence: 85 },
+                        "geo_is_valid": { value: "1", confidence: 85, type: "select", options: ["0", "1"] },
+                        "job_lng": { value: "151.3561", confidence: 85 },
+                        "job_lat": { value: "-32.8341", confidence: 85 },
+                        "geo_country": { value: "Australia", confidence: 99 },
+                        "geo_postcode": { value: "2325", confidence: 99 },
+                        "geo_state": { value: "NSW", confidence: 99 },
+                        "geo_city": { value: "Cessnock", confidence: 98 },
+                        "geo_street": { value: "Wollombi Rd", confidence: 98 },
+                        "geo_number": { value: "66", confidence: 98 },
+                        "payment_processed": { value: "1", confidence: 95, type: "select", options: ["0", "1"] },
+                        "payment_received": { value: "1", confidence: 95, type: "select", options: ["0", "1"] },
+                        "total_invoice_amount": { value: "850.00", confidence: 94 },
+                        "purchase_order_number": { value: "QR11604-BU01-001", confidence: 99 },
+                        "job_description": { value: "Annual fire safety inspection - Cessnock Health Centre", confidence: 92, type: "textarea" }
+                    }
+                }
             }
         ];
 
@@ -1497,9 +1915,152 @@
             document.body.style.overflow = 'hidden';
         }
 
+        function generateQuickReview(parsedFields) {
+            const parsedFieldsContent = document.getElementById('parsedFieldsContent');
+
+            // Extract key information for quick review
+            const workOrder = parsedFields["Work Order Details"] || {};
+            const company = parsedFields["Source Company"] || {};
+            const location = parsedFields["Job Location"] || {};
+            const contact = parsedFields["Site Contact"] || {};
+            const serviceM8 = parsedFields["ServiceM8 API Fields"] || {};
+
+            // Create Quick Review section
+            const quickReviewSection = document.createElement('div');
+            quickReviewSection.className = 'quick-review-section';
+
+            // Determine urgency level and response requirements
+            const urgency = getCurrentUrgency(workOrder, parsedFields);
+            const urgencyInfo = getUrgencyInfo(urgency);
+
+            // Generate time constraints summary
+            const timeConstraints = generateTimeConstraints(workOrder, parsedFields);
+
+            let quickReviewHTML = `
+                <div class="quick-review-header">
+                    <span class="quick-review-icon">⚡</span>
+                    Quick Review
+                </div>
+                <div class="quick-review-grid">
+                    <div class="quick-review-section-main">
+                        <div class="quick-review-row">
+                            <div class="quick-review-item">
+                                <span class="quick-review-label">Site Address</span>
+                                <span class="quick-review-value">${location.site_address?.value || 'Not specified'}</span>
+                            </div>
+                            <div class="quick-review-item">
+                                <span class="quick-review-label">Site Contact</span>
+                                <span class="quick-review-value">${contact.first?.value && contact.last?.value ? `${contact.first.value} ${contact.last.value}` : 'Not specified'}</span>
+                            </div>
+                            <div class="quick-review-item">
+                                <span class="quick-review-label">Site Phone</span>
+                                <span class="quick-review-value">${contact.mobile?.value || 'Not specified'}</span>
+                            </div>
+                        </div>
+                        <div class="quick-review-row">
+                            <div class="quick-review-item">
+                                <span class="quick-review-label">Work Type</span>
+                                <span class="quick-review-value">${workOrder.work_type?.value || 'Not specified'}</span>
+                            </div>
+                            <div class="quick-review-item">
+                                <span class="quick-review-label">Job Description</span>
+                                <span class="quick-review-value">${workOrder.job_description?.value ? truncateText(workOrder.job_description.value, 50) : 'Not specified'}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="quick-review-sidebar">
+                        <div class="urgency-section">
+                            <div class="urgency-header">
+                                <span class="urgency-level ${urgency.toLowerCase()}">${urgency}</span>
+                            </div>
+                            <div class="urgency-details">
+                                <div class="urgency-response">Response: ${urgencyInfo.response}</div>
+                                <div class="urgency-scheduling">Scheduling: ${urgencyInfo.scheduling}</div>
+                                ${urgency === 'CRITICAL' ? '<div class="urgency-note">⚠️ May incur additional after-hours call-out fees</div>' : ''}
+                            </div>
+                        </div>
+                        <div class="time-constraints-section">
+                            <div class="time-constraints-header">Time Constraints</div>
+                            <div class="time-constraints-content">${timeConstraints}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            quickReviewSection.innerHTML = quickReviewHTML;
+            parsedFieldsContent.appendChild(quickReviewSection);
+        }
+
+        function getCurrentUrgency(workOrder, parsedFields) {
+            // AI logic to determine urgency based on keywords and context
+            const description = (workOrder.job_description?.value || '').toLowerCase();
+            const workType = (workOrder.work_type?.value || '').toLowerCase();
+
+            // Critical keywords
+            if (description.includes('emergency') || description.includes('safety') ||
+                description.includes('power outage') || description.includes('failure') ||
+                description.includes('urgent') || description.includes('asap')) {
+                return 'CRITICAL';
+            }
+
+            // Urgent keywords
+            if (description.includes('same day') || description.includes('next day') ||
+                workType.includes('repair') || description.includes('not working')) {
+                return 'URGENT';
+            }
+
+            return 'STANDARD';
+        }
+
+        function getUrgencyInfo(urgency) {
+            const urgencyMap = {
+                'CRITICAL': {
+                    response: 'Within 2 hours (24/7)',
+                    scheduling: 'ASAP'
+                },
+                'URGENT': {
+                    response: 'Within 4 hours (business hours)',
+                    scheduling: '24-48 hours'
+                },
+                'STANDARD': {
+                    response: 'Next business day',
+                    scheduling: '5-10 business days'
+                }
+            };
+            return urgencyMap[urgency] || urgencyMap['STANDARD'];
+        }
+
+        function generateTimeConstraints(workOrder, parsedFields) {
+            const dateIssued = workOrder.date_issued?.value;
+            const description = workOrder.job_description?.value || '';
+
+            let constraints = [];
+
+            if (dateIssued) {
+                constraints.push(`Issued: ${dateIssued}`);
+            }
+
+            // AI extraction of time-related information
+            const timeMatches = description.match(/(?:within|by|before|deadline|due)\s+(\w+(?:\s+\w+)?)/gi);
+            if (timeMatches) {
+                timeMatches.forEach(match => {
+                    constraints.push(match);
+                });
+            }
+
+            return constraints.length > 0 ? constraints.join('<br>') : 'No specific time constraints identified';
+        }
+
+        function truncateText(text, maxLength) {
+            return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+        }
+
         function generateParsedFields(parsedFields) {
             const parsedFieldsContent = document.getElementById('parsedFieldsContent');
             parsedFieldsContent.innerHTML = '';
+
+            // Generate Quick Review section first
+            generateQuickReview(parsedFields);
 
             const sectionNames = Object.keys(parsedFields);
             let sectionIndex = 0;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useUserRole } from '../../hooks/useUserRole';
+import ThemeConfigurator from '../../components/ThemeConfigurator';
 
 const AdminDashboard: React.FC = () => {
   const { user } = useUserRole();
@@ -61,7 +62,8 @@ const AdminDashboard: React.FC = () => {
       <div style={{ 
         display: 'grid', 
         gridTemplateColumns: '2fr 1fr', 
-        gap: '1.5rem' 
+        gap: '1.5rem',
+        marginBottom: '2rem'
       }}>
         {/* Recent Activity */}
         <div style={{ 
@@ -157,6 +159,8 @@ const AdminDashboard: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <ThemeConfigurator />
     </div>
   );
 };
