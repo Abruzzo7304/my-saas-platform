@@ -401,79 +401,86 @@
         /* Quick Review Section */
         .quick-review-section {
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            border-radius: 12px;
-            padding: 16px;
-            border: 2px solid #f59e0b;
-            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
         }
 
         .quick-review-header {
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: space-between;
+            background: #e8f4f8;
+            border: 2px solid #4a90a4;
+            border-radius: 8px 8px 0 0;
+            padding: 12px 16px;
             font-size: 1rem;
-            font-weight: 700;
-            color: #92400e;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-weight: 600;
+            color: #2c5aa0;
         }
 
         .quick-review-icon {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            margin-right: 8px;
         }
 
-        .quick-review-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
+        .quick-review-toggle {
+            font-size: 0.8rem;
+            color: #666;
         }
 
-        .quick-review-section-main {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+        .quick-review-cards {
+            border: 2px solid #4a90a4;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            background: white;
         }
 
-        .quick-review-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
+        .quick-review-card {
+            border-bottom: 1px solid #e0e0e0;
+            padding: 16px;
         }
 
-        .quick-review-item {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            min-width: 200px;
-            flex: 1;
+        .quick-review-card:last-child {
+            border-bottom: none;
         }
 
-        .quick-review-label {
+        .quick-review-card-header {
             font-size: 0.75rem;
             font-weight: 600;
-            color: #92400e;
+            color: #333;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            margin-bottom: 8px;
         }
 
-        .quick-review-value {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #1f2937;
-            line-height: 1.3;
-            background: rgba(255, 255, 255, 0.7);
-            padding: 6px 10px;
-            border-radius: 6px;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-        }
-
-        .quick-review-sidebar {
+        .quick-review-card-content {
             display: flex;
-            flex-direction: column;
-            gap: 16px;
+            justify-content: space-between;
+            align-items: flex-start;
         }
+
+        .company-name, .order-number, .site-details, .job-summary, .budget-info, .time-constraints {
+            font-size: 0.9rem;
+            color: #333;
+            line-height: 1.4;
+            flex: 1;
+            margin-right: 12px;
+        }
+
+        .urgency-input-box {
+            width: 200px;
+            height: 32px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            margin-right: 12px;
+        }
+
+        .confidence-dots {
+            color: #00b8a9;
+            font-size: 0.6rem;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
 
         .urgency-section {
             background: rgba(255, 255, 255, 0.8);
@@ -601,12 +608,13 @@
             content: "📋";
         }
 
-        .field-section[data-section="Company Contact (Email Sender)"] .field-section-title::before {
-            content: "💼";
-        }
 
         .field-section[data-section="Site Contact"] .field-section-title::before {
-            content: "👤";
+            content: "🏠";
+        }
+
+        .field-section[data-section="Work Order Issuer"] .field-section-title::before {
+            content: "👨‍💼";
         }
 
         .field-section[data-section="Job Location"] .field-section-title::before {
@@ -615,6 +623,10 @@
 
         .field-section[data-section="QR Code Data"] .field-section-title::before {
             content: "📱";
+        }
+
+        .field-section[data-section="Work Notes & Checklists"] .field-section-title::before {
+            content: "📋";
         }
 
         .field-section[data-section="ServiceM8 API Fields"] .field-section-title::before {
@@ -1228,20 +1240,13 @@
                                 <path d="M9 12l2 2 4-4"/>
                                 <circle cx="12" cy="12" r="9"/>
                             </svg>
-                            Fields Validated
-                        </div>
-                        <div class="changes-indicator" id="changesIndicator">
-                            <span>Fields Modified</span>
+                            Ready for ServiceM8
                         </div>
                     </div>
                     <div class="parsed-fields-content" id="parsedFieldsContent">
                         <!-- Fields will be dynamically generated here -->
                     </div>
                     <div class="field-actions">
-                        <button class="btn btn-secondary" id="resetFieldsBtn">
-                            <span class="btn-icon">🔄</span>
-                            Reset Fields
-                        </button>
                         <button class="btn btn-primary" id="saveFieldsBtn">
                             <span class="btn-icon">🚀</span>
                             Create Job in ServiceM8
@@ -1253,7 +1258,7 @@
     </div>
 
     <script>
-        // DOM elements
+        // DOM elements - with null checks
         const fabButton = document.getElementById('fabButton');
         const pdfModal = document.getElementById('pdfModal');
         const modalClose = document.getElementById('modalClose');
@@ -1264,8 +1269,9 @@
         const pdfViewerTitle = document.getElementById('pdfViewerTitle');
         const originalPdfFrame = document.getElementById('originalPdfFrame');
 
-        // Mock data with ETS examples
-        const mockPdfData = [
+
+        // Reference work orders for production use
+        const referenceWorkOrders = [
             {
                 name: "PO1540-RP01-001_2 Tarcoola Ln Uki.pdf",
                 pages: 1,
@@ -1278,21 +1284,15 @@
                     "Source Company": {
                         "company_name": { value: "Emergency Trade Services Pty Ltd", confidence: 99 }
                     },
-                    "Company Details": {
-                        "phone": { value: "1300 755 455", confidence: 98 },
-                        "email": { value: "admin@etsaus.com.au", confidence: 98 },
-                        "website": { value: "www.etsaus.com.au", confidence: 97 },
-                        "abn": { value: "73 805 498 934", confidence: 99 }
-                    },
                     "Work Order Details": {
                         "order_number": { value: "PO1540-RP01-001", confidence: 99 },
                         "document_type": { value: "Work Order", confidence: 99, type: "select", options: ["Work Order", "Quote Request"] },
-                        "work_type": { value: "Electrical Report", confidence: 95 },
+                        "work_type": { value: "Electrical Assessment", confidence: 95 },
                         "job_description": { value: "Please attend site to assess x1 chest freezer and dishwasher that was damaged after an electrical storm", confidence: 94, type: "textarea" },
                         "date_issued": { value: "10 Jun 2024", confidence: 96 },
                         "assigned_to": { value: "SUSTAINE ELECTRICAL & SOLAR", confidence: 98 }
                     },
-                    "Company Contact (Email Sender)": {
+                    "Work Order Issuer": {
                         "first_name": { value: "", confidence: 0 },
                         "last_name": { value: "", confidence: 0 },
                         "email": { value: "", confidence: 0 },
@@ -1321,6 +1321,12 @@
                         "qr_content": { value: "https://etsaus.com.au/risk-assessment?job=PO1540-RP01-001", confidence: 85, type: "textarea" },
                         "qr_type": { value: "Risk Assessment Link", confidence: 90 },
                         "qr_instructions": { value: "Please scan & complete site risk assessment before proceeding with works", confidence: 95, type: "textarea" }
+                    },
+                    "Work Notes & Checklists": {
+                        "parsing_rules_applied": { value: "ETS standard electrical assessment protocol", confidence: 99, type: "textarea" },
+                        "safety_requirements": { value: "• Complete risk assessment before site entry\n• Verify power isolation procedures\n• Use PPE as per ETS safety guidelines", confidence: 95, type: "textarea" },
+                        "work_checklist": { value: "☐ Site risk assessment completed\n☐ Visual inspection of damaged appliances\n☐ Electrical testing performed\n☐ Test results documented\n☐ Customer sign-off obtained", confidence: 90, type: "textarea" },
+                        "compliance_notes": { value: "Work to be completed in accordance with AS/NZS 3760:2010 - In-service safety inspection and testing of electrical equipment", confidence: 85, type: "textarea" }
                     },
                     "ServiceM8 API Fields": {
                         "job_uuid": { value: "8a8ac91d-4d8a-47b6-8935-205aa57e3beb", confidence: 85 },
@@ -1374,22 +1380,16 @@
                     "Source Company": {
                         "company_name": { value: "Emergency Trade Services Pty Ltd", confidence: 99 }
                     },
-                    "Company Details": {
-                        "phone": { value: "1300 755 455", confidence: 98 },
-                        "email": { value: "admin@etsaus.com.au", confidence: 98 },
-                        "website": { value: "www.etsaus.com.au", confidence: 97 },
-                        "abn": { value: "73 805 498 934", confidence: 99 }
-                    },
                     "Work Order Details": {
                         "order_number": { value: "PO8057-BU01-001", confidence: 99 },
                         "document_type": { value: "Work Order", confidence: 99, type: "select", options: ["Work Order", "Quote Request"] },
-                        "work_type": { value: "Multi-Trade Repair", confidence: 95 },
+                        "work_type": { value: "Multi-Trade Services", confidence: 95 },
                         "job_description": { value: "Remove and replace damaged Clip-lok wall sheets, carpet cleaning, electrical downlights, and general repairs", confidence: 92, type: "textarea" },
                         "date_issued": { value: "3 Jul 2025", confidence: 96 },
                         "assigned_to": { value: "Sustaine Electrical & Solar", confidence: 98 },
                         "total_amount": { value: "$13,263.57", confidence: 94 }
                     },
-                    "Company Contact (Email Sender)": {
+                    "Work Order Issuer": {
                         "first_name": { value: "", confidence: 0 },
                         "last_name": { value: "", confidence: 0 },
                         "email": { value: "", confidence: 0 },
@@ -1465,22 +1465,16 @@
                     "Source Company": {
                         "company_name": { value: "Emergency Trade Services Pty Ltd", confidence: 99 }
                     },
-                    "Company Details": {
-                        "phone": { value: "1300 755 455", confidence: 98 },
-                        "email": { value: "admin@etsaus.com.au", confidence: 98 },
-                        "website": { value: "www.etsaus.com.au", confidence: 97 },
-                        "abn": { value: "73 805 498 934", confidence: 99 }
-                    },
                     "Work Order Details": {
                         "order_number": { value: "QR9973-BU01-001", confidence: 99 },
                         "document_type": { value: "Quote Request", confidence: 99, type: "select", options: ["Work Order", "Quote Request"] },
-                        "work_type": { value: "Multi-Trade Construction", confidence: 95 },
+                        "work_type": { value: "Multi-Trade Services", confidence: 95 },
                         "job_description": { value: "Carpentry, electrical, certification, general trades - roof repairs and solar panel work", confidence: 90, type: "textarea" },
                         "date_issued": { value: "16 Jul 2025", confidence: 96 },
                         "assigned_to": { value: "Sustaine Electrical & Solar", confidence: 98 },
                         "reference": { value: "9973", confidence: 97 }
                     },
-                    "Company Contact (Email Sender)": {
+                    "Work Order Issuer": {
                         "first_name": { value: "", confidence: 0 },
                         "last_name": { value: "", confidence: 0 },
                         "email": { value: "", confidence: 0 },
@@ -1556,22 +1550,16 @@
                     "Source Company": {
                         "company_name": { value: "Highforce Pty Ltd", confidence: 99 }
                     },
-                    "Company Details": {
-                        "phone": { value: "0420 524 997", confidence: 98 },
-                        "email": { value: "admin@highforce.com.au", confidence: 98 },
-                        "website": { value: "www.highforce.com.au", confidence: 97 },
-                        "abn": { value: "62 115 431 865", confidence: 99 }
-                    },
                     "Work Order Details": {
                         "order_number": { value: "PO38935", confidence: 99 },
-                        "document_type": { value: "Purchase Order", confidence: 99, type: "select", options: ["Work Order", "Quote Request", "Purchase Order"] },
+                        "document_type": { value: "Work Order", confidence: 99, type: "select", options: ["Work Order", "Quote Request"] },
                         "work_type": { value: "Electrical Installation", confidence: 95 },
                         "job_description": { value: "Supply and install 10m of 25mm² armoured cable for shed connection at Farmcote property", confidence: 94, type: "textarea" },
                         "date_issued": { value: "15 Sep 2024", confidence: 96 },
                         "assigned_to": { value: "Highforce Electrical Team", confidence: 98 },
                         "total_amount": { value: "$2,450.00", confidence: 94 }
                     },
-                    "Company Contact (Email Sender)": {
+                    "Work Order Issuer": {
                         "first_name": { value: "Sarah", confidence: 95 },
                         "last_name": { value: "Mitchell", confidence: 95 },
                         "email": { value: "sarah@highforce.com.au", confidence: 98 },
@@ -1642,23 +1630,16 @@
                     "Source Company": {
                         "company_name": { value: "O'Brien Electrical & Plumbing Lismore", confidence: 99 }
                     },
-                    "Company Details": {
-                        "phone": { value: "02 6621 3399", confidence: 98 },
-                        "email": { value: "admin@obrienelectrical.com.au", confidence: 98 },
-                        "website": { value: "www.obrienelectrical.com.au", confidence: 97 },
-                        "abn": { value: "78 763 607 712", confidence: 99 },
-                        "license": { value: "256184C", confidence: 98 }
-                    },
                     "Work Order Details": {
                         "order_number": { value: "58815", confidence: 99 },
-                        "document_type": { value: "Job Card", confidence: 99, type: "select", options: ["Work Order", "Quote Request", "Job Card"] },
+                        "document_type": { value: "Work Order", confidence: 99, type: "select", options: ["Work Order", "Quote Request"] },
                         "work_type": { value: "Electrical Repair", confidence: 95 },
                         "job_description": { value: "TV screen not operating - investigate and repair electrical fault", confidence: 94, type: "textarea" },
                         "date_issued": { value: "22 Sep 2024", confidence: 96 },
                         "assigned_to": { value: "O'Brien Electrical Team", confidence: 98 },
                         "work_limit": { value: "$300", confidence: 94 }
                     },
-                    "Company Contact (Email Sender)": {
+                    "Work Order Issuer": {
                         "first_name": { value: "Lisa", confidence: 95 },
                         "last_name": { value: "O'Brien", confidence: 95 },
                         "email": { value: "lisa@obrienelectrical.com.au", confidence: 98 },
@@ -1730,21 +1711,15 @@
                     "Source Company": {
                         "company_name": { value: "Emergency Trade Services Pty Ltd", confidence: 99 }
                     },
-                    "Company Details": {
-                        "phone": { value: "1300 755 455", confidence: 98 },
-                        "email": { value: "admin@etsaus.com.au", confidence: 98 },
-                        "website": { value: "www.etsaus.com.au", confidence: 97 },
-                        "abn": { value: "73 805 498 934", confidence: 99 }
-                    },
                     "Work Order Details": {
                         "order_number": { value: "QR11604-BU01-001", confidence: 99 },
                         "document_type": { value: "Quote Request", confidence: 99, type: "select", options: ["Work Order", "Quote Request"] },
-                        "work_type": { value: "Fire Safety Inspection", confidence: 95 },
+                        "work_type": { value: "Safety Inspection", confidence: 95 },
                         "job_description": { value: "Annual fire safety inspection and testing of building safety systems", confidence: 94, type: "textarea" },
                         "date_issued": { value: "20 Aug 2024", confidence: 96 },
                         "assigned_to": { value: "Fire Safety Solutions", confidence: 98 }
                     },
-                    "Company Contact (Email Sender)": {
+                    "Work Order Issuer": {
                         "first_name": { value: "", confidence: 0 },
                         "last_name": { value: "", confidence: 0 },
                         "email": { value: "", confidence: 0 },
@@ -1810,7 +1785,90 @@
             }
         ];
 
-        let pdfRecords = [...mockPdfData];
+        // Mini Client Table for Company Identification and Parsing Rules
+        const clientCompanies = {
+            'Emergency Trade Services Pty Ltd': {
+                id: 'ets',
+                name: 'Emergency Trade Services Pty Ltd',
+                abn: '73 805 498 934',
+                phone: '1300 755 455',
+                email: 'admin@etsaus.com.au',
+                website: 'www.etsaus.com.au',
+                servicem8_company_uuid: '47f2f443-34b6-4a15-944b-205aa4d9f06b',
+                parsing_rules: {
+                    document_types: ['Work Order', 'Quote Request'],
+                    order_number_pattern: /^(PO|QR)\d{4}-[A-Z]{2}\d{2}-\d{3}$/,
+                    standard_work_types: ['Electrical Report', 'Electrical assessment', 'Fire Safety Inspection'],
+                    qr_code_base_url: 'https://etsaus.com.au/risk-assessment?job=',
+                    urgency_keywords: {
+                        critical: ['emergency', 'safety', 'power outage', 'failure'],
+                        urgent: ['same day', 'next day', 'repair', 'not working'],
+                        standard: ['assessment', 'inspection', 'quote']
+                    }
+                }
+            },
+            'Highforce Pty Ltd': {
+                id: 'highforce',
+                name: 'Highforce Pty Ltd',
+                abn: '12 345 678 901',
+                phone: '0420 524 997',
+                email: 'admin@highforce.com.au',
+                website: 'https://www.highforce.com.au/',
+                servicem8_company_uuid: '58g3g554-45c7-5b26-055c-316bb79h6fed',
+                parsing_rules: {
+                    document_types: ['Purchase Order', 'Work Request'],
+                    order_number_pattern: /^PO\d{5}$/,
+                    standard_work_types: ['Construction', 'Civil Works', 'Site Preparation'],
+                    urgency_keywords: {
+                        critical: ['urgent', 'emergency', 'safety'],
+                        urgent: ['asap', 'priority', 'immediate'],
+                        standard: ['standard', 'routine', 'planned']
+                    }
+                }
+            },
+            "O'Brien Electrical & Plumbing": {
+                id: 'obrien',
+                name: "O'Brien Electrical & Plumbing",
+                abn: '98 765 432 109',
+                phone: '1300 6273436',
+                email: 'jobs@obrien.com.au',
+                website: 'https://www.obrien.com.au/',
+                servicem8_company_uuid: '69h4h665-56d8-6c37-166d-427cc89i7gfe',
+                parsing_rules: {
+                    document_types: ['Job Card', 'Service Request'],
+                    order_number_pattern: /^Job No\.?\s*\d+$/,
+                    standard_work_types: ['Electrical Service', 'Plumbing Service', 'Maintenance'],
+                    urgency_keywords: {
+                        critical: ['emergency', 'urgent', 'no power', 'flooding'],
+                        urgent: ['same day', 'asap', 'priority'],
+                        standard: ['service', 'maintenance', 'routine']
+                    }
+                }
+            }
+        };
+
+        // Function to identify company from parsed data
+        function identifyCompany(parsedFields) {
+            const sourceCompany = parsedFields["Source Company"]?.company_name?.value;
+            const companyDetails = parsedFields["Company Details"];
+
+            if (sourceCompany) {
+                return clientCompanies[sourceCompany] || null;
+            }
+
+            // Fallback: try to match by phone, email, or ABN
+            for (const [companyName, company] of Object.entries(clientCompanies)) {
+                if (companyDetails?.phone?.value === company.phone ||
+                    companyDetails?.email?.value === company.email ||
+                    companyDetails?.abn?.value === company.abn) {
+                    return company;
+                }
+            }
+
+            return null;
+        }
+
+        let pdfRecords = [...referenceWorkOrders];
         let currentPdfData = null;
         let originalFieldValues = {};
         let hasUnsavedChanges = false;
@@ -1845,10 +1903,22 @@
         }
 
         function generatePdfHistory() {
-            const container = pdfHistory;
+            const container = document.getElementById('pdfHistory');
+            if (!container) {
+                console.error('pdfHistory container not found!');
+                return;
+            }
+
+            container.innerHTML = '<div style="padding: 20px;">Loading PDF records...</div>';
+
+            if (!referenceWorkOrders || referenceWorkOrders.length === 0) {
+                container.innerHTML = '<div style="padding: 20px; color: red;">No PDF records found!</div>';
+                return;
+            }
+
             container.innerHTML = '';
 
-            pdfRecords.forEach((pdf, index) => {
+            referenceWorkOrders.forEach((pdf, index) => {
                 const row = document.createElement('div');
                 const urgencyKey = normalizeUrgency(pdf.urgency);
 
@@ -1880,7 +1950,11 @@
                     </div>
                 `;
 
-                row.addEventListener('click', () => openPdfViewer(pdf));
+                row.style.cursor = 'pointer';
+                row.onclick = function() {
+                    console.log('Card clicked for:', pdf.name);
+                    openPdfViewer(pdf);
+                };
                 container.appendChild(row);
             });
         }
@@ -1901,18 +1975,37 @@
 
         function openPdfViewer(pdf) {
             currentPdfData = pdf;
-            pdfViewerTitle.textContent = pdf.name;
-            const pdfSource = pdf.originalUrl || `https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf`;
-            originalPdfFrame.src = pdfSource;
 
-            generateParsedFields(pdf.parsedFields);
-            storeOriginalValues(pdf.parsedFields);
+            // Set the title
+            if (pdfViewerTitle) {
+                pdfViewerTitle.textContent = pdf.name;
+            }
+
+            // Set the PDF source
+            if (originalPdfFrame) {
+                const pdfSource = pdf.originalUrl || `https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf`;
+                originalPdfFrame.src = pdfSource;
+            }
+
+            // Generate the parsed fields content
+            if (pdf.parsedFields) {
+                generateParsedFields(pdf.parsedFields);
+                storeOriginalValues(pdf.parsedFields);
+            }
+
             hasUnsavedChanges = false;
             updateChangesIndicator();
 
-            pdfViewerModal.style.display = 'block';
-            setTimeout(() => pdfViewerModal.classList.add('show'), 10);
-            document.body.style.overflow = 'hidden';
+            // Show the modal
+            if (pdfViewerModal) {
+                pdfViewerModal.style.display = 'block';
+                setTimeout(() => {
+                    if (pdfViewerModal) {
+                        pdfViewerModal.classList.add('show');
+                    }
+                }, 10);
+                document.body.style.overflow = 'hidden';
+            }
         }
 
         function generateQuickReview(parsedFields) {
@@ -1920,10 +2013,19 @@
 
             // Extract key information for quick review
             const workOrder = parsedFields["Work Order Details"] || {};
-            const company = parsedFields["Source Company"] || {};
+            const sourceCompany = parsedFields["Source Company"] || {};
             const location = parsedFields["Job Location"] || {};
             const contact = parsedFields["Site Contact"] || {};
             const serviceM8 = parsedFields["ServiceM8 API Fields"] || {};
+
+            // Derive company details from client table
+            const identifiedCompany = identifyCompany(parsedFields);
+            const company = identifiedCompany || {
+                name: sourceCompany.company_name?.value || 'Unknown Company',
+                phone: 'Contact not available',
+                email: 'Contact not available',
+                abn: 'Not available'
+            };
 
             // Create Quick Review section
             const quickReviewSection = document.createElement('div');
@@ -1940,48 +2042,62 @@
                 <div class="quick-review-header">
                     <span class="quick-review-icon">⚡</span>
                     Quick Review
+                    <span class="quick-review-toggle">▼</span>
                 </div>
-                <div class="quick-review-grid">
-                    <div class="quick-review-section-main">
-                        <div class="quick-review-row">
-                            <div class="quick-review-item">
-                                <span class="quick-review-label">Site Address</span>
-                                <span class="quick-review-value">${location.site_address?.value || 'Not specified'}</span>
-                            </div>
-                            <div class="quick-review-item">
-                                <span class="quick-review-label">Site Contact</span>
-                                <span class="quick-review-value">${contact.first?.value && contact.last?.value ? `${contact.first.value} ${contact.last.value}` : 'Not specified'}</span>
-                            </div>
-                            <div class="quick-review-item">
-                                <span class="quick-review-label">Site Phone</span>
-                                <span class="quick-review-value">${contact.mobile?.value || 'Not specified'}</span>
-                            </div>
-                        </div>
-                        <div class="quick-review-row">
-                            <div class="quick-review-item">
-                                <span class="quick-review-label">Work Type</span>
-                                <span class="quick-review-value">${workOrder.work_type?.value || 'Not specified'}</span>
-                            </div>
-                            <div class="quick-review-item">
-                                <span class="quick-review-label">Job Description</span>
-                                <span class="quick-review-value">${workOrder.job_description?.value ? truncateText(workOrder.job_description.value, 50) : 'Not specified'}</span>
-                            </div>
+                <div class="quick-review-cards">
+                    <div class="quick-review-card">
+                        <div class="quick-review-card-header">COMPANY</div>
+                        <div class="quick-review-card-content">
+                            <div class="company-name">${company.name || 'Not specified'}</div>
+                            <div class="confidence-dots">●●●●●</div>
                         </div>
                     </div>
-                    <div class="quick-review-sidebar">
-                        <div class="urgency-section">
-                            <div class="urgency-header">
-                                <span class="urgency-level ${urgency.toLowerCase()}">${urgency}</span>
-                            </div>
-                            <div class="urgency-details">
-                                <div class="urgency-response">Response: ${urgencyInfo.response}</div>
-                                <div class="urgency-scheduling">Scheduling: ${urgencyInfo.scheduling}</div>
-                                ${urgency === 'CRITICAL' ? '<div class="urgency-note">⚠️ May incur additional after-hours call-out fees</div>' : ''}
-                            </div>
+
+                    <div class="quick-review-card">
+                        <div class="quick-review-card-header">ORDER NUMBER</div>
+                        <div class="quick-review-card-content">
+                            <div class="order-number">${workOrder.order_number?.value || 'Not specified'}</div>
+                            <div class="confidence-dots">●●●●●</div>
                         </div>
-                        <div class="time-constraints-section">
-                            <div class="time-constraints-header">Time Constraints</div>
-                            <div class="time-constraints-content">${timeConstraints}</div>
+                    </div>
+
+                    <div class="quick-review-card">
+                        <div class="quick-review-card-header">URGENCY</div>
+                        <div class="quick-review-card-content">
+                            <div class="urgency-input-box"></div>
+                            <div class="confidence-dots">●●●●●</div>
+                        </div>
+                    </div>
+
+                    <div class="quick-review-card">
+                        <div class="quick-review-card-header">SITE DETAILS</div>
+                        <div class="quick-review-card-content">
+                            <div class="site-details">${contact.first?.value && contact.last?.value ? `${contact.first.value} ${contact.last.value}` : 'Not specified'} • ${contact.mobile?.value || 'No phone'} • ${location.site_address?.value || 'No address'}</div>
+                            <div class="confidence-dots">●●●●●</div>
+                        </div>
+                    </div>
+
+                    <div class="quick-review-card">
+                        <div class="quick-review-card-header">JOB SUMMARY</div>
+                        <div class="quick-review-card-content">
+                            <div class="job-summary">WORK ORDER: ${workOrder.job_description?.value || 'No description available'}</div>
+                            <div class="confidence-dots">●●●●●</div>
+                        </div>
+                    </div>
+
+                    <div class="quick-review-card">
+                        <div class="quick-review-card-header">BUDGET INVOICING</div>
+                        <div class="quick-review-card-content">
+                            <div class="budget-info">Approved work order ${workOrder.total_amount?.value || '$0.00'} • Invoice via link in email • Pre-approved amount</div>
+                            <div class="confidence-dots">●●●●</div>
+                        </div>
+                    </div>
+
+                    <div class="quick-review-card">
+                        <div class="quick-review-card-header">TIME CONSTRAINTS</div>
+                        <div class="quick-review-card-content">
+                            <div class="time-constraints">${timeConstraints}</div>
+                            <div class="confidence-dots">●●●●●</div>
                         </div>
                     </div>
                 </div>
@@ -2040,15 +2156,48 @@
                 constraints.push(`Issued: ${dateIssued}`);
             }
 
-            // AI extraction of time-related information
-            const timeMatches = description.match(/(?:within|by|before|deadline|due)\s+(\w+(?:\s+\w+)?)/gi);
-            if (timeMatches) {
-                timeMatches.forEach(match => {
-                    constraints.push(match);
-                });
+            // Enhanced AI extraction of time-related information
+            const timePatterns = [
+                { pattern: /(?:within|by|before|deadline|due)\s+(\d+\s*(?:hours?|days?|weeks?))/gi, type: 'deadline' },
+                { pattern: /(?:asap|urgent|emergency|immediately|same\s+day)/gi, type: 'urgent' },
+                { pattern: /(?:next\s+(?:business\s+)?day|tomorrow)/gi, type: 'next_day' },
+                { pattern: /(?:business\s+hours?|9\s*-?\s*5|working\s+hours?)/gi, type: 'business_hours' }
+            ];
+
+            let urgencyFactors = [];
+            timePatterns.forEach(({pattern, type}) => {
+                const matches = description.match(pattern);
+                if (matches) {
+                    matches.forEach(match => {
+                        switch(type) {
+                            case 'deadline':
+                                constraints.push(`⏰ ${match}`);
+                                break;
+                            case 'urgent':
+                                urgencyFactors.push(`🚨 ${match.toUpperCase()}`);
+                                break;
+                            case 'next_day':
+                                constraints.push(`📆 ${match}`);
+                                break;
+                            case 'business_hours':
+                                constraints.push(`🕘 ${match}`);
+                                break;
+                        }
+                    });
+                }
+            });
+
+            // Work type analysis
+            const workType = workOrder.work_type?.value || '';
+            if (workType.toLowerCase().includes('emergency')) {
+                urgencyFactors.push('🚨 Emergency response required');
+            } else if (workType.toLowerCase().includes('assessment')) {
+                constraints.push('📋 Assessment - flexible scheduling');
             }
 
-            return constraints.length > 0 ? constraints.join('<br>') : 'No specific time constraints identified';
+            // Combine all factors
+            const allConstraints = [...constraints, ...urgencyFactors];
+            return allConstraints.length > 0 ? allConstraints.join('<br>') : '📋 Standard scheduling - no urgent constraints';
         }
 
         function truncateText(text, maxLength) {
@@ -2111,6 +2260,14 @@
                             option.selected = optionValue === fieldData.value;
                             input.appendChild(option);
                         });
+
+                        // Make ServiceM8 API Fields read-only
+                        if (sectionName === 'ServiceM8 API Fields') {
+                            input.disabled = true;
+                            input.style.backgroundColor = '#f8f9fa';
+                            input.style.cursor = 'not-allowed';
+                            input.title = 'This field is automatically derived from other fields above';
+                        }
                     } else if (fieldData.type === 'textarea') {
                         input = document.createElement('textarea');
                         input.className = 'field-input field-textarea';
@@ -2120,6 +2277,14 @@
                         input.className = 'field-input';
                         input.type = 'text';
                         input.value = fieldData.value;
+                    }
+
+                    // Make ServiceM8 API Fields read-only as they are derived from other fields
+                    if (sectionName === 'ServiceM8 API Fields') {
+                        input.readOnly = true;
+                        input.style.backgroundColor = '#f8f9fa';
+                        input.style.cursor = 'not-allowed';
+                        input.title = 'This field is automatically derived from other fields above';
                     }
 
                     input.setAttribute('data-section', sectionName);
@@ -2188,10 +2353,12 @@
 
         function updateChangesIndicator() {
             const changesIndicator = document.getElementById('changesIndicator');
-            if (hasUnsavedChanges) {
-                changesIndicator.classList.add('show');
-            } else {
-                changesIndicator.classList.remove('show');
+            if (changesIndicator) {
+                if (hasUnsavedChanges) {
+                    changesIndicator.classList.add('show');
+                } else {
+                    changesIndicator.classList.remove('show');
+                }
             }
         }
 
@@ -2280,7 +2447,6 @@
         fabButton.addEventListener('click', openModal);
         modalClose.addEventListener('click', closeModal);
         pdfViewerClose.addEventListener('click', closePdfViewer);
-        document.getElementById('resetFieldsBtn').addEventListener('click', resetFields);
         document.getElementById('saveFieldsBtn').addEventListener('click', saveFields);
 
         // Close modals when clicking outside
