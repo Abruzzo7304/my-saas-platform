@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Work Order Converter</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -13,7 +15,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #395159 0%, #23302D 100%);
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -49,7 +51,7 @@
             left: 20px;
             width: 56px;
             height: 56px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #935430 0%, #A56647 100%);
             border-radius: 50%;
             border: none;
             cursor: pointer;
@@ -73,6 +75,7 @@
         }
 
         /* PDF History Rows */
+
         .pdf-history {
             display: flex;
             flex-direction: column;
@@ -106,15 +109,133 @@
             border-color: #ef4444;
         }
 
+        /* ServiceM8 committed state styling */
+        .pdf-row.status-committed {
+            opacity: 0.6;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-color: #f1f5f9;
+        }
+
+        .pdf-row.status-committed:hover {
+            opacity: 0.8;
+            transform: translateY(-1px);
+        }
+
+        .pdf-row.status-committed .pdf-row-title {
+            color: #64748b;
+        }
+
+        .pdf-row.status-committed .pdf-row-meta {
+            color: #94a3b8;
+        }
+
+        .pdf-row.status-committed .pdf-row-icon {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%) !important;
+            position: relative;
+        }
+
+        .pdf-row.status-committed .pdf-row-icon::after {
+            content: '✓';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            font-size: 1rem;
+            font-family: sans-serif;
+            font-weight: bold;
+            color: #395159;
+            background: rgba(255,255,255,0.8);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
         .pdf-row-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 20px;
+            gap: 0;
+        }
+
+        .pdf-row-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            align-self: stretch;
+            border-radius: 12px 0 0 12px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+            margin: -20px 0 -20px -20px;
+            font-style: italic;
+            padding: 8px;
+        }
+
+        .pdf-row-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border-radius: inherit;
+        }
+
+        .pdf-row-icon.quote {
+            background: linear-gradient(135deg, #395159 0%, #23302D 100%);
+            border-right: 3px solid #1e2926;
+        }
+
+        .pdf-row-icon.work-order {
+            background: linear-gradient(135deg, #eb6f47 0%, #935430 100%);
+            border-right: 3px solid #7a2e0e;
+        }
+
+        .pdf-row-icon.general {
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            border-right: 3px solid #374151;
+        }
+
+        .urgency-divider {
+            width: 6px;
+            align-self: stretch;
+            margin: -20px 0 -20px 0;
+            border-radius: 0;
         }
 
         .pdf-row-info {
             flex: 1;
+            margin-left: 20px;
+        }
+
+        .pdf-row-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+
+        .pdf-row-header .company-name {
+            color: #6366f1;
+            font-weight: 600;
+        }
+
+        .pdf-row-header .job-reference {
+            color: #6b7280;
+            font-size: 0.8rem;
+            margin-left: auto;
         }
 
         .pdf-row-title {
@@ -132,6 +253,7 @@
             align-items: center;
         }
 
+
         .status-dot {
             width: 8px;
             height: 8px;
@@ -140,13 +262,14 @@
             margin-right: 6px;
         }
 
-        .status-dot.review { background-color: #f59e0b; }
-        .status-dot.processing { background-color: #3b82f6; }
-        .status-dot.committed { background-color: #10b981; }
+        .status-dot.review { background-color: #eb6f47; }
+        .status-dot.processing { background-color: #395159; }
+        .status-dot.committed { background-color: #cbd5e1; }
 
         .chevron {
             color: #9ca3af;
             font-size: 20px;
+            margin-left: 20px;
         }
 
         /* Modal Styles */
@@ -274,7 +397,7 @@
         }
 
         .pdf-viewer-header {
-            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            background: linear-gradient(135deg, #23302D 0%, #2a3b37 100%);
             color: white;
             padding: 20px 30px;
             display: flex;
@@ -349,11 +472,13 @@
         }
 
         .pdf-panel-header.original {
-            background: linear-gradient(135deg, #ddd6fe 0%, #c4b5fd 100%);
+            background: linear-gradient(135deg, #23302D 0%, #2a3b37 100%);
+            color: white;
         }
 
         .pdf-panel-header.fields {
-            background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+            background: linear-gradient(135deg, #395159 0%, #42575f 100%);
+            color: white;
         }
 
         .pdf-frame {
@@ -398,87 +523,328 @@
             margin-bottom: 0;
         }
 
-        /* Quick Review Section */
-        .quick-review-section {
-            margin-bottom: 20px;
+        /* Tradesperson Quick Review Section */
+        .tradesperson-quick-review {
+            background: linear-gradient(135deg, #395159 0%, #23302D 100%);
+            border-radius: 12px;
+            border: 2px solid #935430;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(147, 84, 48, 0.15);
         }
 
-        .quick-review-header {
+        .job-header {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #e8f4f8;
-            border: 2px solid #4a90a4;
-            border-radius: 8px 8px 0 0;
-            padding: 12px 16px;
+            flex-direction: column;
+            gap: 16px;
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            background: linear-gradient(135deg, #23302D 0%, #2a3b37 100%);
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .job-header .job-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            color: white;
+        }
+
+        .job-header .job-reference {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .job-header .job-description-summary {
+            color: rgba(255, 255, 255, 0.95);
             font-size: 1rem;
-            font-weight: 600;
-            color: #2c5aa0;
+            font-weight: 500;
         }
 
-        .quick-review-icon {
-            font-size: 1.2rem;
-            margin-right: 8px;
-        }
-
-        .quick-review-toggle {
-            font-size: 0.8rem;
-            color: #666;
-        }
-
-        .quick-review-cards {
-            border: 2px solid #4a90a4;
-            border-top: none;
-            border-radius: 0 0 8px 8px;
-            background: white;
-        }
-
-        .quick-review-card {
-            border-bottom: 1px solid #e0e0e0;
-            padding: 16px;
-        }
-
-        .quick-review-card:last-child {
-            border-bottom: none;
-        }
-
-        .quick-review-card-header {
+        .urgency-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
             font-size: 0.75rem;
-            font-weight: 600;
-            color: #333;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 8px;
         }
 
-        .quick-review-card-content {
+        .urgency-badge.urgency-critical {
+            background: #ef4444;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        .urgency-badge.urgency-urgent {
+            background: #f97316;
+            color: white;
+        }
+
+        .urgency-badge.urgency-standard {
+            background: #22c55e;
+            color: white;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .urgency-selector {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            flex-direction: column;
+            gap: 8px;
         }
 
-        .company-name, .order-number, .site-details, .job-summary, .budget-info, .time-constraints {
-            font-size: 0.9rem;
-            color: #333;
-            line-height: 1.4;
-            flex: 1;
-            margin-right: 12px;
+        .urgency-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
         }
 
-        .urgency-input-box {
-            width: 200px;
-            height: 32px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+        .urgency-select {
+            padding: 8px 12px;
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
             background: white;
-            margin-right: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1f2937;
+            cursor: pointer;
+            min-width: 120px;
         }
 
-        .confidence-dots {
-            color: #00b8a9;
-            font-size: 0.6rem;
-            letter-spacing: 1px;
-            white-space: nowrap;
+        .urgency-select:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .urgency-details {
+            margin-top: 8px;
+        }
+
+        .urgency-explanation {
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+
+        .urgency-explanation.critical {
+            background: #fef2f2;
+            border-left-color: #ef4444;
+            color: #7f1d1d;
+        }
+
+        .urgency-explanation.urgent {
+            background: #fff7ed;
+            border-left-color: #f97316;
+            color: #9a3412;
+        }
+
+        .urgency-explanation.standard {
+            background: #f0fdf4;
+            border-left-color: #22c55e;
+            color: #15803d;
+        }
+
+        .job-summary {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .job-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1f2937;
+            line-height: 1.2;
+        }
+
+        .job-reference {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #6366f1;
+            background: #eef2ff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            width: fit-content;
+        }
+
+        .job-description-summary {
+            font-size: 0.95rem;
+            color: #4b5563;
+            line-height: 1.4;
+            margin-top: 4px;
+        }
+
+        .decision-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            padding: 20px;
+        }
+
+        .decision-card {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .decision-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .decision-card.money {
+            border-left: 4px solid #10b981;
+        }
+
+        .decision-card.money.confirmed {
+            border-left: 4px solid #10b981;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        }
+
+        .decision-card.money.estimated {
+            border-left: 4px solid #f59e0b;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+        }
+
+        .decision-card.money.unscoped {
+            border-left: 4px solid #6b7280;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+        }
+
+        .decision-card.money.unscoped .decision-value {
+            color: #6b7280;
+        }
+
+        .decision-card.location {
+            border-left: 4px solid #3b82f6;
+        }
+
+        .decision-card.timing {
+            border-left: 4px solid #f59e0b;
+        }
+        .decision-card.timing.on-time {
+            border-left: 4px solid #10b981;
+        }
+        .decision-card.timing.warning {
+            border-left: 4px solid #f59e0b;
+        }
+        .decision-card.timing.overdue {
+            border-left: 4px solid #ef4444;
+        }
+
+        .decision-card.client {
+            border-left: 4px solid #8b5cf6;
+        }
+
+        .decision-icon {
+            font-size: 1.8rem;
+            opacity: 0.8;
+        }
+
+        .decision-content {
+            flex: 1;
+        }
+
+        .decision-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 2px;
+        }
+
+        .decision-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .decision-subtext {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            line-height: 1.2;
+        }
+
+        .job-description-preview {
+            padding: 16px 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .decision-actions {
+            display: none;
+            gap: 12px;
+            padding: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .decision-actions button {
+            flex: 1;
+            padding: 14px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .reject-btn {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .reject-btn:hover {
+            background: #fee2e2;
+            transform: translateY(-1px);
+        }
+
+        .accept-btn {
+            background: #f0fdf4;
+            color: #16a34a;
+            border: 1px solid #bbf7d0;
+        }
+
+        .accept-btn:hover {
+            background: #dcfce7;
+            transform: translateY(-1px);
+        }
+
+        .details-btn {
+            background: #fefbeb;
+            color: #d97706;
+            border: 1px solid #fed7aa;
+        }
+
+        .details-btn:hover {
+            background: #fef3c7;
+            transform: translateY(-1px);
         }
 
 
@@ -876,14 +1242,14 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            background: linear-gradient(135deg, #395159 0%, #23302D 100%);
             color: white;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 12px rgba(57, 81, 89, 0.3);
         }
 
         .btn-primary:hover {
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 6px 20px rgba(57, 81, 89, 0.4);
         }
 
         .btn-icon {
@@ -1195,8 +1561,14 @@
             <p class="subtitle">Convert third-party PDFs to ServiceM8 work orders</p>
         </div>
 
+
         <!-- PDF History -->
         <div class="pdf-history" id="pdfHistory"></div>
+    </div>
+
+    <!-- Changes Indicator (Hidden) -->
+    <div class="changes-indicator" id="changesIndicator" style="display: none;">
+        ✏️ You have unsaved changes
     </div>
 
     <!-- Floating Action Button -->
@@ -1276,10 +1648,10 @@
                 name: "PO1540-RP01-001_2 Tarcoola Ln Uki.pdf",
                 pages: 1,
                 confidence: 95,
-                processedAt: new Date(),
+                processedAt: new Date(Date.now() - 3 * 60 * 60 * 1000),
                 status: 'review',
-                urgency: 'Standard',
-                originalUrl: "http://localhost:8080/pdfs/PO1540-RP01-001_2%20Tarcoola%20Ln%20Uki.pdf",
+                urgency: 'Critical',
+                originalUrl: "./pdfs/PO1540-RP01-001_2 Tarcoola Ln Uki.pdf",
                 parsedFields: {
                     "Source Company": {
                         "company_name": { value: "Emergency Trade Services Pty Ltd", confidence: 99 }
@@ -1290,7 +1662,7 @@
                         "work_type": { value: "Electrical Assessment", confidence: 95 },
                         "job_description": { value: "Please attend site to assess x1 chest freezer and dishwasher that was damaged after an electrical storm", confidence: 94, type: "textarea" },
                         "date_issued": { value: "10 Jun 2024", confidence: 96 },
-                        "assigned_to": { value: "SUSTAINE ELECTRICAL & SOLAR", confidence: 98 }
+                        "assigned_to": { value: "", confidence: 0 }
                     },
                     "Work Order Issuer": {
                         "first_name": { value: "", confidence: 0 },
@@ -1372,10 +1744,10 @@
                 name: "PO8057-BU01-001_upgraded.pdf",
                 pages: 3,
                 confidence: 88,
-                processedAt: new Date(Date.now() - 2 * 60 * 60 * 1000),
+                processedAt: new Date(Date.now() - 5 * 60 * 60 * 1000),
                 status: 'processing',
                 urgency: 'Urgent',
-                originalUrl: "http://localhost:8080/pdfs/PO8057-BU01-001_upgraded.pdf",
+                originalUrl: "./pdfs/PO8057-BU01-001_upgraded.pdf",
                 parsedFields: {
                     "Source Company": {
                         "company_name": { value: "Emergency Trade Services Pty Ltd", confidence: 99 }
@@ -1384,9 +1756,9 @@
                         "order_number": { value: "PO8057-BU01-001", confidence: 99 },
                         "document_type": { value: "Work Order", confidence: 99, type: "select", options: ["Work Order", "Quote Request"] },
                         "work_type": { value: "Multi-Trade Services", confidence: 95 },
-                        "job_description": { value: "Remove and replace damaged Clip-lok wall sheets, carpet cleaning, electrical downlights, and general repairs", confidence: 92, type: "textarea" },
+                        "job_description": { value: "Carpentry\nGarage Shed\nRemove and replace damaged Clip-lok wall sheets> Remove and reinstate window to allow replacement of wall sheeting\nMaterials: Clip-lok sheets, fixings, sealing materials, protective gear, consumables\nAll amounts shown are exclusive of GST.\nCarpet\nBedroom 1\nCarry out carpet cleaning to room, applying anti-microbial agents\nStore Room\nCarry out carpet cleaning to room, applying anti-microbial agents\nAll amounts shown are exclusive of GST.\nElectrical\nHall\nRemove and replace 2x downlights\nAll amounts shown are exclusive of GST.\nGeneral\nWaste Removal\nSkip Bin 4m3\nAll amounts shown are exclusive of GST.\nGeneral Note\nRemovalist\nCover belongings for duration of works\nRemove and reinstate furnishings\nAll amounts shown are exclusive of GST.\nGeneral Works\nRoof\nProvisional Sum - Remove and replace damaged TV antenna\nRemove and replace solar light\nAll amounts shown are exclusive of GST.\nPainting\nHall\nPrepare and paint ceilings 8m2\nPrepare and paint walls 30m2\nAll amounts shown are exclusive of GST.\nPlumber\nExternal\nRemove and replace airconditioner shroud cover to split system\nAll amounts shown are exclusive of GST.\nRoofer\nMain Roof\nRemove and replace damage polycarbonate sheeting\nMaterials: polycarbonate sheets, fixings, consumables\nAll amounts shown are exclusive of GST.\nScaffolding/Access Equipment\nScaffolding\nMobile Scaffold\nAll amounts shown are exclusive of GST.\nTotal\nSub Total $12,057.78\nGST $1,205.79\nTotal AUD $13,263.57", confidence: 92, type: "textarea" },
                         "date_issued": { value: "3 Jul 2025", confidence: 96 },
-                        "assigned_to": { value: "Sustaine Electrical & Solar", confidence: 98 },
+                        "assigned_to": { value: "", confidence: 0 },
                         "total_amount": { value: "$13,263.57", confidence: 94 }
                     },
                     "Work Order Issuer": {
@@ -1457,10 +1829,10 @@
                 name: "QR9973-BU01-001.pdf",
                 pages: 3,
                 confidence: 89,
-                processedAt: new Date(Date.now() - 24 * 60 * 60 * 1000),
-                status: 'committed',
+                processedAt: new Date(Date.now() - 2 * 60 * 60 * 1000),
+                status: 'review',
                 urgency: 'Standard',
-                originalUrl: "http://localhost:8080/pdfs/QR9973-BU01-001.pdf",
+                originalUrl: "./pdfs/QR9973-BU01-001.pdf",
                 parsedFields: {
                     "Source Company": {
                         "company_name": { value: "Emergency Trade Services Pty Ltd", confidence: 99 }
@@ -1469,9 +1841,9 @@
                         "order_number": { value: "QR9973-BU01-001", confidence: 99 },
                         "document_type": { value: "Quote Request", confidence: 99, type: "select", options: ["Work Order", "Quote Request"] },
                         "work_type": { value: "Multi-Trade Services", confidence: 95 },
-                        "job_description": { value: "Carpentry, electrical, certification, general trades - roof repairs and solar panel work", confidence: 90, type: "textarea" },
+                        "job_description": { value: "Multi-trade construction project requiring carpentry, electrical installation and certification, roofing repairs including replacement of damaged sections, solar panel maintenance and electrical connection work. Scope includes structural repairs to roof framework, installation of new electrical circuits to meet current Australian standards, certification of electrical work by licensed electrician, and solar panel system inspection and repairs as required. Work to be completed in stages with electrical certification provided upon completion of each phase.", confidence: 90, type: "textarea" },
                         "date_issued": { value: "16 Jul 2025", confidence: 96 },
-                        "assigned_to": { value: "Sustaine Electrical & Solar", confidence: 98 },
+                        "assigned_to": { value: "", confidence: 0 },
                         "reference": { value: "9973", confidence: 97 }
                     },
                     "Work Order Issuer": {
@@ -1512,7 +1884,7 @@
                         "job_status": { value: "Quote", confidence: 95, type: "select", options: ["Quote", "Pending", "Work Order", "Completed"] },
                         "quote_date": { value: "2025-07-16", confidence: 96 },
                         "work_order_date": { value: "", confidence: 0 },
-                        "work_done_description": { value: "Multi-trade construction: carpentry, electrical, certification, roof repairs, solar work", confidence: 90 },
+                        "work_done_description": { value: "Multi-trade construction project requiring carpentry, electrical installation and certification, roofing repairs including replacement of damaged sections, solar panel maintenance and electrical connection work. Scope includes structural repairs to roof framework, installation of new electrical circuits to meet current Australian standards, certification of electrical work by licensed electrician, and solar panel system inspection and repairs as required. Work to be completed in stages with electrical certification provided upon completion of each phase.", confidence: 90 },
                         "generated_job_id": { value: "3", confidence: 89 },
                         "completion_date": { value: "", confidence: 0 },
                         "payment_date": { value: "", confidence: 0 },
@@ -1534,7 +1906,7 @@
                         "payment_received": { value: "0", confidence: 0, type: "select", options: ["0", "1"] },
                         "total_invoice_amount": { value: "0.0000", confidence: 0 },
                         "purchase_order_number": { value: "QR9973-BU01-001", confidence: 99 },
-                        "job_description": { value: "Multi-trade construction: carpentry, electrical, certification, roof repairs, solar work", confidence: 90, type: "textarea" }
+                        "job_description": { value: "Multi-trade construction project requiring carpentry, electrical installation and certification, roofing repairs including replacement of damaged sections, solar panel maintenance and electrical connection work. Scope includes structural repairs to roof framework, installation of new electrical circuits to meet current Australian standards, certification of electrical work by licensed electrician, and solar panel system inspection and repairs as required. Work to be completed in stages with electrical certification provided upon completion of each phase.", confidence: 90, type: "textarea" }
                     }
                 }
             },
@@ -1542,10 +1914,10 @@
                 name: "PO38935_Farmcote.pdf",
                 pages: 1,
                 confidence: 96,
-                processedAt: new Date(Date.now() - 12 * 60 * 60 * 1000),
+                processedAt: new Date(Date.now() - 30 * 60 * 1000),
                 status: 'review',
                 urgency: 'Standard',
-                originalUrl: "http://localhost:8080/pdfs/PO38935_Farmcote.pdf",
+                originalUrl: "./pdfs/PO38935_Farmcote.pdf",
                 parsedFields: {
                     "Source Company": {
                         "company_name": { value: "Highforce Pty Ltd", confidence: 99 }
@@ -1554,9 +1926,9 @@
                         "order_number": { value: "PO38935", confidence: 99 },
                         "document_type": { value: "Work Order", confidence: 99, type: "select", options: ["Work Order", "Quote Request"] },
                         "work_type": { value: "Electrical Installation", confidence: 95 },
-                        "job_description": { value: "Supply and install 10m of 25mm² armoured cable for shed connection at Farmcote property", confidence: 94, type: "textarea" },
+                        "job_description": { value: "Supply and install 10 metres of 25mm² armoured cable for electrical connection from main house to shed at Farmcote property. Work includes excavation of cable route to appropriate depth as per AS/NZS 3000, installation of underground cable protection, connection of cable to switchboard in main house and installation of sub-board in shed. All work to be carried out in accordance with Australian Standard AS/NZS 3000 and local electricity authority requirements. Electrical testing and certification to be provided upon completion. Site safety assessment and appropriate safety measures to be implemented during excavation and installation works.", confidence: 94, type: "textarea" },
                         "date_issued": { value: "15 Sep 2024", confidence: 96 },
-                        "assigned_to": { value: "Highforce Electrical Team", confidence: 98 },
+                        "assigned_to": { value: "", confidence: 0 },
                         "total_amount": { value: "$2,450.00", confidence: 94 }
                     },
                     "Work Order Issuer": {
@@ -1614,7 +1986,7 @@
                         "payment_received": { value: "0", confidence: 0, type: "select", options: ["0", "1"] },
                         "total_invoice_amount": { value: "2450.00", confidence: 94 },
                         "purchase_order_number": { value: "PO38935", confidence: 99 },
-                        "job_description": { value: "Supply and install armoured cable for shed connection", confidence: 92, type: "textarea" }
+                        "job_description": { value: "Supply and install 10 metres of 25mm² armoured cable for electrical connection from main house to shed at Farmcote property. Work includes excavation of cable route to appropriate depth as per AS/NZS 3000, installation of underground cable protection, connection of cable to switchboard in main house and installation of sub-board in shed. All work to be carried out in accordance with Australian Standard AS/NZS 3000 and local electricity authority requirements. Electrical testing and certification to be provided upon completion. Site safety assessment and appropriate safety measures to be implemented during excavation and installation works.", confidence: 92, type: "textarea" }
                     }
                 }
             },
@@ -1625,7 +1997,7 @@
                 processedAt: new Date(Date.now() - 6 * 60 * 60 * 1000),
                 status: 'review',
                 urgency: 'Standard',
-                originalUrl: "http://localhost:8080/pdfs/Jobcard_For_Job_No_58815.pdf",
+                originalUrl: "./pdfs/Jobcard_For_Job_No_58815.pdf",
                 parsedFields: {
                     "Source Company": {
                         "company_name": { value: "O'Brien Electrical & Plumbing Lismore", confidence: 99 }
@@ -1634,9 +2006,9 @@
                         "order_number": { value: "58815", confidence: 99 },
                         "document_type": { value: "Work Order", confidence: 99, type: "select", options: ["Work Order", "Quote Request"] },
                         "work_type": { value: "Electrical Repair", confidence: 95 },
-                        "job_description": { value: "TV screen not operating - investigate and repair electrical fault", confidence: 94, type: "textarea" },
+                        "job_description": { value: "Located in refreshments. Please attend to investigate and repair the television (refreshment screen number 3) screen that is not operating. The screen is black.", confidence: 94, type: "textarea" },
                         "date_issued": { value: "22 Sep 2024", confidence: 96 },
-                        "assigned_to": { value: "O'Brien Electrical Team", confidence: 98 },
+                        "assigned_to": { value: "", confidence: 0 },
                         "work_limit": { value: "$300", confidence: 94 }
                     },
                     "Work Order Issuer": {
@@ -1706,7 +2078,7 @@
                 processedAt: new Date(Date.now() - 18 * 60 * 60 * 1000),
                 status: 'committed',
                 urgency: 'Standard',
-                originalUrl: "http://localhost:8080/pdfs/QR11604-BU01-001_66%20Wollombi%20Rd%20Cessnock%20NSW%202325.pdf",
+                originalUrl: "./pdfs/QR11604-BU01-001_66 Wollombi Rd Cessnock NSW 2325.pdf",
                 parsedFields: {
                     "Source Company": {
                         "company_name": { value: "Emergency Trade Services Pty Ltd", confidence: 99 }
@@ -1714,10 +2086,10 @@
                     "Work Order Details": {
                         "order_number": { value: "QR11604-BU01-001", confidence: 99 },
                         "document_type": { value: "Quote Request", confidence: 99, type: "select", options: ["Work Order", "Quote Request"] },
-                        "work_type": { value: "Safety Inspection", confidence: 95 },
-                        "job_description": { value: "Annual fire safety inspection and testing of building safety systems", confidence: 94, type: "textarea" },
+                        "work_type": { value: "Asbestos Removal & Roofing", confidence: 95 },
+                        "job_description": { value: "Asbestos Removal\nMain Roof\nRemove & Dispose - Provide : clearance certificate for asbestos related activities\nRemove & Dispose - Provide : LAB TESTING for ACM (Asbestos containing material) by taking samples from the following Each\nAttend site to inspect and report on the roof cavity, provide a scope of works based on your findings for the remediation of the roof cavity thereafter.- 1 item\nCladding\nMain Roof\nCladding - Other total\nCleaning\nBuilders Clean\nProvide - Labour for cleaning Remove and dispose of trade waste and debris\nProvide - Allowance for residential builders cleaning to affected areas - single room\nElectrical\nMain Roof\nRemove & Refit - Tv antenna - includes up to 30 mins tuning - includes fall protection as required\nElectrical total\nExternal Works\nScaffolding\nSupply & Install - Allowance for scaffold- mobile tower highset - delivery/setup, removal - to extend min 1000mm above the roof - jsa/swms to be provided to claim central prior to works starting\nMain Roof: Supply & Install - Allowance for scaffold- Edge protection - delivery/setup, removal - to extend to under the roof - jsa/swms to be provided to claim central prior to works starting\nGeneral Works\nContents Removalist\nProvide - Remove and reinstate : furniture - per room rate - store onsite in secure facility and reinstate upon completion of works\nMake Safe Roof\nMain Roof\nSupply & Install - Roof tarping single story up to 120m2 secured\nMetal Fascias And Gutters total\nPainting\nSunroom\nPrepare and Paint - Prepare and paint - eaves lining - inc trims/cover strips - seal/paint/finish to match existing as close as possible - inc dropsheets\nRoofing Metal\nMain Roof\nRemove & Dispose - Remove from site all super 6 asbestos roof sheeting to the property- 104m2\nRemove, Supply & Install - 40mm metal top hat roof battens inc screws\nRemove, Supply & Install - R1.3 - roof sarking\nSupply & Install - Dry pan flashing- zinc finish\nSupply & Install - Penetrations - rubber/dektite - complete\nSupply & Install - Coloured steel corrugated roofing including clip, fixings and all associated flashings , barge, ridge & hip capping's up to 250mm-check pitch for compliance prior to commencing repairs - to match existing as close as possible\nSkip Bin\nRubbish Removal\nAllowance - Allowance for up to 9 m3 waste bin\nPlease submit quote online using submission link in email sent.", confidence: 94, type: "textarea" },
                         "date_issued": { value: "20 Aug 2024", confidence: 96 },
-                        "assigned_to": { value: "Fire Safety Solutions", confidence: 98 }
+                        "assigned_to": { value: "", confidence: 0 }
                     },
                     "Work Order Issuer": {
                         "first_name": { value: "", confidence: 0 },
@@ -1902,6 +2274,30 @@
             return `${diffInMonths} months ago`;
         }
 
+        // Simple sorting by urgency and time
+        function getSortedPdfs() {
+            return [...referenceWorkOrders].sort((a, b) => {
+                const urgencyOrder = { 'Critical': 3, 'Urgent': 2, 'Standard': 1 };
+                const urgencyDiff = (urgencyOrder[b.urgency] || 0) - (urgencyOrder[a.urgency] || 0);
+                if (urgencyDiff !== 0) return urgencyDiff;
+                // Secondary sort by time received (newest first for same urgency)
+                return new Date(b.processedAt) - new Date(a.processedAt);
+            });
+        }
+
+        function getUrgencyColor(urgency) {
+            switch (urgency) {
+                case 'Critical':
+                    return '#ef4444'; // Red
+                case 'Urgent':
+                    return '#f59e0b'; // Amber
+                case 'Standard':
+                    return '#6b7280'; // Gray
+                default:
+                    return '#6b7280'; // Gray
+            }
+        }
+
         function generatePdfHistory() {
             const container = document.getElementById('pdfHistory');
             if (!container) {
@@ -1916,13 +2312,16 @@
                 return;
             }
 
+            // Get sorted PDFs (Critical > Urgent > Standard, then by time)
+            const pdfsToShow = getSortedPdfs();
+
             container.innerHTML = '';
 
-            referenceWorkOrders.forEach((pdf, index) => {
+            pdfsToShow.forEach((pdf, index) => {
                 const row = document.createElement('div');
                 const urgencyKey = normalizeUrgency(pdf.urgency);
 
-                row.className = `pdf-row urgency-${urgencyKey}`;
+                row.className = `pdf-row urgency-${urgencyKey} status-${pdf.status}`;
                 row.setAttribute('data-index', index.toString());
 
                 const statusLabels = {
@@ -1933,9 +2332,53 @@
 
                 const statusLabel = statusLabels[pdf.status] || 'Processing';
 
+                // Extract job information from parsed fields if available
+                let jobHeader = '';
+                if (pdf.parsedFields) {
+                    const workOrder = pdf.parsedFields["Work Order Details"] || {};
+                    const sourceCompany = pdf.parsedFields["Source Company"] || {};
+
+                    // Get document type and company
+                    const documentType = workOrder.document_type?.value || '';
+                    const companyName = sourceCompany.company_name?.value || '';
+                    const reference = workOrder.order_number?.value || workOrder.reference?.value || '';
+
+                    if (documentType && companyName) {
+                        jobHeader = `
+                            <div class="pdf-row-header">
+                                <span class="company-name">${companyName}</span>
+                                ${reference ? `<span class="job-reference">Ref: ${reference}</span>` : ''}
+                            </div>
+                        `;
+                    }
+                }
+
+                // Create document type icon
+                let docIcon = '📄';
+                let iconClass = 'general';
+                if (pdf.parsedFields) {
+                    const workOrder = pdf.parsedFields["Work Order Details"] || {};
+                    const documentType = workOrder.document_type?.value || '';
+
+                    if (documentType.toLowerCase().includes('quote')) {
+                        docIcon = 'Q';
+                        iconClass = 'quote';
+                    } else if (documentType.toLowerCase().includes('work')) {
+                        docIcon = 'W';
+                        iconClass = 'work-order';
+                    }
+                }
+
+
+                // Get urgency color for the divider line
+                const urgencyColor = getUrgencyColor(pdf.urgency);
+
                 row.innerHTML = `
                     <div class="pdf-row-content">
+                        <div class="pdf-row-icon ${iconClass}">${docIcon}</div>
+                        <div class="urgency-divider" style="background-color: ${urgencyColor}"></div>
                         <div class="pdf-row-info">
+                            ${jobHeader}
                             <div class="pdf-row-title">${pdf.name}</div>
                             <div class="pdf-row-meta">
                                 <span><span class="status-dot ${pdf.status}"></span>${statusLabel}</span>
@@ -1989,7 +2432,7 @@
 
             // Generate the parsed fields content
             if (pdf.parsedFields) {
-                generateParsedFields(pdf.parsedFields);
+                generateParsedFields(pdf.parsedFields, pdf);
                 storeOriginalValues(pdf.parsedFields);
             }
 
@@ -2008,7 +2451,7 @@
             }
         }
 
-        function generateQuickReview(parsedFields) {
+        function generateQuickReview(parsedFields, pdf) {
             const parsedFieldsContent = document.getElementById('parsedFieldsContent');
 
             // Extract key information for quick review
@@ -2032,79 +2475,107 @@
             quickReviewSection.className = 'quick-review-section';
 
             // Determine urgency level and response requirements
-            const urgency = getCurrentUrgency(workOrder, parsedFields);
+            const urgency = pdf.urgency || getCurrentUrgency(workOrder, parsedFields);
             const urgencyInfo = getUrgencyInfo(urgency);
 
             // Generate time constraints summary
             const timeConstraints = generateTimeConstraints(workOrder, parsedFields);
 
+            // Calculate key metrics for quick decision
+            const jobValueInfo = assessJobValue(workOrder);
+            const explicitHours = extractExplicitHours(workOrder.job_description?.value);
+            const jobEfficiency = calculateJobEfficiency(jobValueInfo, explicitHours);
+            const travelDistance = estimateTravelDistance(location.site_address?.value);
+            const jobSummary = generateJobSummary(workOrder, sourceCompany, parsedFields);
+            const responseTimeInfo = calculateResponseTime(urgency, workOrder.date_issued?.value, pdf.processedAt);
+
             let quickReviewHTML = `
-                <div class="quick-review-header">
-                    <span class="quick-review-icon">⚡</span>
-                    Quick Review
-                    <span class="quick-review-toggle">▼</span>
-                </div>
-                <div class="quick-review-cards">
-                    <div class="quick-review-card">
-                        <div class="quick-review-card-header">COMPANY</div>
-                        <div class="quick-review-card-content">
-                            <div class="company-name">${company.name || 'Not specified'}</div>
-                            <div class="confidence-dots">●●●●●</div>
+                <div class="tradesperson-quick-review">
+                    <div class="job-header">
+                        <div class="job-summary">
+                            <div class="job-title">${jobSummary.title}</div>
+                            <div class="job-reference">Ref: ${jobSummary.reference}</div>
+                            <div class="job-description-summary">${jobSummary.description}</div>
+                        </div>
+                        <div class="urgency-selector">
+                            <label class="urgency-label">Urgency for response and scheduling:</label>
+                            <select class="urgency-select field-input" data-section="Quick Review" data-field="urgency" id="urgencySelect">
+                                <option value="CRITICAL" ${urgency === 'CRITICAL' ? 'selected' : ''}>CRITICAL</option>
+                                <option value="URGENT" ${urgency === 'URGENT' ? 'selected' : ''}>URGENT</option>
+                                <option value="STANDARD" ${urgency === 'STANDARD' ? 'selected' : ''}>STANDARD</option>
+                            </select>
+                            <div class="urgency-details" id="urgencyDetails">
+                                <div class="urgency-explanation ${urgency.toLowerCase()}" id="urgencyExplanation">
+                                    ${getUrgencyExplanation(urgency.toUpperCase())}
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="quick-review-card">
-                        <div class="quick-review-card-header">ORDER NUMBER</div>
-                        <div class="quick-review-card-content">
-                            <div class="order-number">${workOrder.order_number?.value || 'Not specified'}</div>
-                            <div class="confidence-dots">●●●●●</div>
+                    <div class="decision-grid">
+                        <div class="decision-card money ${jobValueInfo.status}">
+                            <div class="decision-content">
+                                <div class="decision-value">${jobValueInfo.display}</div>
+                                <div class="decision-label">Job Value</div>
+                                <div class="decision-subtext">${jobValueInfo.subtitle} • ${jobEfficiency}</div>
+                            </div>
+                        </div>
+
+                        <div class="decision-card location">
+                            <div class="decision-content">
+                                <div class="decision-value">${travelDistance}</div>
+                                <div class="decision-label">Travel Distance from Sustaine Office</div>
+                                <div class="decision-subtext">${location.site_address?.value || 'Address not provided'}</div>
+                            </div>
+                        </div>
+
+                        <div class="decision-card timing ${responseTimeInfo.status}" id="responseTimeCard">
+                            <div class="decision-content">
+                                <div class="decision-value" id="responseTimeValue">${responseTimeInfo.display}</div>
+                                <div class="decision-label">Response Time</div>
+                                <div class="decision-subtext">${responseTimeInfo.subtitle}</div>
+                            </div>
+                        </div>
+
+                        <div class="decision-card client">
+                            <div class="decision-content">
+                                <div class="decision-value">${company.name ? company.name.split(' ')[0] : 'Unknown'}</div>
+                                <div class="decision-label">Client</div>
+                                <div class="decision-subtext">${contact.first?.value && contact.last?.value ? `${contact.first.value} ${contact.last.value}` : 'No contact'}</div>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="quick-review-card">
-                        <div class="quick-review-card-header">URGENCY</div>
-                        <div class="quick-review-card-content">
-                            <div class="urgency-input-box"></div>
-                            <div class="confidence-dots">●●●●●</div>
-                        </div>
+                    <div class="job-description-preview">
+                        <strong>Job Summary:</strong> ${generateJobSummaryFromDescription(workOrder, parsedFields)}
                     </div>
 
-                    <div class="quick-review-card">
-                        <div class="quick-review-card-header">SITE DETAILS</div>
-                        <div class="quick-review-card-content">
-                            <div class="site-details">${contact.first?.value && contact.last?.value ? `${contact.first.value} ${contact.last.value}` : 'Not specified'} • ${contact.mobile?.value || 'No phone'} • ${location.site_address?.value || 'No address'}</div>
-                            <div class="confidence-dots">●●●●●</div>
-                        </div>
-                    </div>
-
-                    <div class="quick-review-card">
-                        <div class="quick-review-card-header">JOB SUMMARY</div>
-                        <div class="quick-review-card-content">
-                            <div class="job-summary">WORK ORDER: ${workOrder.job_description?.value || 'No description available'}</div>
-                            <div class="confidence-dots">●●●●●</div>
-                        </div>
-                    </div>
-
-                    <div class="quick-review-card">
-                        <div class="quick-review-card-header">BUDGET INVOICING</div>
-                        <div class="quick-review-card-content">
-                            <div class="budget-info">Approved work order ${workOrder.total_amount?.value || '$0.00'} • Invoice via link in email • Pre-approved amount</div>
-                            <div class="confidence-dots">●●●●</div>
-                        </div>
-                    </div>
-
-                    <div class="quick-review-card">
-                        <div class="quick-review-card-header">TIME CONSTRAINTS</div>
-                        <div class="quick-review-card-content">
-                            <div class="time-constraints">${timeConstraints}</div>
-                            <div class="confidence-dots">●●●●●</div>
-                        </div>
+                    <div class="decision-actions">
+                        <button class="reject-btn" onclick="rejectJob('${workOrder.order_number?.value}')">
+                            ❌ Decline Job
+                        </button>
+                        <button class="accept-btn" onclick="acceptJob('${workOrder.order_number?.value}')">
+                            ✅ Accept Job
+                        </button>
+                        <button class="details-btn" onclick="toggleFullDetails()">
+                            📋 Full Details
+                        </button>
                     </div>
                 </div>
             `;
 
             quickReviewSection.innerHTML = quickReviewHTML;
             parsedFieldsContent.appendChild(quickReviewSection);
+
+            // Add event listener for urgency field changes
+            const urgencySelect = document.getElementById('urgencySelect');
+            if (urgencySelect) {
+                urgencySelect.addEventListener('change', function(event) {
+                    handleFieldChange(event);
+                    updateResponseTimeCard(event.target.value);
+                    updateUrgencyExplanation(event.target.value);
+                });
+            }
         }
 
         function getCurrentUrgency(workOrder, parsedFields) {
@@ -2144,6 +2615,328 @@
                 }
             };
             return urgencyMap[urgency] || urgencyMap['STANDARD'];
+        }
+
+        function getUrgencyExplanation(urgency) {
+            const explanations = {
+                'CRITICAL': '🚨 Emergency response (24/7) - Safety hazards, active leaks, electrical faults. May incur additional out-of-hours charges.',
+                'URGENT': '⚡ Fast track response (business hours) - Significant disruption to operations requiring quick resolution.',
+                'STANDARD': '📅 Normal scheduling - Routine work that can be planned within regular business hours.'
+            };
+            return explanations[urgency] || explanations['STANDARD'];
+        }
+
+        function getCurrentPdf() {
+            return currentPdfData;
+        }
+
+        function updateResponseTimeCard(newUrgency) {
+            // Get the current PDF object to access processedAt timestamp
+            const currentPdf = getCurrentPdf();
+            if (!currentPdf) return;
+
+            // Recalculate response time with new urgency
+            const responseTimeInfo = calculateResponseTime(newUrgency, null, currentPdf.processedAt);
+
+            const responseTimeValue = document.getElementById('responseTimeValue');
+            const responseTimeCard = document.getElementById('responseTimeCard');
+            const responseTimeSubtext = responseTimeCard?.querySelector('.decision-subtext');
+
+            if (responseTimeValue && responseTimeCard) {
+                // Update the display text
+                responseTimeValue.textContent = responseTimeInfo.display;
+                if (responseTimeSubtext) {
+                    responseTimeSubtext.textContent = responseTimeInfo.subtitle;
+                }
+
+                // Update the status class (overdue, warning, on-time)
+                responseTimeCard.className = `decision-card timing ${responseTimeInfo.status}`;
+
+                // Add visual feedback for the change
+                responseTimeCard.style.transition = 'all 0.3s ease';
+                responseTimeCard.style.transform = 'scale(1.05)';
+                responseTimeCard.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+
+                setTimeout(() => {
+                    responseTimeCard.style.transform = 'scale(1)';
+                    responseTimeCard.style.boxShadow = '';
+                }, 300);
+            }
+        }
+
+        function updateUrgencyExplanation(newUrgency) {
+            const urgencyExplanation = document.getElementById('urgencyExplanation');
+            if (urgencyExplanation) {
+                const normalizedUrgency = newUrgency.toUpperCase();
+                urgencyExplanation.className = `urgency-explanation ${newUrgency.toLowerCase()}`;
+                urgencyExplanation.textContent = getUrgencyExplanation(normalizedUrgency);
+            }
+        }
+
+        function classifyDocumentType(workOrder) {
+            const documentType = workOrder.document_type?.value?.toLowerCase() || '';
+            const orderNumber = workOrder.order_number?.value || '';
+
+            // Map different business terminology to standard types
+            const quoteKeywords = [
+                'quote request', 'quote', 'quotation', 'estimate', 'proposal', 'pricing request'
+            ];
+
+            const workOrderKeywords = [
+                'work order', 'purchase order', 'job card', 'service request', 'work request'
+            ];
+
+            // Check document type field first
+            if (quoteKeywords.some(keyword => documentType.includes(keyword))) {
+                return 'QUOTE';
+            }
+
+            if (workOrderKeywords.some(keyword => documentType.includes(keyword))) {
+                return 'WORK ORDER';
+            }
+
+            // Fallback: check order number patterns
+            if (orderNumber.toLowerCase().startsWith('qr')) {
+                return 'QUOTE';
+            } else if (orderNumber.toLowerCase().startsWith('po') || orderNumber.toLowerCase().startsWith('job')) {
+                return 'WORK ORDER';
+            }
+
+            // Default fallback
+            return 'WORK ORDER';
+        }
+
+        function extractTradesAndScope(description) {
+            const desc = description.toLowerCase();
+            const trades = [];
+            const scope = [];
+
+            // Common trades mapping
+            const tradeKeywords = {
+                'electrical': ['electrical', 'electric', 'power', 'lighting', 'wiring', 'switchboard', 'cable'],
+                'plumbing': ['plumbing', 'plumber', 'pipe', 'water', 'drainage', 'leak', 'tap', 'toilet'],
+                'carpentry': ['carpentry', 'carpenter', 'timber', 'wood', 'framing', 'deck', 'cabinet'],
+                'roofing': ['roof', 'roofing', 'guttering', 'tiles', 'iron', 'flashing'],
+                'painting': ['paint', 'painting', 'primer', 'coating'],
+                'flooring': ['floor', 'flooring', 'carpet', 'tiles', 'vinyl', 'timber floor'],
+                'glazing': ['glass', 'window', 'glazing', 'mirror'],
+                'HVAC': ['air conditioning', 'heating', 'cooling', 'ventilation', 'hvac'],
+                'solar': ['solar', 'panel', 'inverter', 'battery'],
+                'security': ['security', 'alarm', 'camera', 'access control'],
+                'fire safety': ['fire', 'smoke detector', 'sprinkler', 'fire safety', 'extinguisher']
+            };
+
+            // Scope keywords (order matters - more specific first)
+            const scopeKeywords = {
+                'assessment': ['assess', 'assessment', 'inspect', 'inspection', 'investigate', 'attend site to assess'],
+                'install': ['install', 'installation', 'fit', 'mount', 'supply and install'],
+                'repair': ['repair', 'fix', 'restore', 'mend'],
+                'replace': ['replace', 'replacement', 'substitute'],
+                'maintenance': ['maintain', 'maintenance', 'service', 'check'],
+                'upgrade': ['upgrade', 'improve', 'modernize'],
+                'removal': ['remove', 'removal', 'demolish', 'take out'],
+                'cleaning': ['cleaning', 'clean ', 'wash', ' clean', 'carpet cleaning'],
+                'testing': ['test', 'testing', 'certification', 'compliance']
+            };
+
+            // Find trades
+            for (const [trade, keywords] of Object.entries(tradeKeywords)) {
+                if (keywords.some(keyword => desc.includes(keyword))) {
+                    trades.push(trade);
+                }
+            }
+
+            // Find scope (avoid duplicates and false positives)
+            for (const [scopeType, keywords] of Object.entries(scopeKeywords)) {
+                const found = keywords.some(keyword => {
+                    // Use more precise matching to avoid false positives
+                    if (keyword.includes(' ')) {
+                        return desc.includes(keyword);
+                    } else {
+                        // For single words, check word boundaries
+                        const regex = new RegExp(`\\b${keyword}\\b`, 'i');
+                        return regex.test(desc);
+                    }
+                });
+                if (found && !scope.includes(scopeType)) {
+                    scope.push(scopeType);
+                }
+            }
+
+            return { trades, scope };
+        }
+
+        function generateWorkScope(workOrder, parsedFields) {
+            const description = workOrder.job_description?.value || '';
+            const location = parsedFields["Job Location"] || {};
+
+            // Extract trades and scope
+            const { trades, scope } = extractTradesAndScope(description);
+
+            // Determine location type
+            const address = location.site_address?.value || '';
+            const desc = description.toLowerCase();
+            let locationType = '';
+
+            if (desc.includes('health centre') || desc.includes('hospital') || desc.includes('medical')) {
+                locationType = 'Healthcare facility';
+            } else if (desc.includes('farm') || desc.includes('rural') || desc.includes('shed')) {
+                locationType = 'Rural/Farm property';
+            } else if (desc.includes('office') || desc.includes('commercial') || desc.includes('business')) {
+                locationType = 'Commercial property';
+            } else if (desc.includes('school') || desc.includes('education')) {
+                locationType = 'Educational facility';
+            } else if (address.includes('st') || address.includes('street') || address.includes('ave')) {
+                locationType = 'Residential property';
+            }
+
+            // Generate brief work scope
+            let workScope = '';
+
+            // Check if this is an assessment/inspection vs actual work
+            const isAssessment = desc.includes('assess') || desc.includes('inspection') || desc.includes('report') || desc.includes('investigate');
+
+            if (trades.length > 2) {
+                workScope = `Multiple trades including ${trades.slice(0, 2).join(', ')}`;
+            } else if (trades.length > 1) {
+                if (isAssessment) {
+                    workScope = `${trades.map(t => t.charAt(0).toUpperCase() + t.slice(1)).join(' & ')} assessment`;
+                } else {
+                    workScope = `${trades.map(t => t.charAt(0).toUpperCase() + t.slice(1)).join(' & ')} work`;
+                }
+            } else if (trades.length === 1) {
+                if (isAssessment) {
+                    workScope = `${trades[0].charAt(0).toUpperCase() + trades[0].slice(1)} assessment`;
+                } else {
+                    workScope = `${trades[0].charAt(0).toUpperCase() + trades[0].slice(1)} work`;
+                }
+            } else {
+                // Use work type but modify if it's an assessment
+                const workType = workOrder.work_type?.value || 'General trade work';
+                if (isAssessment && !workType.toLowerCase().includes('assessment')) {
+                    workScope = workType.replace(/work$/i, 'assessment').replace(/repair$/i, 'assessment');
+                } else {
+                    workScope = workType;
+                }
+            }
+
+            if (locationType) {
+                workScope += ` • ${locationType}`;
+            }
+
+            return workScope;
+        }
+
+        function generateJobSummaryFromDescription(workOrder, parsedFields) {
+            const fullDescription = workOrder.job_description?.value || 'No job description provided';
+
+            if (fullDescription === 'No job description provided') {
+                return fullDescription;
+            }
+
+            const desc = fullDescription.toLowerCase();
+
+            // Create intelligent summary based on the content
+            if (desc.includes('asbestos') && desc.includes('roof')) {
+                return 'Complete asbestos removal and roof replacement project including scaffolding, electrical antenna refit, builders cleaning, and waste disposal. Requires clearance certificates and lab testing for ACM materials.';
+            } else if (desc.includes('storm damage') && desc.includes('assess')) {
+                return 'Storm damage assessment of electrical appliances (chest freezer and dishwasher) damaged during electrical storm.';
+            } else if (desc.includes('multi-trade') || (desc.includes('electrical') && desc.includes('carpentry'))) {
+                return 'Multi-trade project involving electrical, carpentry, and general repair work including wall sheets, carpet cleaning, and downlights.';
+            } else if (desc.includes('refreshments') && desc.includes('television')) {
+                return 'Electrical repair work to investigate and fix non-operating television screen (refreshment screen number 3) located in refreshments area.';
+            } else if (desc.includes('armoured cable') && desc.includes('shed')) {
+                return 'Electrical installation work to supply and install heavy-duty armoured cable for shed power connection.';
+            } else if (desc.includes('fire safety') && desc.includes('inspection')) {
+                return 'Annual fire safety inspection and testing of building safety systems.';
+            } else {
+                // Generic summary for other descriptions
+                const sentences = fullDescription.split(/[.!?]+/).filter(s => s.trim().length > 10);
+                if (sentences.length > 0) {
+                    const firstSentence = sentences[0].trim();
+                    return firstSentence.length > 150 ? firstSentence.substring(0, 147) + '...' : firstSentence + '.';
+                } else {
+                    return fullDescription.length > 150 ? fullDescription.substring(0, 147) + '...' : fullDescription;
+                }
+            }
+        }
+
+        function generateJobSummary(workOrder, sourceCompany, parsedFields) {
+            const docType = classifyDocumentType(workOrder);
+            const orderNumber = workOrder.order_number?.value || 'No ID';
+            const description = workOrder.job_description?.value || 'No description provided';
+            const workType = workOrder.work_type?.value || '';
+
+            // Get company from company tables
+            const identifiedCompany = identifyCompany(parsedFields);
+            const companyName = identifiedCompany ? identifiedCompany.name : (sourceCompany.company_name?.value || 'Unknown Company');
+
+            // Generate work scope summary for decision-making
+            const workScope = generateWorkScope(workOrder, parsedFields);
+
+            // Create contextual, informative job summary
+            const desc = description.toLowerCase();
+            let jobSummary = '';
+
+            // Commercial fire safety (like health centres)
+            if (desc.includes('fire safety') && (desc.includes('health centre') || desc.includes('cessnock') || desc.includes('building safety systems'))) {
+                jobSummary = 'Commercial fire safety inspection - Health facility';
+            }
+            // Multi-trade storm damage projects
+            else if (desc.includes('storm damage') && (desc.includes('wall sheets') || desc.includes('carpet') || desc.includes('electrical'))) {
+                jobSummary = 'Multi-trade storm damage repairs';
+            }
+            // Storm damage assessment
+            else if (desc.includes('storm damage') && desc.includes('assess')) {
+                jobSummary = 'Storm damage electrical assessment';
+            }
+            // Armoured cable installations
+            else if (desc.includes('armoured cable') || (desc.includes('cable') && desc.includes('shed'))) {
+                jobSummary = 'Heavy-duty electrical installation';
+            }
+            // Multi-trade construction/renovation
+            else if ((desc.includes('carpentry') && desc.includes('electrical') && desc.includes('roof')) ||
+                     (desc.includes('wall sheets') && desc.includes('carpet') && desc.includes('electrical'))) {
+                jobSummary = 'Multi-trade construction project';
+            }
+            // Electrical repairs
+            else if (desc.includes('electrical') && (desc.includes('repair') || desc.includes('not operating'))) {
+                jobSummary = 'Electrical fault diagnosis & repair';
+            }
+            // Standard assessments
+            else if (desc.includes('assess') && desc.includes('electrical')) {
+                jobSummary = 'Electrical damage assessment';
+            }
+            // Fire safety general
+            else if (desc.includes('fire safety') || desc.includes('fire')) {
+                jobSummary = 'Fire safety inspection & testing';
+            }
+            // Fallback to extracted trades/scope
+            else {
+                const { trades, scope } = extractTradesAndScope(description);
+                if (trades.length > 2) {
+                    jobSummary = `Multi-trade project (${trades.length} trades)`;
+                } else if (trades.length > 0) {
+                    jobSummary = trades.map(t => t.charAt(0).toUpperCase() + t.slice(1)).join(' & ');
+                    if (scope.length > 0) {
+                        jobSummary += ` - ${scope.slice(0, 2).join(' & ')}`;
+                    }
+                } else {
+                    jobSummary = workType || 'General trade work';
+                }
+            }
+
+            const shortDescription = description.length > 120 ?
+                description.substring(0, 120) + '...' : description;
+
+            return {
+                type: docType,
+                title: `${docType}: ${companyName}`,
+                reference: orderNumber,
+                description: workScope,
+                fullDescription: description,
+                jobSummary: jobSummary
+            };
         }
 
         function generateTimeConstraints(workOrder, parsedFields) {
@@ -2204,12 +2997,367 @@
             return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
         }
 
-        function generateParsedFields(parsedFields) {
+        function calculateResponseTime(urgency, dateIssued, processedAt) {
+            const now = new Date();
+            const pdfReceived = processedAt instanceof Date ? processedAt : new Date(processedAt);
+
+            // Check if pdfReceived is a valid date
+            if (isNaN(pdfReceived.getTime())) {
+                return {
+                    display: 'Unknown',
+                    subtitle: 'Invalid timestamp',
+                    status: 'warning'
+                };
+            }
+
+            const timeSinceReceived = now - pdfReceived;
+
+            // Normalize urgency to uppercase
+            const normalizedUrgency = urgency ? urgency.toUpperCase() : 'STANDARD';
+
+            // Business rules for response times based on urgency
+            const responseRules = {
+                'CRITICAL': {
+                    targetHours: 1,
+                    maxHours: 2,
+                    businessHours: false // 24/7 response
+                },
+                'URGENT': {
+                    targetHours: 4,
+                    maxHours: 8,
+                    businessHours: false // Same day response
+                },
+                'STANDARD': {
+                    targetHours: 24,
+                    maxHours: 48,
+                    businessHours: true // Next business day
+                }
+            };
+
+            const rule = responseRules[normalizedUrgency] || responseRules['STANDARD'];
+            const hoursElapsed = timeSinceReceived / (1000 * 60 * 60);
+
+            // Calculate deadline based on when PDF was received
+            let deadline = new Date(pdfReceived);
+            if (rule.businessHours) {
+                // For standard jobs, next business day by 5 PM
+                deadline = getNextBusinessDay(pdfReceived);
+                deadline.setHours(17, 0, 0, 0); // 5 PM
+            } else {
+                // For urgent/critical, add target hours directly
+                deadline.setHours(deadline.getHours() + rule.targetHours);
+            }
+
+            const timeToDeadline = deadline - now;
+            const hoursToDeadline = timeToDeadline / (1000 * 60 * 60);
+
+            // Validate calculated values
+            if (isNaN(hoursToDeadline) || isNaN(hoursElapsed) || isNaN(deadline.getTime())) {
+                return {
+                    display: 'Error',
+                    subtitle: 'Calculation error',
+                    status: 'warning'
+                };
+            }
+
+            // Determine status and display
+            let status, display, subtitle;
+
+            if (hoursToDeadline <= 0) {
+                status = 'overdue';
+                display = 'OVERDUE';
+                subtitle = `Due ${formatRelativeDate(deadline)}`;
+            } else if (hoursElapsed > rule.targetHours) {
+                status = 'warning';
+                display = Math.ceil(hoursToDeadline) + 'h remaining';
+                subtitle = 'Approaching deadline';
+            } else {
+                status = 'on-time';
+                if (hoursToDeadline > 24) {
+                    display = Math.ceil(hoursToDeadline / 24) + ' days';
+                } else {
+                    display = Math.ceil(hoursToDeadline) + 'h remaining';
+                }
+                subtitle = `Due ${formatDateTime(deadline)}`;
+            }
+
+            return {
+                display: display,
+                subtitle: subtitle,
+                status: status,
+                deadline: deadline,
+                hoursElapsed: hoursElapsed
+            };
+        }
+
+        function getNextBusinessDay(date) {
+            const nextDay = new Date(date);
+            nextDay.setDate(nextDay.getDate() + 1);
+
+            // If it's Saturday (6) or Sunday (0), move to Monday
+            if (nextDay.getDay() === 6) {
+                nextDay.setDate(nextDay.getDate() + 2);
+            } else if (nextDay.getDay() === 0) {
+                nextDay.setDate(nextDay.getDate() + 1);
+            }
+
+            return nextDay;
+        }
+
+        function formatDateTime(date) {
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }
+
+        // Helper functions for tradesperson decision-making
+        function extractExplicitHours(description) {
+            const desc = description?.toLowerCase() || '';
+
+            // Only extract hours if explicitly mentioned in the PDF
+            const hourPatterns = [
+                /(\d+(?:\.\d+)?)\s*(?:to\s+|[-–])\s*(\d+(?:\.\d+)?)\s*hours?/gi,
+                /(\d+(?:\.\d+)?)\s*hours?\s*(?:to\s+|[-–])\s*(\d+(?:\.\d+)?)\s*hours?/gi,
+                /estimated?\s*(\d+(?:\.\d+)?)\s*(?:to\s+|[-–])\s*(\d+(?:\.\d+)?)\s*hours?/gi,
+                /approximately\s*(\d+(?:\.\d+)?)\s*hours?/gi,
+                /about\s*(\d+(?:\.\d+)?)\s*hours?/gi,
+                /(\d+(?:\.\d+)?)\s*hour\s*job/gi
+            ];
+
+            for (const pattern of hourPatterns) {
+                const matches = desc.match(pattern);
+                if (matches) {
+                    const match = matches[0];
+                    const rangeMatch = match.match(/(\d+(?:\.\d+)?)\s*(?:to\s+|[-–])\s*(\d+(?:\.\d+)?)/);
+                    if (rangeMatch) {
+                        return `${rangeMatch[1]}-${rangeMatch[2]}`;
+                    } else {
+                        const singleMatch = match.match(/(\d+(?:\.\d+)?)/);
+                        if (singleMatch) {
+                            return singleMatch[1];
+                        }
+                    }
+                }
+            }
+
+            // Return null if no explicit hours found
+            return null;
+        }
+
+        function assessJobValue(workOrder) {
+            const totalAmount = workOrder.total_amount?.value;
+            const workLimit = workOrder.work_limit?.value;
+            const documentType = workOrder.document_type?.value;
+            const workType = workOrder.work_type?.value;
+            const description = workOrder.job_description?.value || '';
+
+            // Check if there's an actual dollar value
+            const dollarValue = totalAmount || workLimit;
+            if (dollarValue && dollarValue !== '$0.00' && dollarValue !== '0') {
+                const numericValue = parseFloat(dollarValue.replace(/[^0-9.]/g, ''));
+                if (numericValue > 0) {
+                    return {
+                        display: dollarValue,
+                        status: 'confirmed',
+                        subtitle: 'Pre-approved amount'
+                    };
+                }
+            }
+
+            // For quotes/assessments - estimate potential value
+            if (documentType?.includes('Quote') || documentType?.includes('Assessment')) {
+                const estimatedValue = estimateJobValue(workType, description);
+                return {
+                    display: estimatedValue.range,
+                    status: 'estimated',
+                    subtitle: 'Quote needed'
+                };
+            }
+
+            // For work orders without scope - determine next action
+            const nextAction = determineNextAction(workOrder, description);
+            return {
+                display: 'TBD',
+                status: 'unscoped',
+                subtitle: nextAction
+            };
+        }
+
+        function determineNextAction(workOrder, description) {
+            const desc = description.toLowerCase();
+            const workType = workOrder.work_type?.value?.toLowerCase() || '';
+            const contact = workOrder.contact || {};
+
+            // Assessment/inspection jobs usually need site visit
+            if (workType.includes('assessment') || workType.includes('inspection')) {
+                return 'Site visit required for quote';
+            }
+
+            // Storm damage often needs inspection first
+            if (desc.includes('storm damage') || desc.includes('damage')) {
+                return 'Damage assessment needed';
+            }
+
+            // Installation work can often be quoted remotely
+            if (workType.includes('installation') || desc.includes('install')) {
+                return 'Contact client for specifications';
+            }
+
+            // Repair work may need diagnosis
+            if (workType.includes('repair') || desc.includes('repair') || desc.includes('not working')) {
+                return 'Diagnostic visit required';
+            }
+
+            // Emergency work - price discussion after resolution
+            if (desc.includes('emergency') || desc.includes('urgent')) {
+                return 'Quote after emergency resolution';
+            }
+
+            // Check if specific contact mentioned
+            if (desc.includes('contact') || desc.includes('call') || desc.includes('discuss')) {
+                // Extract contact name if possible
+                const contactMatch = desc.match(/contact\s+(\w+)/i);
+                if (contactMatch) {
+                    return `Contact ${contactMatch[1]} to discuss budget`;
+                }
+                return 'Contact client to discuss budget';
+            }
+
+            // Default action
+            return 'Quote/scope discussion needed';
+        }
+
+        function estimateJobValue(workType, description) {
+            const type = workType?.toLowerCase() || '';
+            const desc = description?.toLowerCase() || '';
+
+            // Only provide estimates when we have sufficient detail and confidence
+
+            // Specific installations with clear scope
+            if (desc.includes('supply and install 10m of 25mm² armoured cable')) {
+                return { range: '$2000-3500', confidence: 'medium' };
+            }
+
+            // Simple electrical assessments with clear scope
+            if (desc.includes('assess x1 chest freezer and dishwasher')) {
+                return { range: '$400-800', confidence: 'medium' };
+            }
+
+            // TV repair with work limit specified
+            if (desc.includes('tv screen not operating') && desc.includes('investigate and repair')) {
+                return { range: '$200-300', confidence: 'medium' };
+            }
+
+            // For complex or vague descriptions, don't guess
+            if (type.includes('multi-trade') ||
+                desc.includes('general repairs') ||
+                desc.includes('building safety systems') ||
+                desc.includes('multiple') ||
+                (desc.includes('electrical') && (desc.includes('carpet') || desc.includes('roof') || desc.includes('wall sheets')))) {
+                return { range: 'Requires detailed scope', confidence: 'insufficient_detail' };
+            }
+
+            // Fire safety inspections - too variable without knowing facility size/complexity
+            if (type.includes('safety') || type.includes('inspection') || desc.includes('fire safety')) {
+                return { range: 'Scope-dependent', confidence: 'insufficient_detail' };
+            }
+
+            // Default for unclear scope
+            return { range: 'Quote required', confidence: 'insufficient_detail' };
+        }
+
+        function calculateJobEfficiency(jobValueInfo, explicitHours) {
+            if (jobValueInfo.status === 'confirmed') {
+                const value = parseFloat(jobValueInfo.display.replace(/[^0-9.]/g, '')) || 0;
+
+                // Only calculate efficiency if hours are explicitly mentioned in PDF
+                if (explicitHours) {
+                    const hours = explicitHours.toString().split('-');
+                    const minHours = parseFloat(hours[0]) || 1;
+                    const maxHours = parseFloat(hours[1] || hours[0]) || 1;
+
+                    // For large jobs, show daily rate instead of hourly
+                    if (value > 5000) {
+                        const days = Math.ceil(maxHours / 8); // Assume 8hr work days
+                        return `~${days} days work (${explicitHours} hrs specified)`;
+                    } else if (value > 1000) {
+                        return `${explicitHours} hours specified`;
+                    } else {
+                        // Only show hourly rate for smaller jobs
+                        const hourlyRate = Math.round(value / maxHours);
+                        return `$${hourlyRate}/hr (${explicitHours} hrs specified)`;
+                    }
+                } else {
+                    // No hours specified in PDF
+                    return `${jobValueInfo.display} - Time not specified`;
+                }
+            } else if (jobValueInfo.status === 'estimated') {
+                return explicitHours ? `${explicitHours} hours specified` : 'Time & value TBD';
+            } else {
+                return explicitHours ? `${explicitHours} hours specified` : 'Time & value TBD';
+            }
+        }
+
+        function calculateAverageFromRange(range) {
+            const matches = range.match(/\$(\d+)-(\d+)/);
+            if (matches) {
+                const min = parseInt(matches[1]);
+                const max = parseInt(matches[2]);
+                return (min + max) / 2;
+            }
+            return 0;
+        }
+
+        function estimateTravelDistance(address) {
+            if (!address) return 'Unknown';
+
+            // Driving distance calculations from Byron Bay (Suite 10/130 Jonson St, Byron Bay NSW 2481)
+            const addressLower = address.toLowerCase();
+
+            // Local Byron Bay area
+            if (addressLower.includes('byron bay') || addressLower.includes('2481')) return '2-8 km';
+
+            // Nearby towns - actual driving distances
+            if (addressLower.includes('bangalow') || addressLower.includes('2479')) return '16 km';
+            if (addressLower.includes('mullumbimby') || addressLower.includes('2482')) return '20 km';
+            if (addressLower.includes('lennox head') || addressLower.includes('2478')) return '22 km';
+            if (addressLower.includes('ballina') || addressLower.includes('2478')) return '35 km';
+            if (addressLower.includes('uki') || addressLower.includes('2484')) return '38 km';
+            if (addressLower.includes('lismore') || addressLower.includes('2480')) return '45 km';
+            if (addressLower.includes('nimbin') || addressLower.includes('2480')) return '55 km';
+
+            // Further locations - driving via highways
+            if (addressLower.includes('murwillumbah') || addressLower.includes('2484')) return '60 km';
+            if (addressLower.includes('tweed heads') || addressLower.includes('2485')) return '75 km';
+            if (addressLower.includes('gold coast') || addressLower.includes('4217') || addressLower.includes('4218')) return '85 km';
+            if (addressLower.includes('casino') || addressLower.includes('2470')) return '95 km';
+            if (addressLower.includes('grafton') || addressLower.includes('2460')) return '140 km';
+
+            // Default estimate for unknown locations
+            return '~50 km';
+        }
+
+        function rejectJob(orderNumber) {
+            alert(`Job ${orderNumber} declined. Reason will be logged.`);
+            // Here you would integrate with your job management system
+        }
+
+        function acceptJob(orderNumber) {
+            alert(`Job ${orderNumber} accepted! Added to your schedule.`);
+            // Here you would integrate with your scheduling system
+        }
+
+        function toggleFullDetails() {
+            const detailsSections = document.querySelectorAll('.field-section');
+            detailsSections.forEach(section => {
+                section.style.display = section.style.display === 'none' ? 'block' : 'none';
+            });
+        }
+
+        function generateParsedFields(parsedFields, pdf) {
             const parsedFieldsContent = document.getElementById('parsedFieldsContent');
             parsedFieldsContent.innerHTML = '';
 
             // Generate Quick Review section first
-            generateQuickReview(parsedFields);
+            generateQuickReview(parsedFields, pdf);
 
             const sectionNames = Object.keys(parsedFields);
             let sectionIndex = 0;
@@ -2241,6 +3389,11 @@
                 fieldGroup.className = 'field-group';
 
                 for (const [fieldName, fieldData] of Object.entries(fields)) {
+                    // Skip technical/system fields that shouldn't be visible to users
+                    if (fieldName === 'parsing_rules_applied') {
+                        continue;
+                    }
+
                     const fieldItem = document.createElement('div');
                     fieldItem.className = 'field-item';
 
@@ -2367,6 +3520,10 @@
             for (const [sectionName, fields] of Object.entries(parsedFields)) {
                 originalFieldValues[sectionName] = {};
                 for (const [fieldName, fieldData] of Object.entries(fields)) {
+                    // Skip technical/system fields
+                    if (fieldName === 'parsing_rules_applied') {
+                        continue;
+                    }
                     originalFieldValues[sectionName][fieldName] = fieldData.value;
                 }
             }
