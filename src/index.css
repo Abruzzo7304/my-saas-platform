@@ -3,6 +3,12 @@
   --color-surface: #ffffff;
   --color-text-primary: #1f2937;
   --color-text-muted: #64748b;
+  --color-tide: #395159;
+  --color-midnight: #23302D;
+  --color-sunset: #eb6f47;
+  --color-shell: #f8f9fa;
+  --color-fog: #e9ecef;
+  --color-mist: #f7fafc;
 }
 
 body {
@@ -14,6 +20,69 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: var(--color-app-background);
   color: var(--color-text-primary);
+}
+
+/* Responsive Design */
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive Grid */
+.responsive-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+@media (max-width: 768px) {
+  .responsive-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .responsive-grid {
+    gap: 0.75rem;
+  }
+}
+
+/* PDF Converter Button */
+.pdf-converter-button:hover {
+  background-color: rgba(255,255,255,0.3) !important;
+  transform: translateY(-1px);
 }
 
 code {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import Navigation from './components/Navigation';
-import DatabaseTest from './components/DatabaseTest'; // Add this import
 import AdminDashboard from './pages/admin/AdminDashboard';
 import ReviewerDashboard from './pages/reviewer/ReviewerDashboard';
 import SubcontractorDashboard from './pages/subcontractor/SubcontractorDashboard';
@@ -20,10 +19,23 @@ function App() {
   }
 
   if (isAuthenticated) {
+    const renderDashboard = () => {
+      switch (userRole) {
+        case 'admin':
+          return <AdminDashboard />;
+        case 'reviewer':
+          return <ReviewerDashboard />;
+        case 'subcontractor':
+          return <SubcontractorDashboard />;
+        default:
+          return <AdminDashboard />; // Default to admin for demo
+      }
+    };
+
     return (
       <div className="App">
         <Navigation />
-        <DatabaseTest /> {/* Add this temporarily to test */}
+        {renderDashboard()}
       </div>
     );
   } else {

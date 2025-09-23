@@ -15,48 +15,99 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #395159 0%, #23302D 100%);
+            background: #f6f7f9;
+            color: #1b1f24;
             min-height: 100vh;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         .background-content {
-            padding: 20px;
-            max-width: 1400px;
+            padding: 48px 32px 96px;
+            max-width: 1080px;
             margin: 0 auto;
         }
 
         .page-header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: white;
+            text-align: left;
+            margin-bottom: 48px;
+            color: inherit;
+        }
+
+        .page-header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .page-header-heading {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1b1f24;
+            border: 1px solid #dfe3e8;
+            border-radius: 999px;
+            background: #ffffff;
+            cursor: pointer;
+            text-decoration: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .back-link:hover {
+            border-color: #c5cad1;
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+        }
+
+        .back-link:focus {
+            outline: none;
+            border-color: #1b1f24;
+            box-shadow: 0 0 0 3px rgba(27, 31, 36, 0.2);
         }
 
         .main-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-size: 2.25rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-shadow: none;
+            letter-spacing: -0.01em;
         }
 
         .subtitle {
-            font-size: 1.1rem;
-            opacity: 0.9;
+            font-size: 1rem;
+            color: #5e6470;
             font-weight: 400;
         }
 
         .fab {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, #935430 0%, #A56647 100%);
+            bottom: 32px;
+            left: 32px;
+            width: 52px;
+            height: 52px;
+            background: #1b1f24;
             border-radius: 50%;
             border: none;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 12px 24px rgba(17, 24, 39, 0.12);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             z-index: 1000;
             display: flex;
             align-items: center;
@@ -64,193 +115,340 @@
         }
 
         .fab:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 16px 28px rgba(17, 24, 39, 0.16);
         }
 
         .fab-icon {
             color: white;
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 22px;
+            font-weight: 600;
         }
 
         /* PDF History Rows */
 
+        .pdf-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 16px 0 8px;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 20px;
+        }
+
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .control-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #6b7280;
+        }
+
+        .control-options {
+            display: inline-flex;
+            gap: 0.5rem;
+        }
+
+        .control-option {
+            border: 1px solid #dfe3e8;
+            background: #ffffff;
+            color: #1f2937;
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, background 0.2s ease;
+        }
+
+        .control-option:hover {
+            border-color: #c5cad1;
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+        }
+
+        .control-option.is-active {
+            background: #0f172a;
+            border-color: #0f172a;
+            color: #ffffff;
+        }
+
+        .control-select {
+            border: 1px solid #dfe3e8;
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 0.82rem;
+            color: #1f2937;
+            background: #ffffff;
+        }
+
         .pdf-history {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 20px;
         }
 
         .pdf-row {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            position: relative;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px 24px;
+            border: 1px solid #dfe3e8;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
             cursor: pointer;
-            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .pdf-row::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 18px;
+            bottom: 18px;
+            width: 4px;
+            border-radius: 999px;
+            background: #dfe3e8;
+            transition: background 0.2s ease;
         }
 
         .pdf-row:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border-color: #c5cad1;
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
         }
 
-        .pdf-row.urgency-standard {
-            border-color: #e2e8f0;
+        .pdf-row.urgency-standard::before {
+            background: #3f674b;
         }
 
-        .pdf-row.urgency-urgent {
-            border-color: #fbbf24;
+        .pdf-row.urgency-urgent::before {
+            background: #b35a09;
         }
 
-        .pdf-row.urgency-critical {
-            border-color: #ef4444;
+        .pdf-row.urgency-critical::before {
+            background: #b42318;
         }
 
-        /* ServiceM8 committed state styling */
-        .pdf-row.status-committed {
-            opacity: 0.6;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            border-color: #f1f5f9;
+        .pdf-row.status-review::before {
+            background: #eb6f47;
         }
 
-        .pdf-row.status-committed:hover {
-            opacity: 0.8;
-            transform: translateY(-1px);
+        .pdf-row.status-created {
+            background: #f6f7f9;
+            border-color: #d0d6dd;
         }
 
-        .pdf-row.status-committed .pdf-row-title {
-            color: #64748b;
+        .pdf-row.status-created::before {
+            background: #2563eb;
         }
 
-        .pdf-row.status-committed .pdf-row-meta {
-            color: #94a3b8;
+        .pdf-row.status-declined {
+            background: #fdf4ff;
+            border-color: #f5d0fe;
         }
 
-        .pdf-row.status-committed .pdf-row-icon {
-            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%) !important;
-            position: relative;
+        .pdf-row.status-declined::before {
+            background: #c026d3;
         }
 
-        .pdf-row.status-committed .pdf-row-icon::after {
-            content: '✓';
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            font-size: 1rem;
-            font-family: sans-serif;
-            font-weight: bold;
-            color: #395159;
-            background: rgba(255,255,255,0.8);
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
+        .pdf-card-top {
             display: flex;
             align-items: center;
-            justify-content: center;
-            line-height: 1;
-        }
-
-        .pdf-row-content {
-            display: flex;
             justify-content: space-between;
-            align-items: center;
-            gap: 0;
+            gap: 1rem;
         }
 
-        .pdf-row-icon {
+        .pdf-card-top-left {
             display: flex;
             align-items: center;
-            justify-content: center;
-            width: 80px;
-            align-self: stretch;
-            border-radius: 12px 0 0 12px;
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.2rem;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .pdf-card-heading {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .doc-type-label {
+            font-size: 0.78rem;
             font-weight: 700;
-            color: white;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
-            position: relative;
-            overflow: hidden;
-            margin: -20px 0 -20px -20px;
-            font-style: italic;
-            padding: 8px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #0f172a;
         }
 
-        .pdf-row-icon::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-            border-radius: inherit;
-        }
+        .doc-type-work-order { color: #1f2a37; }
+        .doc-type-quote { color: #1d4ed8; }
+        .doc-type-general { color: #374151; }
 
-        .pdf-row-icon.quote {
-            background: linear-gradient(135deg, #395159 0%, #23302D 100%);
-            border-right: 3px solid #1e2926;
-        }
-
-        .pdf-row-icon.work-order {
-            background: linear-gradient(135deg, #eb6f47 0%, #935430 100%);
-            border-right: 3px solid #7a2e0e;
-        }
-
-        .pdf-row-icon.general {
-            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
-            border-right: 3px solid #374151;
-        }
-
-        .urgency-divider {
-            width: 6px;
-            align-self: stretch;
-            margin: -20px 0 -20px 0;
-            border-radius: 0;
-        }
-
-        .pdf-row-info {
-            flex: 1;
-            margin-left: 20px;
-        }
-
-        .pdf-row-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-
-        .pdf-row-header .company-name {
-            color: #6366f1;
-            font-weight: 600;
-        }
-
-        .pdf-row-header .job-reference {
-            color: #6b7280;
-            font-size: 0.8rem;
-            margin-left: auto;
-        }
-
-        .pdf-row-title {
+        .heading-company {
             font-size: 1.1rem;
             font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 8px;
+            color: #0f172a;
         }
 
-        .pdf-row-meta {
-            display: flex;
-            gap: 20px;
-            color: #6b7280;
+        .company-ref {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #4b5563;
+        }
+
+        .job-summary {
             font-size: 0.9rem;
+            color: #1f2937;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .urgency-indicator {
+            display: inline-flex;
             align-items: center;
+            gap: 0.4rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .urgency-indicator.critical { color: #b42318; }
+        .urgency-indicator.urgent { color: #b35a09; }
+        .urgency-indicator.standard { color: #3f674b; }
+
+        .urgency-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            opacity: 0.75;
+        }
+
+        .status-chip {
+            background: transparent;
+            padding: 0;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #6b7280;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .pdf-card-body {
+            display: grid;
+            gap: 12px;
+        }
+
+        .pdf-card-main {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .pdf-file-name {
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: #4b5563;
+            letter-spacing: 0.01em;
+            word-break: break-word;
+        }
+
+        .pdf-file-meta {
+            font-size: 0.82rem;
+            color: #6b7280;
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .pdf-company {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .job-location {
+            font-size: 0.82rem;
+            color: #6b7280;
+            margin-top: 2px;
+        }
+
+        .info-divider {
+            height: 1px;
+            width: 55%;
+            max-width: 260px;
+            background: #e5e7eb;
+            margin: 8px 0 4px;
+        }
+
+        .company-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .company-meta {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+
+        .pdf-row-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .pdf-row-footer-left {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .meta-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #6b7280;
+        }
+
+        .confidence-scale {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .confidence-score {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .more-link {
+            margin-left: auto;
+            color: #0f172a;
+            font-size: 0.82rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .more-link::after {
+            content: '→';
+            font-size: 0.9rem;
         }
 
 
@@ -263,15 +461,8 @@
         }
 
         .status-dot.review { background-color: #eb6f47; }
-        .status-dot.processing { background-color: #395159; }
-        .status-dot.committed { background-color: #cbd5e1; }
-
-        .chevron {
-            color: #9ca3af;
-            font-size: 20px;
-            margin-left: 20px;
-        }
-
+        .status-dot.created { background-color: #2563eb; }
+        .status-dot.declined { background-color: #c026d3; }
         /* Modal Styles */
         .modal {
             display: none;
@@ -280,11 +471,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
+            background: rgba(15, 23, 42, 0.35);
+            backdrop-filter: blur(4px);
             z-index: 2000;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.25s ease;
         }
 
         .modal.show {
@@ -295,15 +486,14 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0.9);
-            background: white;
+            transform: translate(-50%, -50%) scale(0.94);
+            background: #ffffff;
             border-radius: 16px;
-            width: 90%;
-            max-width: 800px;
-            max-height: 90vh;
+            width: min(560px, 92vw);
+            max-height: 85vh;
             overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 24px 48px rgba(15, 23, 42, 0.14);
+            transition: transform 0.25s ease;
         }
 
         .modal.show .modal-content {
@@ -311,49 +501,50 @@
         }
 
         .modal-header {
-            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
-            color: white;
-            padding: 20px 30px;
+            background: #ffffff;
+            color: #1b1f24;
+            padding: 28px 32px 12px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
+            border-bottom: 1px solid #e8ebf0;
         }
 
         .modal-title {
-            font-size: 1.5rem;
+            font-size: 1.35rem;
             font-weight: 600;
             margin: 0;
         }
 
         .modal-subtitle {
-            font-size: 1rem;
-            opacity: 0.8;
-            margin-top: 4px;
+            font-size: 0.95rem;
+            color: #6c7280;
+            margin-top: 6px;
         }
 
         .modal-close {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            font-size: 24px;
+            background: transparent;
+            border: 1px solid #d4d8de;
+            color: #374151;
+            font-size: 20px;
             cursor: pointer;
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s ease;
+            transition: background 0.2s ease, border-color 0.2s ease;
         }
 
         .modal-close:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.05);
+            background: #f2f4f7;
+            border-color: #c2c8d0;
         }
 
         .modal-body {
-            padding: 30px;
-            max-height: calc(90vh - 100px);
+            padding: 28px 32px;
+            max-height: calc(85vh - 120px);
             overflow-y: auto;
         }
 
@@ -365,11 +556,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
+            background: rgba(15, 23, 42, 0.45);
+            backdrop-filter: blur(2px);
             z-index: 3000;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.25s ease;
         }
 
         .pdf-viewer-modal.show {
@@ -378,18 +569,18 @@
 
         .pdf-viewer-content {
             position: absolute;
-            top: 3%;
-            left: 3%;
-            width: 94%;
-            height: 94%;
-            background: white;
+            top: 4%;
+            left: 4%;
+            width: 92%;
+            height: 92%;
+            background: #ffffff;
             border-radius: 16px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 30px 100px rgba(0,0,0,0.5);
-            transform: scale(0.95);
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 24px 56px rgba(15, 23, 42, 0.18);
+            transform: scale(0.96);
+            transition: transform 0.25s ease;
         }
 
         .pdf-viewer-modal.show .pdf-viewer-content {
@@ -397,13 +588,13 @@
         }
 
         .pdf-viewer-header {
-            background: linear-gradient(135deg, #23302D 0%, #2a3b37 100%);
-            color: white;
-            padding: 20px 30px;
+            background: #ffffff;
+            color: #1b1f24;
+            padding: 20px 28px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid #e8ebf0;
         }
 
         .pdf-viewer-title {
@@ -421,24 +612,23 @@
         }
 
         .pdf-viewer-close {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
+            background: transparent;
+            border: 1px solid #d4d8de;
+            color: #374151;
             font-size: 20px;
             cursor: pointer;
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.2s ease;
+            transition: background 0.2s ease, border-color 0.2s ease;
         }
 
         .pdf-viewer-close:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
+            background: #f2f4f7;
+            border-color: #c2c8d0;
         }
 
         .pdf-viewer-body {
@@ -446,13 +636,15 @@
             display: flex;
             min-height: 0;
             overflow: hidden;
+            background: #f6f7f9;
         }
 
         .pdf-panel {
             flex: 1;
-            border-right: 1px solid #e5e7eb;
+            border-right: 1px solid #e3e7ed;
             display: flex;
             flex-direction: column;
+            background: #ffffff;
         }
 
         .pdf-panel:last-child {
@@ -460,25 +652,25 @@
         }
 
         .pdf-panel-header {
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            padding: 16px 24px;
-            border-bottom: 2px solid #e2e8f0;
-            font-size: 1rem;
+            background: #fbfcfd;
+            padding: 18px 24px;
+            border-bottom: 1px solid #e8ebf0;
+            font-size: 0.95rem;
             font-weight: 600;
-            color: #1e293b;
+            color: #1f2733;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .pdf-panel-header.original {
-            background: linear-gradient(135deg, #23302D 0%, #2a3b37 100%);
-            color: white;
+            background: #fbfcfd;
+            color: #1f2733;
         }
 
         .pdf-panel-header.fields {
-            background: linear-gradient(135deg, #395159 0%, #42575f 100%);
-            color: white;
+            background: #fbfcfd;
+            color: #1f2733;
         }
 
         .pdf-frame {
@@ -492,7 +684,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: #fafbfc;
+            background: #ffffff;
             min-height: 0;
             overflow: hidden;
         }
@@ -503,20 +695,15 @@
             overflow-y: auto;
             overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
-            background: white;
-            margin: 8px;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            min-height: 0;
-            height: 100%;
+            background: #ffffff;
         }
 
         .field-section {
             margin-bottom: 16px;
-            background: #f8fafc;
-            border-radius: 8px;
-            padding: 12px;
-            border: 1px solid #e2e8f0;
+            background: #f6f7f9;
+            border-radius: 10px;
+            padding: 16px;
+            border: 1px solid #e3e7ed;
         }
 
         .field-section:last-child {
@@ -525,66 +712,68 @@
 
         /* Tradesperson Quick Review Section */
         .tradesperson-quick-review {
-            background: linear-gradient(135deg, #395159 0%, #23302D 100%);
-            border-radius: 12px;
-            border: 2px solid #935430;
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #e3e7ed;
             margin-bottom: 24px;
-            box-shadow: 0 4px 12px rgba(147, 84, 48, 0.15);
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.05);
         }
 
         .job-header {
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            padding: 20px;
-            border-bottom: 1px solid #e2e8f0;
-            background: linear-gradient(135deg, #23302D 0%, #2a3b37 100%);
-            color: white;
-            border-radius: 10px 10px 0 0;
+            gap: 12px;
+            padding: 24px;
+            border-bottom: 1px solid #e8ebf0;
+            background: transparent;
+            color: inherit;
+            border-radius: 16px 16px 0 0;
         }
 
         .job-header .job-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-            color: white;
+            font-size: 1.35rem;
+            font-weight: 600;
+            text-shadow: none;
+            color: #1b1f24;
         }
 
         .job-header .job-reference {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: #f2f4f7;
+            color: #1b1f24;
+            border: 1px solid #e3e7ed;
         }
 
         .job-header .job-description-summary {
-            color: rgba(255, 255, 255, 0.95);
-            font-size: 1rem;
+            color: #5e6470;
+            font-size: 0.95rem;
             font-weight: 500;
         }
 
         .urgency-badge {
             padding: 6px 12px;
-            border-radius: 20px;
+            border-radius: 999px;
             font-size: 0.75rem;
-            font-weight: 700;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
+            background: #f2f4f7;
+            color: #3b4251;
         }
 
         .urgency-badge.urgency-critical {
-            background: #ef4444;
-            color: white;
-            animation: pulse 2s infinite;
+            background: #fbeaea;
+            color: #c03a2b;
+            animation: none;
         }
 
         .urgency-badge.urgency-urgent {
-            background: #f97316;
-            color: white;
+            background: #fff2db;
+            color: #b25612;
         }
 
         .urgency-badge.urgency-standard {
-            background: #22c55e;
-            color: white;
+            background: #e6f4ea;
+            color: #2f6b3c;
         }
 
         @keyframes pulse {
@@ -599,18 +788,18 @@
         }
 
         .urgency-label {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             font-weight: 600;
-            color: rgba(255, 255, 255, 0.9);
+            color: #5e6470;
         }
 
         .urgency-select {
             padding: 8px 12px;
-            border: 2px solid #d1d5db;
+            border: 1px solid #d7dbe1;
             border-radius: 8px;
-            background: white;
+            background: #ffffff;
             font-size: 0.9rem;
-            font-weight: 600;
+            font-weight: 500;
             color: #1f2937;
             cursor: pointer;
             min-width: 120px;
@@ -618,8 +807,8 @@
 
         .urgency-select:focus {
             outline: none;
-            border-color: #6366f1;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            border-color: #9aa0aa;
+            box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.25);
         }
 
         .urgency-details {
@@ -629,28 +818,28 @@
         .urgency-explanation {
             padding: 12px 16px;
             border-radius: 8px;
-            font-size: 0.85rem;
-            line-height: 1.4;
-            border-left: 4px solid;
-            transition: all 0.3s ease;
+            font-size: 0.82rem;
+            line-height: 1.5;
+            border-left: 3px solid;
+            transition: background 0.2s ease;
         }
 
         .urgency-explanation.critical {
-            background: #fef2f2;
-            border-left-color: #ef4444;
+            background: #fceeee;
+            border-left-color: #e14c3d;
             color: #7f1d1d;
         }
 
         .urgency-explanation.urgent {
-            background: #fff7ed;
-            border-left-color: #f97316;
-            color: #9a3412;
+            background: #fff5e6;
+            border-left-color: #f3a347;
+            color: #8b3b11;
         }
 
         .urgency-explanation.standard {
-            background: #f0fdf4;
-            border-left-color: #22c55e;
-            color: #15803d;
+            background: #edf7f0;
+            border-left-color: #3e8b56;
+            color: #25603a;
         }
 
         .job-summary {
@@ -688,43 +877,42 @@
         .decision-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            padding: 20px;
+            gap: 16px;
+            padding: 24px;
         }
 
         .decision-card {
-            background: white;
-            border-radius: 8px;
-            padding: 16px;
-            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid #e3e7ed;
             display: flex;
             align-items: center;
             gap: 12px;
-            transition: all 0.2s ease;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         .decision-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #c5cad1;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
         }
 
         .decision-card.money {
-            border-left: 4px solid #10b981;
+            border-left: 3px solid #2f855a;
         }
 
         .decision-card.money.confirmed {
-            border-left: 4px solid #10b981;
-            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            background: #f0f7f2;
         }
 
         .decision-card.money.estimated {
-            border-left: 4px solid #f59e0b;
-            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border-left-color: #d08928;
+            background: #fff6e7;
         }
 
         .decision-card.money.unscoped {
-            border-left: 4px solid #6b7280;
-            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+            border-left-color: #8e95a3;
+            background: #f6f7f9;
         }
 
         .decision-card.money.unscoped .decision-value {
@@ -784,12 +972,12 @@
         }
 
         .job-description-preview {
-            padding: 16px 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(255, 255, 255, 0.08);
+            padding: 18px 24px;
+            border-top: 1px solid #e8ebf0;
+            background: #fbfcfd;
             font-size: 0.9rem;
-            line-height: 1.4;
-            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.5;
+            color: #4b5563;
         }
 
         .decision-actions {
@@ -1157,15 +1345,15 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
+            background: #e7f3ed;
+            color: #1f5c3d;
             padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
+            border-radius: 999px;
+            font-size: 0.72rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 4px rgba(16, 185, 129, 0.2);
+            letter-spacing: 0.4px;
+            border: 1px solid #cde2d7;
             margin-left: auto;
             margin-right: 12px;
         }
@@ -1242,14 +1430,16 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #395159 0%, #23302D 100%);
+            background: #1b1f24;
             color: white;
-            box-shadow: 0 4px 12px rgba(57, 81, 89, 0.3);
+            border: 1px solid #1b1f24;
+            box-shadow: none;
         }
 
         .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(57, 81, 89, 0.4);
+            background: #2c3137;
+            border-color: #2c3137;
+            transform: none;
         }
 
         .btn-icon {
@@ -1261,22 +1451,20 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            background: #1b1f24;
             color: white;
             padding: 8px 16px;
-            border-radius: 20px;
+            border-radius: 999px;
             font-size: 0.8rem;
             font-weight: 600;
-            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 6px 18px rgba(17, 24, 39, 0.16);
             opacity: 0;
-            transition: all 0.3s ease;
+            transition: opacity 0.2s ease;
             z-index: 1001;
-            animation: pulse 2s infinite;
         }
 
         .changes-indicator.show {
             opacity: 1;
-            transform: translateX(-50%);
         }
 
         @keyframes pulse {
@@ -1557,21 +1745,61 @@
     <!-- Background Content -->
     <div class="background-content" id="backgroundContent">
         <div class="page-header">
-            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
-                <h1 class="main-title" style="margin: 0;">Work Order Converter</h1>
-                <span style="
-                    background: linear-gradient(135deg, #eb6f47, #d63439);
-                    color: white;
-                    padding: 0.25rem 0.75rem;
-                    border-radius: 20px;
-                    font-size: 0.75rem;
-                    font-weight: bold;
-                    text-transform: uppercase;
-                    letter-spacing: 0.5px;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-                ">Admin Only</span>
+            <div class="page-header-top">
+                <div class="page-header-heading">
+                    <h1 class="main-title" style="margin: 0;">Work Order Converter</h1>
+                    <span style="
+                        background: #1b1f24;
+                        color: white;
+                        padding: 0.25rem 0.75rem;
+                        border-radius: 999px;
+                        font-size: 0.72rem;
+                        font-weight: 600;
+                        letter-spacing: 0.4px;
+                    ">Admin Only</span>
+                </div>
+                <div class="header-actions">
+                    <button class="back-link" id="backToAdminBtn" type="button">← Back to admin</button>
+                </div>
             </div>
             <p class="subtitle">Convert third-party PDFs to ServiceM8 work orders</p>
+        </div>
+
+        <div class="pdf-controls">
+            <div class="control-group">
+                <span class="control-label">Urgency</span>
+                <div class="control-options" data-filter="urgency">
+                    <button type="button" class="control-option is-active" data-value="all">All</button>
+                    <button type="button" class="control-option" data-value="critical">Critical</button>
+                    <button type="button" class="control-option" data-value="urgent">Urgent</button>
+                    <button type="button" class="control-option" data-value="standard">Standard</button>
+                </div>
+            </div>
+            <div class="control-group">
+                <span class="control-label">Type</span>
+                <div class="control-options" data-filter="type">
+                    <button type="button" class="control-option is-active" data-value="all">All</button>
+                    <button type="button" class="control-option" data-value="work-order">Work Orders</button>
+                    <button type="button" class="control-option" data-value="quote">Quote Requests</button>
+                </div>
+            </div>
+            <div class="control-group">
+                <span class="control-label">Status</span>
+                <div class="control-options" data-filter="status">
+                    <button type="button" class="control-option is-active" data-value="all">All</button>
+                    <button type="button" class="control-option" data-value="review">Needs review</button>
+                    <button type="button" class="control-option" data-value="created">Job created</button>
+                    <button type="button" class="control-option" data-value="declined">Request declined</button>
+                </div>
+            </div>
+            <div class="control-group">
+                <span class="control-label">Sort</span>
+                <select id="pdfSortSelect" class="control-select">
+                    <option value="priority">Priority (urgency → newest)</option>
+                    <option value="newest">Newest first</option>
+                    <option value="oldest">Oldest first</option>
+                </select>
+            </div>
         </div>
 
 
@@ -1653,6 +1881,82 @@
         const pdfViewerClose = document.getElementById('pdfViewerClose');
         const pdfViewerTitle = document.getElementById('pdfViewerTitle');
         const originalPdfFrame = document.getElementById('originalPdfFrame');
+        const backToAdminBtn = document.getElementById('backToAdminBtn');
+        const filterGroups = document.querySelectorAll('.control-options');
+        const sortSelect = document.getElementById('pdfSortSelect');
+
+        const filters = {
+            urgency: 'all',
+            type: 'all',
+            status: 'all'
+        };
+
+        let currentSort = 'priority';
+
+        function resolveAdminDashboardUrl() {
+            const { origin, pathname } = window.location;
+            const segments = pathname.split('/');
+            if (segments.length) {
+                segments.pop();
+            }
+
+            let basePath = segments.join('/');
+
+            if (!basePath || basePath === '') {
+                basePath = '/';
+            }
+
+            if (!basePath.startsWith('/')) {
+                basePath = `/${basePath}`;
+            }
+
+            if (!basePath.endsWith('/')) {
+                basePath = `${basePath}/`;
+            }
+
+            return `${origin}${basePath}#/admin/dashboard`;
+        }
+
+        function redirectToAdminDashboard() {
+            const adminUrl = resolveAdminDashboardUrl();
+            window.location.href = adminUrl;
+        }
+
+        if (backToAdminBtn) {
+            backToAdminBtn.addEventListener('click', redirectToAdminDashboard);
+        }
+
+        filterGroups.forEach(group => {
+            group.addEventListener('click', (event) => {
+                const button = event.target.closest('.control-option');
+                if (!button) {
+                    return;
+                }
+
+                const filterType = group.getAttribute('data-filter');
+                const value = button.getAttribute('data-value');
+
+                if (!filterType || !value) {
+                    return;
+                }
+
+                if (filters[filterType] === value) {
+                    return;
+                }
+
+                filters[filterType] = value;
+                renderFilterState();
+                generatePdfHistory();
+            });
+        });
+
+        if (sortSelect) {
+            sortSelect.addEventListener('change', (event) => {
+                const value = event.target.value;
+                currentSort = value;
+                generatePdfHistory();
+            });
+        }
 
 
         // Reference work orders for production use
@@ -1758,7 +2062,7 @@
                 pages: 3,
                 confidence: 88,
                 processedAt: new Date(Date.now() - 5 * 60 * 60 * 1000),
-                status: 'processing',
+                status: 'created',
                 urgency: 'Urgent',
                 originalUrl: "./pdfs/PO8057-BU01-001_upgraded.pdf",
                 parsedFields: {
@@ -2089,7 +2393,7 @@
                 pages: 2,
                 confidence: 92,
                 processedAt: new Date(Date.now() - 18 * 60 * 60 * 1000),
-                status: 'committed',
+                status: 'created',
                 urgency: 'Standard',
                 originalUrl: "./pdfs/QR11604-BU01-001_66 Wollombi Rd Cessnock NSW 2325.pdf",
                 parsedFields: {
@@ -2266,6 +2570,36 @@
             return 'standard';
         }
 
+        function tidyText(value) {
+            if (typeof value !== 'string') {
+                return value;
+            }
+            return value.replace(/\s+/g, ' ').trim();
+        }
+
+        function escapeHtml(value) {
+            if (value === undefined || value === null) {
+                return '';
+            }
+            return String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function shortenText(value, limit = 140) {
+            if (typeof value !== 'string') {
+                return value;
+            }
+            const trimmed = value.trim();
+            if (trimmed.length <= limit) {
+                return trimmed;
+            }
+            return `${trimmed.slice(0, limit - 1).trim()}…`;
+        }
+
         function formatRelativeDate(date) {
             const now = new Date();
             const diffInHours = Math.round((now - date) / (1000 * 60 * 60));
@@ -2287,28 +2621,105 @@
             return `${diffInMonths} months ago`;
         }
 
-        // Simple sorting by urgency and time
-        function getSortedPdfs() {
-            return [...referenceWorkOrders].sort((a, b) => {
-                const urgencyOrder = { 'Critical': 3, 'Urgent': 2, 'Standard': 1 };
-                const urgencyDiff = (urgencyOrder[b.urgency] || 0) - (urgencyOrder[a.urgency] || 0);
-                if (urgencyDiff !== 0) return urgencyDiff;
-                // Secondary sort by time received (newest first for same urgency)
-                return new Date(b.processedAt) - new Date(a.processedAt);
+        function renderFilterState() {
+            filterGroups.forEach(group => {
+                const filterType = group.getAttribute('data-filter');
+                const activeValue = filters[filterType];
+
+                group.querySelectorAll('.control-option').forEach(button => {
+                    if (button.getAttribute('data-value') === activeValue) {
+                        button.classList.add('is-active');
+                    } else {
+                        button.classList.remove('is-active');
+                    }
+                });
+            });
+
+            if (sortSelect) {
+                sortSelect.value = currentSort;
+            }
+        }
+
+        function getDocTypeKey(pdf) {
+            const documentType = pdf.parsedFields?.["Work Order Details"]?.document_type?.value || '';
+            const normalized = documentType.toLowerCase();
+            if (normalized.includes('quote')) {
+                return 'quote';
+            }
+            if (normalized.includes('work')) {
+                return 'work-order';
+            }
+            return 'general';
+        }
+
+        function getProcessedTimestamp(pdf) {
+            if (!pdf.processedAt) {
+                return 0;
+            }
+
+            const date = pdf.processedAt instanceof Date ? pdf.processedAt : new Date(pdf.processedAt);
+            const time = date.getTime();
+            return Number.isFinite(time) ? time : 0;
+        }
+
+        function normalizeStatus(value) {
+            const raw = (value || 'review').toLowerCase();
+            if (raw === 'processing' || raw === 'committed' || raw === 'sent' || raw === 'created') {
+                return 'created';
+            }
+            if (raw === 'declined' || raw === 'request declined' || raw === 'rejected') {
+                return 'declined';
+            }
+            return 'review';
+        }
+
+        function applyFilters(pdfs) {
+            return pdfs.filter(pdf => {
+                const urgency = normalizeUrgency(pdf.urgency);
+                const docType = getDocTypeKey(pdf);
+                const normalizedStatus = normalizeStatus(pdf.status);
+
+                if (filters.urgency !== 'all' && urgency !== filters.urgency) {
+                    return false;
+                }
+
+                if (filters.type !== 'all' && docType !== filters.type) {
+                    return false;
+                }
+
+                if (filters.status !== 'all' && normalizedStatus !== filters.status) {
+                    return false;
+                }
+
+                return true;
             });
         }
 
-        function getUrgencyColor(urgency) {
-            switch (urgency) {
-                case 'Critical':
-                    return '#ef4444'; // Red
-                case 'Urgent':
-                    return '#f59e0b'; // Amber
-                case 'Standard':
-                    return '#6b7280'; // Gray
-                default:
-                    return '#6b7280'; // Gray
-            }
+        function sortPdfs(pdfs) {
+            const urgencyOrder = { critical: 3, urgent: 2, standard: 1 };
+            const copies = [...pdfs];
+
+            return copies.sort((a, b) => {
+                const urgencyA = normalizeUrgency(a.urgency);
+                const urgencyB = normalizeUrgency(b.urgency);
+                const timeA = getProcessedTimestamp(a);
+                const timeB = getProcessedTimestamp(b);
+
+                switch (currentSort) {
+                    case 'newest':
+                        return timeB - timeA;
+                    case 'oldest':
+                        return timeA - timeB;
+                    case 'priority':
+                    default: {
+                        const urgencyDiff = (urgencyOrder[urgencyB] || 0) - (urgencyOrder[urgencyA] || 0);
+                        if (urgencyDiff !== 0) {
+                            return urgencyDiff;
+                        }
+                        return timeB - timeA;
+                    }
+                }
+            });
         }
 
         function generatePdfHistory() {
@@ -2326,83 +2737,128 @@
             }
 
             // Get sorted PDFs (Critical > Urgent > Standard, then by time)
-            const pdfsToShow = getSortedPdfs();
+            const pdfsToShow = sortPdfs(applyFilters(referenceWorkOrders));
 
             container.innerHTML = '';
+
+            if (pdfsToShow.length === 0) {
+                container.innerHTML = '<div style="padding: 32px; text-align: center; color: #6b7280; border: 1px dashed #dfe3e8; border-radius: 12px;">No documents match the current filters.</div>';
+                return;
+            }
 
             pdfsToShow.forEach((pdf, index) => {
                 const row = document.createElement('div');
                 const urgencyKey = normalizeUrgency(pdf.urgency);
+                const normalizedStatusKey = normalizeStatus(pdf.status);
 
-                row.className = `pdf-row urgency-${urgencyKey} status-${pdf.status}`;
+                row.className = `pdf-row urgency-${urgencyKey} status-${normalizedStatusKey}`;
                 row.setAttribute('data-index', index.toString());
 
                 const statusLabels = {
-                    'review': 'Needs review',
-                    'processing': 'Converting',
-                    'committed': 'Sent to ServiceM8'
+                    review: 'Needs review',
+                    created: 'Job created',
+                    declined: 'Request declined'
                 };
 
-                const statusLabel = statusLabels[pdf.status] || 'Processing';
+                const statusLabel = statusLabels[normalizedStatusKey] || 'Needs review';
 
-                // Extract job information from parsed fields if available
-                let jobHeader = '';
-                if (pdf.parsedFields) {
-                    const workOrder = pdf.parsedFields["Work Order Details"] || {};
-                    const sourceCompany = pdf.parsedFields["Source Company"] || {};
+                const parsedFields = pdf.parsedFields || {};
+                const workOrder = parsedFields["Work Order Details"] || {};
+                const sourceCompanyFields = parsedFields["Source Company"] || {};
+                const jobLocation = parsedFields["Job Location"] || {};
 
-                    // Get document type and company
-                    const documentType = workOrder.document_type?.value || '';
-                    const companyName = sourceCompany.company_name?.value || '';
-                    const reference = workOrder.order_number?.value || workOrder.reference?.value || '';
-
-                    if (documentType && companyName) {
-                        jobHeader = `
-                            <div class="pdf-row-header">
-                                <span class="company-name">${companyName}</span>
-                                ${reference ? `<span class="job-reference">Ref: ${reference}</span>` : ''}
-                            </div>
-                        `;
+                const documentTypeRaw = workOrder.document_type?.value || '';
+                let docTypeKey = 'general';
+                if (documentTypeRaw) {
+                    const lowered = documentTypeRaw.toLowerCase();
+                    if (lowered.includes('quote')) {
+                        docTypeKey = 'quote';
+                    } else if (lowered.includes('work')) {
+                        docTypeKey = 'work-order';
                     }
                 }
 
-                // Create document type icon
-                let docIcon = '📄';
-                let iconClass = 'general';
-                if (pdf.parsedFields) {
-                    const workOrder = pdf.parsedFields["Work Order Details"] || {};
-                    const documentType = workOrder.document_type?.value || '';
+                const docTypeRaw = documentTypeRaw || (docTypeKey === 'quote' ? 'Quote Request' : docTypeKey === 'work-order' ? 'Work Order' : 'Document');
+                const docTypeDisplay = tidyText(docTypeRaw)?.toUpperCase() || 'DOCUMENT';
+                const docTypeClass = `doc-type-${docTypeKey}`;
 
-                    if (documentType.toLowerCase().includes('quote')) {
-                        docIcon = 'Q';
-                        iconClass = 'quote';
-                    } else if (documentType.toLowerCase().includes('work')) {
-                        docIcon = 'W';
-                        iconClass = 'work-order';
-                    }
+                const urgencyLabel = urgencyKey.charAt(0).toUpperCase() + urgencyKey.slice(1);
+                const urgencyIndicator = `<span class="urgency-indicator ${urgencyKey}"><span class="urgency-dot"></span>${escapeHtml(urgencyLabel)}</span>`;
+
+                const identifiedCompany = parsedFields ? identifyCompany(parsedFields) : null;
+                const companyNameRaw = tidyText(identifiedCompany?.name || sourceCompanyFields.company_name?.value || '');
+                const displayCompanyName = companyNameRaw || 'Unassigned company';
+
+                const reference = tidyText(workOrder.order_number?.value || workOrder.reference?.value || '');
+                const referenceLine = reference ? `<div class="company-ref">Ref: ${escapeHtml(reference)}</div>` : '';
+
+                const summary = generateJobSummary(workOrder, sourceCompanyFields, parsedFields);
+                const jobScope = tidyText(summary?.description || '') || '';
+                const jobSummaryLine = jobScope ? `<div class="job-summary">${escapeHtml(jobScope)}</div>` : '';
+
+                const processedAt = pdf.processedAt ? new Date(pdf.processedAt) : null;
+                const pagesLabel = Number.isFinite(pdf.pages) ? `${pdf.pages} ${pdf.pages === 1 ? 'page' : 'pages'}` : '';
+                const uploadedRelative = processedAt ? `uploaded ${formatRelativeDate(processedAt)}` : '';
+                const uploadedAbsolute = processedAt ? formatDateTime(processedAt) : '';
+                const metaSegments = [];
+                if (pagesLabel) {
+                    metaSegments.push(pagesLabel);
                 }
+                const uploadedSegments = [];
+                if (uploadedRelative) {
+                    uploadedSegments.push(uploadedRelative);
+                }
+                if (uploadedAbsolute) {
+                    uploadedSegments.push(uploadedAbsolute);
+                }
+                if (uploadedSegments.length) {
+                    metaSegments.push(uploadedSegments.join(' • '));
+                }
+                const fileMetaLine = metaSegments.join(' • ');
 
+                const locationAddress = tidyText(jobLocation.site_address?.value || '');
+                const locationFallback = tidyText([
+                    jobLocation.site_city?.value,
+                    jobLocation.site_state?.value
+                ].filter(Boolean).join(', '));
+                const locationLabel = locationAddress || locationFallback || '';
+                const locationLine = locationLabel ? `<div class="job-location">${escapeHtml(locationLabel)}</div>` : '';
+                const shouldShowDivider = Boolean(jobSummaryLine || locationLine);
 
-                // Get urgency color for the divider line
-                const urgencyColor = getUrgencyColor(pdf.urgency);
+                const confidenceScore = Number.isFinite(pdf.confidence) ? `${Math.round(pdf.confidence)}%` : '–';
+
+                const docTypeHeading = `
+                    <div class="pdf-card-heading">
+                        <span class="doc-type-label ${docTypeClass}">${escapeHtml(docTypeDisplay)}${displayCompanyName ? ': ' : ''}</span>
+                        ${displayCompanyName ? `<span class="heading-company">${escapeHtml(displayCompanyName)}</span>` : ''}
+                    </div>
+                `;
 
                 row.innerHTML = `
-                    <div class="pdf-row-content">
-                        <div class="pdf-row-icon ${iconClass}">${docIcon}</div>
-                        <div class="urgency-divider" style="background-color: ${urgencyColor}"></div>
-                        <div class="pdf-row-info">
-                            ${jobHeader}
-                            <div class="pdf-row-title">${pdf.name}</div>
-                            <div class="pdf-row-meta">
-                                <span><span class="status-dot ${pdf.status}"></span>${statusLabel}</span>
-                                <span>${pdf.pages} pages</span>
-                                <div class="confidence-scale">
-                                    ${generateConfidenceScale(pdf.confidence)}
-                                </div>
-                                <span>Processed ${formatRelativeDate(pdf.processedAt)}</span>
-                            </div>
+                    <div class="pdf-card-top">
+                        <div class="pdf-card-top-left">
+                            ${urgencyIndicator}
                         </div>
-                        <div class="chevron">›</div>
+                        <span class="status-chip"><span class="status-dot ${normalizedStatusKey}"></span>${escapeHtml(statusLabel)}</span>
+                    </div>
+                    <div class="pdf-card-body">
+                        <div class="pdf-card-main">
+                            ${docTypeHeading}
+                            ${referenceLine}
+                            ${jobSummaryLine}
+                            ${locationLine}
+                            ${shouldShowDivider ? '<div class="info-divider"></div>' : ''}
+                            <div class="pdf-file-name">${escapeHtml(pdf.name || 'Untitled document')}</div>
+                            ${fileMetaLine ? `<div class="pdf-file-meta">${escapeHtml(fileMetaLine)}</div>` : ''}
+                        </div>
+                    </div>
+                    <div class="pdf-row-footer">
+                        <div class="pdf-row-footer-left">
+                            <span class="meta-label">Confidence</span>
+                            <div class="confidence-scale">${generateConfidenceScale(pdf.confidence)}</div>
+                            <span class="confidence-score">${escapeHtml(confidenceScore)}</span>
+                        </div>
+                        <span class="more-link">Open details</span>
                     </div>
                 `;
 
@@ -3645,6 +4101,7 @@
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', () => {
+            renderFilterState();
             generatePdfHistory();
         });
     </script>
