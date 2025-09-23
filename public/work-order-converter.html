@@ -257,6 +257,15 @@
             background: #c026d3;
         }
 
+        .pdf-row.status-info-requested::before {
+            background: #f59e0b;
+        }
+
+        .pdf-row.overdue {
+            border-color: #f87171;
+            box-shadow: 0 6px 18px rgba(248, 113, 113, 0.2);
+        }
+
         .pdf-card-top {
             display: flex;
             align-items: center;
@@ -362,12 +371,23 @@
             word-break: break-word;
         }
 
+        .pdf-card-scope {
+            font-size: 0.9rem;
+            color: #1f2937;
+            font-weight: 500;
+        }
+
         .pdf-file-meta {
             font-size: 0.82rem;
             color: #6b7280;
             display: inline-flex;
             flex-wrap: wrap;
             gap: 0.4rem;
+        }
+
+        .meta-overdue {
+            color: #b91c1c;
+            font-weight: 600;
         }
 
         .pdf-company {
@@ -380,6 +400,239 @@
             font-size: 0.82rem;
             color: #6b7280;
             margin-top: 2px;
+        }
+
+        /* Quick Review refresh */
+        .quick-review-card {
+            background: #ffffff;
+            border: 1px solid #dfe3e8;
+            border-radius: 18px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .quick-review-section {
+            margin-bottom: 20px;
+        }
+
+        .quick-review-actions-stick {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: linear-gradient(180deg, rgba(255,255,255,1) 70%, rgba(255,255,255,0) 100%);
+            padding-bottom: 12px;
+        }
+
+        .quick-review-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .quick-review-heading {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .quick-review-type {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .quick-review-type.work-order { color: #1f2a37; }
+        .quick-review-type.quote { color: #1d4ed8; }
+        .quick-review-type.general { color: #374151; }
+
+        .quick-review-title {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .quick-review-ref {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .quick-review-urgency {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: flex-end;
+            text-align: right;
+            min-width: 200px;
+        }
+
+        .quick-review-urgency-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #6b7280;
+        }
+
+        .quick-review-scope {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #1f2937;
+            line-height: 1.5;
+        }
+
+        .quick-review-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            font-size: 0.82rem;
+            color: #64748b;
+        }
+
+        .quick-review-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
+
+        .quick-metric {
+            background: #f6f7f9;
+            border: 1px solid #e3e7ed;
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .quick-metric .metric-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #6b7280;
+        }
+
+        .quick-metric .metric-value {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .quick-metric .metric-hint {
+            font-size: 0.78rem;
+            color: #94a3b8;
+        }
+
+        .quick-review-note {
+            padding: 14px 16px;
+            border-radius: 12px;
+            font-size: 0.82rem;
+            line-height: 1.5;
+        }
+
+        .quick-review-note.critical { background: #fef2f2; color: #7f1d1d; }
+        .quick-review-note.urgent { background: #fff6e6; color: #8b3b11; }
+        .quick-review-note.standard { background: #eef6f1; color: #25603a; }
+        .quick-review-note.info-requested { background: #fff6e6; color: #b45309; }
+
+        .quick-review-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .quick-action {
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .quick-action.decline {
+            background: #fef2f2;
+            color: #b91c1c;
+            border-color: #fecaca;
+        }
+
+        .quick-action.decline:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(185, 28, 28, 0.15);
+        }
+
+        .quick-action.create {
+            background: #0f172a;
+            color: #ffffff;
+        }
+
+        .quick-action.create:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.2);
+        }
+
+        .quick-action.info {
+            background: #fff6e6;
+            color: #b45309;
+            border-color: #fed7aa;
+        }
+
+        .quick-action.info:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(236, 153, 46, 0.18);
+        }
+
+        .quick-edit-toggle {
+            background: transparent;
+            border: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            padding: 6px 10px;
+        }
+
+        .quick-edit-toggle[disabled] {
+            cursor: not-allowed;
+            color: #94a3b8;
+        }
+
+        .quick-action.info {
+            background: #fff6e6;
+            color: #b45309;
+            border-color: #fed7aa;
+        }
+
+        .quick-action.info:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(236, 153, 46, 0.18);
+        }
+
+        .quick-edit-toggle {
+            background: transparent;
+            border: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            padding: 6px 10px;
+        }
+
+        .quick-edit-toggle[disabled] {
+            cursor: not-allowed;
+            color: #94a3b8;
         }
 
         .info-divider {
@@ -463,6 +716,7 @@
         .status-dot.review { background-color: #eb6f47; }
         .status-dot.created { background-color: #2563eb; }
         .status-dot.declined { background-color: #c026d3; }
+        .status-dot.info-requested { background-color: #f59e0b; }
         /* Modal Styles */
         .modal {
             display: none;
@@ -1271,6 +1525,14 @@
             border-color: #ef4444;
         }
 
+        .field-input.read-only,
+        .field-input.read-only:focus {
+            background: #f8fafc;
+            border-color: transparent;
+            color: #6b7280;
+            cursor: not-allowed;
+        }
+
         .field-textarea {
             resize: vertical;
             min-height: 80px;
@@ -1341,26 +1603,11 @@
             cursor: pointer !important;
         }
 
-        .servicem8-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #e7f3ed;
-            color: #1f5c3d;
-            padding: 4px 10px;
-            border-radius: 999px;
-            font-size: 0.72rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
-            border: 1px solid #cde2d7;
+        .panel-status {
             margin-left: auto;
-            margin-right: 12px;
-        }
-
-        .servicem8-badge svg {
-            width: 14px;
-            height: 14px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #475569;
         }
 
         .field-confidence {
@@ -1789,6 +2036,7 @@
                     <button type="button" class="control-option is-active" data-value="all">All</button>
                     <button type="button" class="control-option" data-value="review">Needs review</button>
                     <button type="button" class="control-option" data-value="created">Job created</button>
+                    <button type="button" class="control-option" data-value="info-requested">Info requested</button>
                     <button type="button" class="control-option" data-value="declined">Request declined</button>
                 </div>
             </div>
@@ -1847,23 +2095,14 @@
                 </div>
                 <div class="parsed-fields-panel">
                     <div class="pdf-panel-header fields">
-                        📝 ServiceM8 Work Order Fields
-                        <div class="servicem8-badge">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M9 12l2 2 4-4"/>
-                                <circle cx="12" cy="12" r="9"/>
-                            </svg>
-                            Ready for ServiceM8
-                        </div>
+                        📝 Work Order Fields
+                        <span class="panel-status" id="panelStatusBadge"></span>
                     </div>
                     <div class="parsed-fields-content" id="parsedFieldsContent">
                         <!-- Fields will be dynamically generated here -->
                     </div>
                     <div class="field-actions">
-                        <button class="btn btn-primary" id="saveFieldsBtn">
-                            <span class="btn-icon">🚀</span>
-                            Create Job in ServiceM8
-                        </button>
+                        <button class="btn btn-primary" id="saveFieldsBtn">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -1885,10 +2124,22 @@
         const filterGroups = document.querySelectorAll('.control-options');
         const sortSelect = document.getElementById('pdfSortSelect');
 
+        const STATUS_STORAGE_KEY = 'worksight-statuses-v1';
+        let statusState = loadStatusState();
+        let currentEditMode = true;
+        let fieldInputs = [];
+
         const filters = {
             urgency: 'all',
             type: 'all',
             status: 'all'
+        };
+
+        const STATUS_LABELS = {
+            review: 'Needs review',
+            created: 'Job created',
+            'info-requested': 'Info requested',
+            declined: 'Request declined'
         };
 
         let currentSort = 'priority';
@@ -2473,6 +2724,64 @@
                 }
             }
         ];
+        referenceWorkOrders.forEach(applyStoredStatus);
+
+        function loadStatusState() {
+            if (typeof localStorage === 'undefined') {
+                return {};
+            }
+            try {
+                const raw = localStorage.getItem(STATUS_STORAGE_KEY);
+                return raw ? JSON.parse(raw) : {};
+            } catch (error) {
+                console.warn('Failed to load stored work order statuses.', error);
+                return {};
+            }
+        }
+
+        function saveStatusState() {
+            if (typeof localStorage === 'undefined') {
+                return;
+            }
+            try {
+                localStorage.setItem(STATUS_STORAGE_KEY, JSON.stringify(statusState));
+            } catch (error) {
+                console.warn('Failed to persist work order statuses.', error);
+            }
+        }
+
+        function getCurrentUserName() {
+            const user = window.currentUser?.name || window.currentUser?.email;
+            return user || 'Reviewer';
+        }
+
+        function getWorkOrderKey(pdf) {
+            const orderNumber = pdf?.parsedFields?.['Work Order Details']?.order_number?.value;
+            return orderNumber || pdf?.name || `pdf-${Math.random().toString(36).slice(2)}`;
+        }
+
+        function applyStoredStatus(pdf) {
+            const key = getWorkOrderKey(pdf);
+            const stored = statusState[key];
+            if (!stored) {
+                return pdf;
+            }
+
+            if (stored.status) {
+                pdf.status = stored.status;
+            }
+
+            if (stored.jobNumber && pdf?.parsedFields?.['ServiceM8 API Fields']?.generated_job_id) {
+                pdf.parsedFields['ServiceM8 API Fields'].generated_job_id.value = stored.jobNumber;
+            }
+
+            pdf.statusMeta = stored;
+            return pdf;
+        }
+
+        function applyStoredStatusToAll() {
+            referenceWorkOrders.forEach(applyStoredStatus);
+        }
 
         // Mini Client Table for Company Identification and Parsing Rules
         const clientCompanies = {
@@ -2667,6 +2976,9 @@
             if (raw === 'processing' || raw === 'committed' || raw === 'sent' || raw === 'created') {
                 return 'created';
             }
+            if (raw === 'info-requested' || raw === 'info requested' || raw === 'information requested') {
+                return 'info-requested';
+            }
             if (raw === 'declined' || raw === 'request declined' || raw === 'rejected') {
                 return 'declined';
             }
@@ -2737,7 +3049,7 @@
             }
 
             // Get sorted PDFs (Critical > Urgent > Standard, then by time)
-            const pdfsToShow = sortPdfs(applyFilters(referenceWorkOrders));
+        const pdfsToShow = sortPdfs(applyFilters(referenceWorkOrders));
 
             container.innerHTML = '';
 
@@ -2754,13 +3066,11 @@
                 row.className = `pdf-row urgency-${urgencyKey} status-${normalizedStatusKey}`;
                 row.setAttribute('data-index', index.toString());
 
-                const statusLabels = {
-                    review: 'Needs review',
-                    created: 'Job created',
-                    declined: 'Request declined'
-                };
-
-                const statusLabel = statusLabels[normalizedStatusKey] || 'Needs review';
+                const statusLabel = STATUS_LABELS[normalizedStatusKey] || STATUS_LABELS.review;
+                const statusMeta = pdf.statusMeta || statusState[getWorkOrderKey(pdf)];
+                if (statusMeta?.status === 'overdue') {
+                    row.classList.add('overdue');
+                }
 
                 const parsedFields = pdf.parsedFields || {};
                 const workOrder = parsedFields["Work Order Details"] || {};
@@ -2794,7 +3104,7 @@
 
                 const summary = generateJobSummary(workOrder, sourceCompanyFields, parsedFields);
                 const jobScope = tidyText(summary?.description || '') || '';
-                const jobSummaryLine = jobScope ? `<div class="job-summary">${escapeHtml(jobScope)}</div>` : '';
+                const jobSummaryLine = jobScope ? `<div class="pdf-card-scope">${escapeHtml(jobScope)}</div>` : '';
 
                 const processedAt = pdf.processedAt ? new Date(pdf.processedAt) : null;
                 const pagesLabel = Number.isFinite(pdf.pages) ? `${pdf.pages} ${pdf.pages === 1 ? 'page' : 'pages'}` : '';
@@ -2839,7 +3149,7 @@
                         <div class="pdf-card-top-left">
                             ${urgencyIndicator}
                         </div>
-                        <span class="status-chip"><span class="status-dot ${normalizedStatusKey}"></span>${escapeHtml(statusLabel)}</span>
+                        <span class="status-chip"><span class="status-dot ${normalizedStatusKey}"></span>${escapeHtml(statusLabel)}${summary?.jobNumber ? ` • <strong>${escapeHtml(summary.jobNumber)}</strong>` : ''}</span>
                     </div>
                     <div class="pdf-card-body">
                         <div class="pdf-card-main">
@@ -2888,9 +3198,21 @@
         function openPdfViewer(pdf) {
             currentPdfData = pdf;
 
-            // Set the title
+            // Set the title with document context
             if (pdfViewerTitle) {
-                pdfViewerTitle.textContent = pdf.name;
+                const parsedFields = pdf.parsedFields || {};
+                const workOrderFields = parsedFields["Work Order Details"] || {};
+                const sourceCompanyFields = parsedFields["Source Company"] || {};
+                const summary = generateJobSummary(workOrderFields, sourceCompanyFields, parsedFields);
+                const companyName = identifyCompany(parsedFields)?.name || sourceCompanyFields.company_name?.value;
+
+                if (summary && companyName) {
+                    pdfViewerTitle.textContent = `${summary.type || 'Document'} • ${companyName}`;
+                } else if (summary) {
+                    pdfViewerTitle.textContent = summary.type || pdf.name;
+                } else {
+                    pdfViewerTitle.textContent = pdf.name;
+                }
             }
 
             // Set the PDF source
@@ -2943,92 +3265,97 @@
             const quickReviewSection = document.createElement('div');
             quickReviewSection.className = 'quick-review-section';
 
-            // Determine urgency level and response requirements
-            const urgency = pdf.urgency || getCurrentUrgency(workOrder, parsedFields);
-            const urgencyInfo = getUrgencyInfo(urgency);
+            const urgencyRaw = (pdf.urgency || getCurrentUrgency(workOrder, parsedFields) || 'STANDARD').toUpperCase();
+            const urgencyKey = urgencyRaw.toLowerCase();
 
-            // Generate time constraints summary
-            const timeConstraints = generateTimeConstraints(workOrder, parsedFields);
-
-            // Calculate key metrics for quick decision
             const jobValueInfo = assessJobValue(workOrder);
             const explicitHours = extractExplicitHours(workOrder.job_description?.value);
             const jobEfficiency = calculateJobEfficiency(jobValueInfo, explicitHours);
             const travelDistance = estimateTravelDistance(location.site_address?.value);
-            const jobSummary = generateJobSummary(workOrder, sourceCompany, parsedFields);
-            const responseTimeInfo = calculateResponseTime(urgency, workOrder.date_issued?.value, pdf.processedAt);
+            const responseTimeInfo = calculateResponseTime(urgencyRaw, workOrder.date_issued?.value, pdf.processedAt);
+            const summary = generateJobSummary(workOrder, sourceCompany, parsedFields);
 
-            let quickReviewHTML = `
-                <div class="tradesperson-quick-review">
-                    <div class="job-header">
-                        <div class="job-summary">
-                            <div class="job-title">${jobSummary.title}</div>
-                            <div class="job-reference">Ref: ${jobSummary.reference}</div>
-                            <div class="job-description-summary">${jobSummary.description}</div>
+            const docTypeLabel = (summary.type || 'Document').toUpperCase();
+            const docTypeKey = docTypeLabel.toLowerCase().includes('quote') ? 'quote' : (docTypeLabel.toLowerCase().includes('work') ? 'work-order' : 'general');
+
+            const displayCompanyName = summary.title?.replace(/^.*?:\s*/, '') || company.name || 'Unknown Company';
+            const refValue = summary.reference || workOrder.order_number?.value || 'N/A';
+            const jobScope = summary.description ? shortenText(summary.description, 200) : '';
+
+            const locationAddress = tidyText(location.site_address?.value || '');
+            const locationFallback = tidyText([
+                location.site_city?.value,
+                location.site_state?.value
+            ].filter(Boolean).join(', '));
+            const locationLabel = locationAddress || locationFallback || '';
+
+            const contactName = tidyText([
+                contact.first?.value,
+                contact.last?.value
+            ].filter(Boolean).join(' '));
+
+            const statusDetail = statusMeta ? formatStatusMeta(statusMeta) : '';
+            const metaItems = [];
+            metaItems.push(`📌 ${escapeHtml(statusLabel)}${statusDetail ? ` • ${escapeHtml(statusDetail)}` : ''}`);
+            if (summary.jobSummary && summary.jobSummary !== jobScope) {
+                metaItems.push(`🛠 ${escapeHtml(summary.jobSummary)}`);
+            }
+            if (contactName) {
+                metaItems.push(`👤 ${escapeHtml(contactName)}`);
+            }
+            if (locationLabel) {
+                metaItems.push(`📍 ${escapeHtml(locationLabel)}`);
+            }
+
+            const metaHtml = metaItems.length ? `<div class="quick-review-meta">${metaItems.map(item => `<span>${item}</span>`).join('')}</div>` : '';
+
+            const quickReviewHTML = `
+                <div class="quick-review-card">
+                    <div class="quick-review-actions-stick">
+                        <div class="quick-review-actions">
+                            <button class="quick-action decline" onclick="rejectJob('${workOrder.order_number?.value || ''}')">Decline request</button>
+                            <button class="quick-action info" onclick="requestInfo('${workOrder.order_number?.value || ''}')">Request info</button>
+                            <button class="quick-action create" onclick="createJob('${workOrder.order_number?.value || ''}')">Create job</button>
                         </div>
-                        <div class="urgency-selector">
-                            <label class="urgency-label">Urgency for response and scheduling:</label>
+                        <button class="quick-edit-toggle" id="editModeToggle">Lock fields</button>
+                    </div>
+                    <div class="quick-review-top">
+                        <div class="quick-review-heading">
+                            <span class="quick-review-type ${docTypeKey}">${escapeHtml(docTypeLabel)}</span>
+                            <h2 class="quick-review-title">${escapeHtml(displayCompanyName)}</h2>
+                            <span class="quick-review-ref">Ref: ${escapeHtml(refValue)}</span>
+                        </div>
+                        <div class="quick-review-urgency">
+                            <span class="urgency-indicator ${urgencyKey}"><span class="urgency-dot"></span>${escapeHtml(urgencyRaw)}</span>
+                            <label class="quick-review-urgency-label" for="urgencySelect">Set urgency</label>
                             <select class="urgency-select field-input" data-section="Quick Review" data-field="urgency" id="urgencySelect">
-                                <option value="CRITICAL" ${urgency === 'CRITICAL' ? 'selected' : ''}>CRITICAL</option>
-                                <option value="URGENT" ${urgency === 'URGENT' ? 'selected' : ''}>URGENT</option>
-                                <option value="STANDARD" ${urgency === 'STANDARD' ? 'selected' : ''}>STANDARD</option>
+                                <option value="CRITICAL" ${urgencyRaw === 'CRITICAL' ? 'selected' : ''}>Critical</option>
+                                <option value="URGENT" ${urgencyRaw === 'URGENT' ? 'selected' : ''}>Urgent</option>
+                                <option value="STANDARD" ${urgencyRaw === 'STANDARD' ? 'selected' : ''}>Standard</option>
                             </select>
-                            <div class="urgency-details" id="urgencyDetails">
-                                <div class="urgency-explanation ${urgency.toLowerCase()}" id="urgencyExplanation">
-                                    ${getUrgencyExplanation(urgency.toUpperCase())}
-                                </div>
-                            </div>
                         </div>
                     </div>
-
-                    <div class="decision-grid">
-                        <div class="decision-card money ${jobValueInfo.status}">
-                            <div class="decision-content">
-                                <div class="decision-value">${jobValueInfo.display}</div>
-                                <div class="decision-label">Job Value</div>
-                                <div class="decision-subtext">${jobValueInfo.subtitle} • ${jobEfficiency}</div>
-                            </div>
+                    ${jobScope ? `<div class="quick-review-scope">${escapeHtml(jobScope)}</div>` : ''}
+                    ${metaHtml}
+                    <div class="quick-review-metrics">
+                        <div class="quick-metric">
+                            <span class="metric-label">Job value</span>
+                            <span class="metric-value">${escapeHtml(jobValueInfo.display)}</span>
+                            <span class="metric-hint">${escapeHtml(jobValueInfo.subtitle || '')}${jobEfficiency ? ` • ${escapeHtml(jobEfficiency)}` : ''}</span>
                         </div>
-
-                        <div class="decision-card location">
-                            <div class="decision-content">
-                                <div class="decision-value">${travelDistance}</div>
-                                <div class="decision-label">Travel Distance from Sustaine Office</div>
-                                <div class="decision-subtext">${location.site_address?.value || 'Address not provided'}</div>
-                            </div>
+                        <div class="quick-metric">
+                            <span class="metric-label">Response time</span>
+                            <span class="metric-value" id="responseTimeValue">${escapeHtml(responseTimeInfo.display)}</span>
+                            <span class="metric-hint" id="responseTimeHint">${escapeHtml(responseTimeInfo.subtitle)}</span>
                         </div>
-
-                        <div class="decision-card timing ${responseTimeInfo.status}" id="responseTimeCard">
-                            <div class="decision-content">
-                                <div class="decision-value" id="responseTimeValue">${responseTimeInfo.display}</div>
-                                <div class="decision-label">Response Time</div>
-                                <div class="decision-subtext">${responseTimeInfo.subtitle}</div>
-                            </div>
-                        </div>
-
-                        <div class="decision-card client">
-                            <div class="decision-content">
-                                <div class="decision-value">${company.name ? company.name.split(' ')[0] : 'Unknown'}</div>
-                                <div class="decision-label">Client</div>
-                                <div class="decision-subtext">${contact.first?.value && contact.last?.value ? `${contact.first.value} ${contact.last.value}` : 'No contact'}</div>
-                            </div>
+                        <div class="quick-metric">
+                            <span class="metric-label">Travel</span>
+                            <span class="metric-value">${escapeHtml(travelDistance)}</span>
+                            <span class="metric-hint">${escapeHtml(locationLabel || 'Address pending')}</span>
                         </div>
                     </div>
-
-                    <div class="job-description-preview">
-                        <strong>Job Summary:</strong> ${generateJobSummaryFromDescription(workOrder, parsedFields)}
-                    </div>
-
-                    <div class="decision-actions">
-                        <button class="reject-btn" onclick="rejectJob('${workOrder.order_number?.value}')">
-                            ❌ Decline Job
-                        </button>
-                        <button class="accept-btn" onclick="acceptJob('${workOrder.order_number?.value}')">
-                            ✅ Accept Job
-                        </button>
-                        <button class="details-btn" onclick="toggleFullDetails()">
-                            📋 Full Details
-                        </button>
+                    <div class="quick-review-note ${urgencyKey}" id="urgencyExplanation">
+                        ${renderUrgencyNote(urgencyRaw, responseTimeInfo)}
                     </div>
                 </div>
             `;
@@ -3100,36 +3427,19 @@
         }
 
         function updateResponseTimeCard(newUrgency) {
-            // Get the current PDF object to access processedAt timestamp
             const currentPdf = getCurrentPdf();
             if (!currentPdf) return;
 
-            // Recalculate response time with new urgency
             const responseTimeInfo = calculateResponseTime(newUrgency, null, currentPdf.processedAt);
 
             const responseTimeValue = document.getElementById('responseTimeValue');
-            const responseTimeCard = document.getElementById('responseTimeCard');
-            const responseTimeSubtext = responseTimeCard?.querySelector('.decision-subtext');
+            const responseTimeHint = document.getElementById('responseTimeHint');
 
-            if (responseTimeValue && responseTimeCard) {
-                // Update the display text
+            if (responseTimeValue) {
                 responseTimeValue.textContent = responseTimeInfo.display;
-                if (responseTimeSubtext) {
-                    responseTimeSubtext.textContent = responseTimeInfo.subtitle;
-                }
-
-                // Update the status class (overdue, warning, on-time)
-                responseTimeCard.className = `decision-card timing ${responseTimeInfo.status}`;
-
-                // Add visual feedback for the change
-                responseTimeCard.style.transition = 'all 0.3s ease';
-                responseTimeCard.style.transform = 'scale(1.05)';
-                responseTimeCard.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-
-                setTimeout(() => {
-                    responseTimeCard.style.transform = 'scale(1)';
-                    responseTimeCard.style.boxShadow = '';
-                }, 300);
+            }
+            if (responseTimeHint) {
+                responseTimeHint.textContent = responseTimeInfo.subtitle;
             }
         }
 
@@ -3137,9 +3447,50 @@
             const urgencyExplanation = document.getElementById('urgencyExplanation');
             if (urgencyExplanation) {
                 const normalizedUrgency = newUrgency.toUpperCase();
-                urgencyExplanation.className = `urgency-explanation ${newUrgency.toLowerCase()}`;
-                urgencyExplanation.textContent = getUrgencyExplanation(normalizedUrgency);
+                urgencyExplanation.className = `quick-review-note ${newUrgency.toLowerCase()}`;
+                const currentPdf = getCurrentPdf();
+                const responseInfo = currentPdf ? calculateResponseTime(newUrgency, currentPdf.parsedFields?.["Work Order Details"]?.date_issued?.value, currentPdf.processedAt) : null;
+                urgencyExplanation.innerHTML = renderUrgencyNote(normalizedUrgency, responseInfo);
             }
+
+            const urgencyIndicatorEl = document.querySelector('.quick-review-urgency .urgency-indicator');
+            if (urgencyIndicatorEl) {
+                urgencyIndicatorEl.classList.remove('critical', 'urgent', 'standard');
+                urgencyIndicatorEl.classList.add(newUrgency.toLowerCase());
+                urgencyIndicatorEl.innerHTML = `<span class="urgency-dot"></span>${newUrgency.toUpperCase()}`;
+            }
+        }
+
+        function formatStatusMeta(meta) {
+            if (!meta) return '';
+            const parts = [];
+            if (meta.user) {
+                parts.push(meta.user);
+            }
+            if (meta.timestamp) {
+                const date = new Date(meta.timestamp);
+                if (!isNaN(date.getTime())) {
+                    parts.push(date.toLocaleString());
+                }
+            }
+            return parts.join(' • ');
+        }
+        function renderUrgencyNote(urgency, responseInfo) {
+            const baseMessage = getUrgencyExplanation(urgency);
+            if (!responseInfo) {
+                return baseMessage;
+            }
+
+            const status = responseInfo.status || 'on-time';
+            if (status === 'overdue') {
+                return `<em>${baseMessage}</em><br/><strong>⚠ Overdue:</strong> escalate immediately; coordinate with the site contact for out-of-hours access.`;
+            }
+
+            if (status === 'warning') {
+                return `<em>${baseMessage}</em><br/><strong>⏳ Limited window:</strong> schedule within the remaining time or renegotiate.`;
+            }
+
+            return `<em>${baseMessage}</em><br/>On track; confirm scheduling before the target window closes.`;
         }
 
         function classifyDocumentType(workOrder) {
@@ -3398,13 +3749,16 @@
             const shortDescription = description.length > 120 ?
                 description.substring(0, 120) + '...' : description;
 
+            const generatedJobId = parsedFields['ServiceM8 API Fields']?.generated_job_id?.value || '';
+
             return {
                 type: docType,
                 title: `${docType}: ${companyName}`,
                 reference: orderNumber,
                 description: workScope,
                 fullDescription: description,
-                jobSummary: jobSummary
+                jobSummary: jobSummary,
+                jobNumber: generatedJobId || null
             };
         }
 
@@ -3806,12 +4160,41 @@
 
         function rejectJob(orderNumber) {
             alert(`Job ${orderNumber} declined. Reason will be logged.`);
-            // Here you would integrate with your job management system
+            // TODO: integrate decline flow
         }
 
-        function acceptJob(orderNumber) {
-            alert(`Job ${orderNumber} accepted! Added to your schedule.`);
-            // Here you would integrate with your scheduling system
+        function requestInfo(orderNumber) {
+            const reason = prompt(`Request additional info for ${orderNumber || 'this job'}:\nDescribe what is missing or unclear.`);
+            if (!reason) {
+                return;
+            }
+            const key = orderNumber || `pdf-${Math.random().toString(36).slice(2)}`;
+            statusState[key] = {
+                status: 'info-requested',
+                timestamp: new Date().toISOString(),
+                user: getCurrentUserName(),
+                note: reason
+            };
+            saveStatusState();
+            applyStoredStatusToAll();
+            generatePdfHistory();
+            alert(`Info requested for ${orderNumber || 'job'}:\n${reason}`);
+        }
+
+        function createJob(orderNumber) {
+            const key = orderNumber || `pdf-${Math.random().toString(36).slice(2)}`;
+            const newJobNumber = prompt('Enter the confirmed job number (optional):', statusState[key]?.jobNumber || '');
+            statusState[key] = {
+                status: 'created',
+                timestamp: new Date().toISOString(),
+                user: getCurrentUserName(),
+                jobNumber: newJobNumber || undefined
+            };
+            saveStatusState();
+            applyStoredStatusToAll();
+            generatePdfHistory();
+            alert(`Job ${orderNumber} created and queued for scheduling.`);
+            // TODO: trigger job creation logic
         }
 
         function toggleFullDetails() {
