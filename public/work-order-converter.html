@@ -129,29 +129,135 @@
 
         .pdf-controls {
             display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            padding: 16px 0 8px;
-            border-bottom: 1px solid #e5e7eb;
-            width: 100%;
-            min-width: 0;
+            flex-direction: column;
+            gap: 1.25rem;
+            padding: 20px 0;
         }
 
         .pdf-controls-bar {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 1.75rem;
-            align-items: end;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 1.5rem;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filters-toggle {
+            border: 1px solid #dfe3e8;
+            background: #ffffff;
+            color: #0f172a;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 10px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .filters-toggle:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+        }
+
+        .filters-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: min(420px, 95vw);
+            pointer-events: none;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 3600;
+        }
+
+        .filters-drawer.open {
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        .filters-drawer-content {
+            height: 100%;
+            background: #ffffff;
+            box-shadow: -24px 0 48px rgba(15, 23, 42, 0.18);
+            border-radius: 16px 0 0 16px;
+            padding: 24px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            overflow-y: auto;
+        }
+
+        .filters-drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 12px;
+        }
+
+        .filters-drawer-header h3 {
+            margin: 0;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .drawer-close {
+            border: none;
+            background: transparent;
+            font-size: 1.5rem;
+            color: #475569;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
+        .filters-drawer .pdf-controls {
+            border-bottom: none;
+            padding-bottom: 0;
+            gap: 1.5rem;
+        }
+
+        .filters-drawer .control-group {
+            width: 100%;
+        }
+
+        .filters-drawer .control-options {
+            width: 100%;
+            justify-content: flex-start;
+        }
+
+        .drawer-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.35);
+            backdrop-filter: blur(2px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            z-index: 3500;
+        }
+
+        .drawer-backdrop.show {
+            opacity: 1;
+            pointer-events: auto;
         }
 
         @media (max-width: 900px) {
             .pdf-controls-bar {
-                grid-template-columns: 1fr;
-                gap: 1.25rem;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
             }
-            .pdf-summary {
-                min-height: 100px;
+            .filters-drawer {
+                width: 100vw;
+            }
+            .filters-drawer-content {
+                border-radius: 0;
             }
         }
 
@@ -192,18 +298,20 @@
 
         .email-preview {
             border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            background: #f8fafc;
-            padding: 20px 24px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            padding: 24px 28px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
         }
 
         .email-header-fields {
             display: grid;
             grid-template-columns: minmax(0, 1fr);
-            gap: 12px;
+            gap: 16px;
+            margin-bottom: 4px;
         }
 
         .email-field {
@@ -213,53 +321,72 @@
         }
 
         .email-field label {
-            font-size: 0.78rem;
+            font-size: 0.82rem;
             font-weight: 600;
-            color: #475569;
+            color: #374151;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.06em;
+            margin-bottom: 2px;
         }
 
         .email-field input,
-        .email-field textarea {
+        .email-field textarea,
+        .email-field select {
             border: 1px solid #cbd5f5;
             border-radius: 8px;
-            padding: 10px 12px;
-            font-size: 0.9rem;
+            padding: 12px 16px;
+            font-size: 0.95rem;
             color: #1f2937;
             background: #ffffff;
-            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.5;
+            transition: all 0.2s ease;
         }
 
         .email-field input:focus,
-        .email-field textarea:focus {
+        .email-field textarea:focus,
+        .email-field select:focus {
             outline: none;
             border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+            transform: translateY(-1px);
+        }
+
+        .email-field input::placeholder,
+        .email-field textarea::placeholder {
+            color: #9ca3af;
+            font-style: italic;
         }
 
         .email-body textarea {
-            min-height: 180px;
+            min-height: 200px;
             resize: vertical;
             line-height: 1.6;
+            font-weight: 400;
+            letter-spacing: 0.01em;
         }
 
         .email-template-metadata {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.78rem;
-            color: #94a3b8;
+            font-size: 0.82rem;
+            color: #64748b;
+            font-weight: 500;
+            padding: 0 0 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+            margin-bottom: 4px;
         }
 
         .email-preview-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 0 0;
+            padding: 18px 0 0;
             border-top: 1px solid #e2e8f0;
             font-size: 0.85rem;
             color: #64748b;
+            margin-top: 8px;
         }
 
         .email-preview-footer span {
@@ -270,8 +397,10 @@
 
         .modal-footer-actions {
             display: flex;
-            gap: 12px;
+            gap: 16px;
             justify-content: flex-end;
+            padding: 16px 32px 24px 0;
+            margin-top: 16px;
         }
 
         @media (min-width: 720px) {
@@ -285,7 +414,8 @@
 
         .control-group {
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            align-items: flex-start;
             gap: 0.75rem;
         }
 
@@ -298,7 +428,8 @@
         }
 
         .control-options {
-            display: inline-flex;
+            display: flex;
+            flex-wrap: wrap;
             gap: 0.5rem;
         }
 
@@ -312,6 +443,9 @@
             border-radius: 999px;
             cursor: pointer;
             transition: border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, background 0.2s ease;
+            white-space: nowrap;
+            min-width: fit-content;
+            flex-shrink: 0;
         }
 
         .control-option:hover {
@@ -909,7 +1043,7 @@
         }
 
         .modal-body {
-            padding: 28px 32px;
+            padding: 28px 32px 32px 32px;
             max-height: calc(85vh - 120px);
             overflow-y: auto;
         }
@@ -1833,8 +1967,8 @@
         }
 
         .btn {
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 14px 28px;
+            border-radius: 10px;
             font-weight: 600;
             font-size: 0.95rem;
             cursor: pointer;
@@ -1843,6 +1977,8 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            min-width: 120px;
+            justify-content: center;
         }
 
         .btn-secondary {
@@ -1933,6 +2069,11 @@
             .modal-body {
                 padding: 20px;
                 max-height: calc(95vh - 120px);
+            }
+
+            .modal-footer-actions {
+                padding: 12px 20px 20px 0;
+                margin-top: 12px;
             }
 
             .pdf-viewer-content {
@@ -2193,56 +2334,65 @@
         </div>
 
         <div class="pdf-controls-bar">
-        <div class="pdf-summary">
-            <div class="pdf-summary-count" id="pdfSummaryCount">0</div>
-            <div class="pdf-summary-meta">
-                <span class="pdf-summary-label" id="pdfSummaryLabel">documents</span>
-                <span class="pdf-summary-note">matching current filters</span>
+            <div class="pdf-summary">
+                <div class="pdf-summary-count" id="pdfSummaryCount">0</div>
+                <div class="pdf-summary-meta">
+                    <span class="pdf-summary-label" id="pdfSummaryLabel">documents</span>
+                    <span class="pdf-summary-note">matching current filters</span>
+                </div>
             </div>
+            <button class="filters-toggle" id="filtersToggleBtn">Filter & Sort</button>
         </div>
 
-        <div class="pdf-controls">
-            <div class="control-group">
-                <span class="control-label">Urgency</span>
-                <div class="control-options" data-filter="urgency">
-                    <button type="button" class="control-option is-active" data-value="all">All</button>
-                    <button type="button" class="control-option" data-value="critical">Critical</button>
-                    <button type="button" class="control-option" data-value="urgent">Urgent</button>
-                    <button type="button" class="control-option" data-value="standard">Standard</button>
+        <div class="filters-drawer" id="filtersDrawer">
+            <div class="filters-drawer-content">
+                <div class="filters-drawer-header">
+                    <h3>Filter & Sort</h3>
+                    <button class="drawer-close" id="filtersDrawerClose">&times;</button>
                 </div>
-            </div>
-            <div class="control-group">
-                <span class="control-label">Type</span>
-                <div class="control-options" data-filter="type">
-                    <button type="button" class="control-option is-active" data-value="all">All</button>
-                    <button type="button" class="control-option" data-value="work-order">Work Orders</button>
-                    <button type="button" class="control-option" data-value="quote">Quote Requests</button>
+                <div class="pdf-controls">
+                    <div class="control-group">
+                        <span class="control-label">Urgency</span>
+                        <div class="control-options" data-filter="urgency">
+                            <button type="button" class="control-option is-active" data-value="all">All</button>
+                            <button type="button" class="control-option" data-value="critical">Critical</button>
+                            <button type="button" class="control-option" data-value="urgent">Urgent</button>
+                            <button type="button" class="control-option" data-value="standard">Standard</button>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <span class="control-label">Type</span>
+                        <div class="control-options" data-filter="type">
+                            <button type="button" class="control-option is-active" data-value="all">All</button>
+                            <button type="button" class="control-option" data-value="work-order">Work Orders</button>
+                            <button type="button" class="control-option" data-value="quote">Quote Requests</button>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <span class="control-label">Status</span>
+                        <div class="control-options" data-filter="status">
+                            <button type="button" class="control-option is-active" data-value="all">All</button>
+                            <button type="button" class="control-option" data-value="review">Needs review</button>
+                            <button type="button" class="control-option" data-value="created">Job created</button>
+                            <button type="button" class="control-option" data-value="info-requested">Info requested</button>
+                            <button type="button" class="control-option" data-value="declined">Request declined</button>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <span class="control-label">Sort</span>
+                        <select id="pdfSortSelect" class="control-select">
+                            <option value="priority">Priority (urgency → newest)</option>
+                            <option value="newest">Newest first</option>
+                            <option value="oldest">Oldest first</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="control-group">
-                <span class="control-label">Status</span>
-                <div class="control-options" data-filter="status">
-                    <button type="button" class="control-option is-active" data-value="all">All</button>
-                    <button type="button" class="control-option" data-value="review">Needs review</button>
-                    <button type="button" class="control-option" data-value="created">Job created</button>
-                    <button type="button" class="control-option" data-value="info-requested">Info requested</button>
-                    <button type="button" class="control-option" data-value="declined">Request declined</button>
-                </div>
-            </div>
-            <div class="control-group">
-                <span class="control-label">Sort</span>
-                <select id="pdfSortSelect" class="control-select">
-                    <option value="priority">Priority (urgency → newest)</option>
-                    <option value="newest">Newest first</option>
-                    <option value="oldest">Oldest first</option>
-                </select>
             </div>
         </div>
-
+        <div class="drawer-backdrop" id="filtersBackdrop"></div>
 
         <!-- PDF History -->
         <div class="pdf-history" id="pdfHistory"></div>
-    </div>
     </div>
 
     <!-- Changes Indicator (Hidden) -->
@@ -2298,8 +2448,17 @@
                                 <input type="email" id="requestInfoCc" name="emailCc" placeholder="Optional">
                             </div>
                             <div class="email-field">
-                                <label for="requestInfoNeedBy">Response deadline</label>
-                                <input type="datetime-local" id="requestInfoNeedBy" name="needBy">
+                                <label for="requestInfoNeedBy">Response needed</label>
+                                <select id="requestInfoNeedBy" name="needBy" class="control-select">
+                                    <option value="">No specific deadline</option>
+                                    <option value="1hour">Within 1 hour</option>
+                                    <option value="3hours">Within 3 hours</option>
+                                    <option value="today">By end of today</option>
+                                    <option value="tomorrow">By tomorrow</option>
+                                    <option value="2days">Within 2 days</option>
+                                    <option value="1week">Within a week</option>
+                                    <option value="asap">ASAP</option>
+                                </select>
                             </div>
                             <div class="email-field full-width">
                                 <label for="requestInfoSubject">Subject *</label>
@@ -2312,13 +2471,7 @@
                         </div>
                         <div class="email-preview-footer">
                             <span>Sent from WorkSight • Draft only</span>
-                            <span>Channel
-                                <select id="requestInfoChannel" name="channel">
-                                    <option value="email">Email</option>
-                                    <option value="phone">Phone call</option>
-                                    <option value="sms">SMS</option>
-                                </select>
-                            </span>
+                            <span>Email delivery</span>
                         </div>
                     </div>
                 </div>
@@ -2356,14 +2509,6 @@
                                 <label for="declineCc">Cc</label>
                                 <input type="email" id="declineCc" name="emailCc" placeholder="Optional">
                             </div>
-                            <div class="email-field">
-                                <label for="declineChannel">Channel</label>
-                                <select id="declineChannel" name="channel">
-                                    <option value="email">Email</option>
-                                    <option value="phone">Phone call</option>
-                                    <option value="sms">SMS</option>
-                                </select>
-                            </div>
                             <div class="email-field full-width">
                                 <label for="declineSubject">Subject *</label>
                                 <input type="text" id="declineSubject" name="emailSubject" required>
@@ -2375,6 +2520,7 @@
                         </div>
                         <div class="email-preview-footer">
                             <span>Sent from WorkSight • Draft only</span>
+                            <span>Email delivery</span>
                         </div>
                     </div>
                 </div>
@@ -2438,7 +2584,6 @@
         const requestInfoSubject = document.getElementById('requestInfoSubject');
         const requestInfoBody = document.getElementById('requestInfoBody');
         const requestInfoNeedBy = document.getElementById('requestInfoNeedBy');
-        const requestInfoChannel = document.getElementById('requestInfoChannel');
         const requestInfoSummary = document.getElementById('requestInfoSummary');
         const declineModal = document.getElementById('declineModal');
         const declineClose = document.getElementById('declineClose');
@@ -2448,9 +2593,8 @@
         const declineCc = document.getElementById('declineCc');
         const declineSubject = document.getElementById('declineSubject');
         const declineBody = document.getElementById('declineBody');
-        const declineChannel = document.getElementById('declineChannel');
         const declineSummary = document.getElementById('declineSummary');
-        let backToAdminBtn, filterGroups, sortSelect;
+        let backToAdminBtn, filterGroups, sortSelect, filtersToggleBtn, filtersDrawer, filtersDrawerClose, filtersBackdrop;
 
         const STATUS_STORAGE_KEY = 'worksight-statuses-v1';
         const FIELD_OVERRIDES_STORAGE_KEY = 'worksight-field-overrides-v1';
@@ -2511,9 +2655,38 @@
             backToAdminBtn = document.getElementById('backToAdminBtn');
             filterGroups = document.querySelectorAll('.control-options');
             sortSelect = document.getElementById('pdfSortSelect');
+            filtersToggleBtn = document.getElementById('filtersToggleBtn');
+            filtersDrawer = document.getElementById('filtersDrawer');
+            filtersDrawerClose = document.getElementById('filtersDrawerClose');
+            filtersBackdrop = document.getElementById('filtersBackdrop');
 
             if (backToAdminBtn) {
                 backToAdminBtn.addEventListener('click', redirectToAdminDashboard);
+            }
+
+            const toggleDrawer = (open) => {
+                if (!filtersDrawer || !filtersBackdrop) return;
+                if (open) {
+                    filtersDrawer.classList.add('open');
+                    filtersBackdrop.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    filtersDrawer.classList.remove('open');
+                    filtersBackdrop.classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+            };
+
+            if (filtersToggleBtn) {
+                filtersToggleBtn.addEventListener('click', () => toggleDrawer(true));
+            }
+
+            if (filtersDrawerClose) {
+                filtersDrawerClose.addEventListener('click', () => toggleDrawer(false));
+            }
+
+            if (filtersBackdrop) {
+                filtersBackdrop.addEventListener('click', () => toggleDrawer(false));
             }
 
             filterGroups.forEach(group => {
@@ -3339,10 +3512,7 @@
                 requestInfoBody.value = existingMeta?.note || defaultBody;
             }
             if (requestInfoNeedBy) {
-                requestInfoNeedBy.value = existingMeta?.needBy ? toDateTimeLocalValue(existingMeta.needBy) : '';
-            }
-            if (requestInfoChannel) {
-                requestInfoChannel.value = existingMeta?.channel || 'email';
+                requestInfoNeedBy.value = existingMeta?.needBy || '';
             }
             if (existingMeta?.timestamp && requestInfoSummary) {
                 requestInfoSummary.textContent = formatRelativeDate(existingMeta.timestamp);
@@ -3406,9 +3576,6 @@
             }
             if (declineBody) {
                 declineBody.value = existingMeta?.note || defaultBody;
-            }
-            if (declineChannel) {
-                declineChannel.value = existingMeta?.channel || 'email';
             }
             if (existingMeta?.timestamp && declineSummary) {
                 declineSummary.textContent = formatRelativeDate(existingMeta.timestamp);
@@ -3809,7 +3976,7 @@
                         <div class="pdf-card-top-left">
                             ${urgencyIndicator}
                         </div>
-                        <span class="status-chip"><span class="status-dot ${normalizedStatusKey}"></span>${escapeHtml(statusLabel)}${summary?.jobNumber ? ` • <strong>${escapeHtml(summary.jobNumber)}</strong>` : ''}</span>
+                        <span class="status-chip"><span class="status-dot ${normalizedStatusKey}"></span>${escapeHtml(statusLabel)}</span>
                     </div>
                     <div class="pdf-card-body">
                         <div class="pdf-card-main">
@@ -4128,28 +4295,35 @@
             }
         }
 
+        function formatDeadlineText(needByValue) {
+            if (!needByValue) return '';
+
+            const deadlineMap = {
+                '1hour': 'within 1 hour',
+                '3hours': 'within 3 hours',
+                'today': 'by end of today',
+                'tomorrow': 'by tomorrow',
+                '2days': 'within 2 days',
+                '1week': 'within a week',
+                'asap': 'ASAP'
+            };
+
+            return deadlineMap[needByValue] || needByValue;
+        }
+
         function formatStatusMeta(meta) {
             if (!meta) return '';
             const parts = [];
             if (meta.user) {
                 parts.push(meta.user);
             }
-            if (meta.timestamp) {
-                const date = new Date(meta.timestamp);
-                if (!isNaN(date.getTime())) {
-                    parts.push(date.toLocaleString());
-                }
-            }
-            if (meta.contact) {
-                parts.push(meta.contact);
-            }
             if (meta.needBy) {
-                const dueText = formatDueSummary(meta.needBy);
-                if (dueText) {
-                    parts.push(dueText);
+                const deadlineText = formatDeadlineText(meta.needBy);
+                if (deadlineText) {
+                    parts.push(`need ${deadlineText}`);
                 }
             }
-            return parts.join(' • ');
+            return parts.join(', ');
         }
         function renderUrgencyNote(urgency, responseInfo) {
             const baseMessage = getUrgencyExplanation(urgency);
@@ -5499,8 +5673,6 @@
 
                 const cc = requestInfoCc?.value.trim();
                 const needByValue = requestInfoNeedBy?.value;
-                const needByIso = needByValue ? fromDateTimeLocalValue(needByValue) : undefined;
-                const channel = requestInfoChannel?.value || 'email';
 
                 const entry = {
                     status: 'info-requested',
@@ -5510,8 +5682,8 @@
                     contact: to,
                     cc: cc || undefined,
                     subject: subject,
-                    needBy: needByIso,
-                    channel
+                    needBy: needByValue,
+                    channel: 'email'
                 };
 
                 statusState[requestInfoContext.key] = entry;
@@ -5554,7 +5726,6 @@
                 }
 
                 const cc = declineCc?.value.trim();
-                const channel = declineChannel?.value || 'email';
 
                 const entry = {
                     status: 'declined',
@@ -5564,7 +5735,7 @@
                     contact: to,
                     cc: cc || undefined,
                     subject: subject,
-                    channel
+                    channel: 'email'
                 };
 
                 statusState[declineContext.key] = entry;
