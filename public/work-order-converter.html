@@ -133,7 +133,154 @@
             gap: 1rem;
             padding: 16px 0 8px;
             border-bottom: 1px solid #e5e7eb;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .pdf-controls-bar {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1.75rem;
+            align-items: end;
             margin-bottom: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .pdf-controls-bar {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+            .pdf-summary {
+                min-height: 100px;
+            }
+        }
+
+        .pdf-summary {
+            display: flex;
+            align-items: flex-end;
+            gap: 1.25rem;
+            min-height: clamp(100px, 14vh, 140px);
+            flex: 0 0 auto;
+        }
+
+        .pdf-summary-count {
+            font-size: clamp(3rem, 6vw, 4.25rem);
+            font-weight: 700;
+            line-height: 0.95;
+            color: #0f172a;
+            letter-spacing: -0.02em;
+        }
+
+        .pdf-summary-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .pdf-summary-label {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .pdf-summary-note {
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        .email-preview {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            background: #f8fafc;
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .email-header-fields {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 12px;
+        }
+
+        .email-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .email-field label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .email-field input,
+        .email-field textarea {
+            border: 1px solid #cbd5f5;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 0.9rem;
+            color: #1f2937;
+            background: #ffffff;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .email-field input:focus,
+        .email-field textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .email-body textarea {
+            min-height: 180px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .email-template-metadata {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.78rem;
+            color: #94a3b8;
+        }
+
+        .email-preview-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0 0;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+
+        .email-preview-footer span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .modal-footer-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        @media (min-width: 720px) {
+            .email-header-fields {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .email-field.full-width {
+                grid-column: 1 / -1;
+            }
         }
 
         .control-group {
@@ -191,6 +338,10 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+        }
+
+        .pdf-controls-bar > .pdf-history {
+            grid-column: 1 / -1;
         }
 
         .pdf-row {
@@ -559,80 +710,41 @@
             font-weight: 600;
             border: 1px solid transparent;
             cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
         }
 
         .quick-action.decline {
-            background: #fef2f2;
+            background: #fee2e2;
             color: #b91c1c;
             border-color: #fecaca;
         }
 
         .quick-action.decline:hover {
             transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(185, 28, 28, 0.15);
+            box-shadow: 0 8px 18px rgba(185, 28, 28, 0.18);
         }
 
         .quick-action.create {
-            background: #0f172a;
+            background: #047857;
             color: #ffffff;
+            border-color: #059669;
+            box-shadow: 0 6px 16px rgba(4, 120, 87, 0.22);
         }
 
         .quick-action.create:hover {
             transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.2);
+            box-shadow: 0 10px 20px rgba(4, 120, 87, 0.25);
         }
 
         .quick-action.info {
-            background: #fff6e6;
-            color: #b45309;
+            background: #fff7ed;
+            color: #c2410c;
             border-color: #fed7aa;
         }
 
         .quick-action.info:hover {
             transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(236, 153, 46, 0.18);
-        }
-
-        .quick-edit-toggle {
-            background: transparent;
-            border: none;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #475569;
-            cursor: pointer;
-            padding: 6px 10px;
-        }
-
-        .quick-edit-toggle[disabled] {
-            cursor: not-allowed;
-            color: #94a3b8;
-        }
-
-        .quick-action.info {
-            background: #fff6e6;
-            color: #b45309;
-            border-color: #fed7aa;
-        }
-
-        .quick-action.info:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(236, 153, 46, 0.18);
-        }
-
-        .quick-edit-toggle {
-            background: transparent;
-            border: none;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #475569;
-            cursor: pointer;
-            padding: 6px 10px;
-        }
-
-        .quick-edit-toggle[disabled] {
-            cursor: not-allowed;
-            color: #94a3b8;
+            box-shadow: 0 8px 18px rgba(234, 179, 8, 0.2);
         }
 
         .info-divider {
@@ -727,7 +839,7 @@
             height: 100%;
             background: rgba(15, 23, 42, 0.35);
             backdrop-filter: blur(4px);
-            z-index: 2000;
+            z-index: 3500;
             opacity: 0;
             transition: opacity 0.25s ease;
         }
@@ -950,6 +1062,10 @@
             overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
             background: #ffffff;
+        }
+
+        .parsed-fields-content:not(.editing-mode) .field-section {
+            display: none;
         }
 
         .field-section {
@@ -1610,6 +1726,10 @@
             color: #475569;
         }
 
+        .panel-status.success { color: #047857; }
+        .panel-status.warning { color: #b45309; }
+        .panel-status.error { color: #b91c1c; }
+
         .field-confidence {
             display: flex;
             align-items: center;
@@ -1643,13 +1763,73 @@
         .field-confidence.medium .confidence-dot.filled { background-color: #f59e0b; }
         .field-confidence.low .confidence-dot.filled { background-color: #ef4444; }
 
+        .field-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .field-revert {
+            border: none;
+            background: none;
+            color: #2563eb;
+            font-size: 0.75rem;
+            cursor: pointer;
+            padding: 0;
+            display: none;
+        }
+
+        .field-revert:hover {
+            text-decoration: underline;
+        }
+
+        .field-item.modified .field-revert {
+            display: inline-flex;
+        }
+
+        .parsed-fields-content:not(.editing-mode) .field-revert {
+            display: none !important;
+        }
+
+        .field-helper {
+            border: none;
+            background: #e0f2fe;
+            color: #0369a1;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 999px;
+            padding: 4px 10px;
+            cursor: pointer;
+            display: none;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .field-helper:hover {
+            background: #bae6fd;
+            transform: translateY(-1px);
+        }
+
+        .parsed-fields-content.editing-mode .field-helper {
+            display: inline-flex;
+        }
+
+        .parsed-fields-content:not(.editing-mode) .field-helper {
+            display: none !important;
+        }
+
         .field-actions {
             background: white;
             padding: 20px 24px;
             border-top: 1px solid #e5e7eb;
-            display: flex;
+            display: none;
             gap: 16px;
             justify-content: flex-end;
+        }
+
+        .field-actions.editing-visible {
+            display: flex;
         }
 
         .btn {
@@ -2012,6 +2192,15 @@
             <p class="subtitle">Convert third-party PDFs to ServiceM8 work orders</p>
         </div>
 
+        <div class="pdf-controls-bar">
+        <div class="pdf-summary">
+            <div class="pdf-summary-count" id="pdfSummaryCount">0</div>
+            <div class="pdf-summary-meta">
+                <span class="pdf-summary-label" id="pdfSummaryLabel">documents</span>
+                <span class="pdf-summary-note">matching current filters</span>
+            </div>
+        </div>
+
         <div class="pdf-controls">
             <div class="control-group">
                 <span class="control-label">Urgency</span>
@@ -2054,6 +2243,7 @@
         <!-- PDF History -->
         <div class="pdf-history" id="pdfHistory"></div>
     </div>
+    </div>
 
     <!-- Changes Indicator (Hidden) -->
     <div class="changes-indicator" id="changesIndicator" style="display: none;">
@@ -2081,6 +2271,121 @@
         </div>
     </div>
 
+    <!-- Request Info Modal -->
+    <div class="modal request-info-modal" id="requestInfoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title">Request additional information</h2>
+                    <p class="modal-subtitle">Preview and adjust the email before sending.</p>
+                </div>
+                <button class="modal-close" id="requestInfoClose">&times;</button>
+            </div>
+            <form id="requestInfoForm">
+                <div class="modal-body">
+                    <div class="email-preview">
+                        <div class="email-template-metadata">
+                            <span>Draft email • Request info</span>
+                            <span id="requestInfoSummary">Draft</span>
+                        </div>
+                        <div class="email-header-fields">
+                            <div class="email-field full-width">
+                                <label for="requestInfoTo">To *</label>
+                                <input type="email" id="requestInfoTo" name="emailTo" placeholder="contact@example.com" autocomplete="email" required>
+                            </div>
+                            <div class="email-field">
+                                <label for="requestInfoCc">Cc</label>
+                                <input type="email" id="requestInfoCc" name="emailCc" placeholder="Optional">
+                            </div>
+                            <div class="email-field">
+                                <label for="requestInfoNeedBy">Response deadline</label>
+                                <input type="datetime-local" id="requestInfoNeedBy" name="needBy">
+                            </div>
+                            <div class="email-field full-width">
+                                <label for="requestInfoSubject">Subject *</label>
+                                <input type="text" id="requestInfoSubject" name="emailSubject" required>
+                            </div>
+                        </div>
+                        <div class="email-field email-body full-width">
+                            <label for="requestInfoBody">Message *</label>
+                            <textarea id="requestInfoBody" name="emailBody" required></textarea>
+                        </div>
+                        <div class="email-preview-footer">
+                            <span>Sent from WorkSight • Draft only</span>
+                            <span>Channel
+                                <select id="requestInfoChannel" name="channel">
+                                    <option value="email">Email</option>
+                                    <option value="phone">Phone call</option>
+                                    <option value="sms">SMS</option>
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer-actions">
+                    <button type="button" class="btn btn-secondary" id="requestInfoCancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Send request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Decline Request Modal -->
+    <div class="modal decline-modal" id="declineModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title">Decline request</h2>
+                    <p class="modal-subtitle">Send a short note explaining why the work cannot proceed.</p>
+                </div>
+                <button class="modal-close" id="declineClose">&times;</button>
+            </div>
+            <form id="declineForm">
+                <div class="modal-body">
+                    <div class="email-preview">
+                        <div class="email-template-metadata">
+                            <span>Draft email • Decline work</span>
+                            <span id="declineSummary">Draft</span>
+                        </div>
+                        <div class="email-header-fields">
+                            <div class="email-field full-width">
+                                <label for="declineTo">To *</label>
+                                <input type="email" id="declineTo" name="emailTo" placeholder="contact@example.com" required>
+                            </div>
+                            <div class="email-field">
+                                <label for="declineCc">Cc</label>
+                                <input type="email" id="declineCc" name="emailCc" placeholder="Optional">
+                            </div>
+                            <div class="email-field">
+                                <label for="declineChannel">Channel</label>
+                                <select id="declineChannel" name="channel">
+                                    <option value="email">Email</option>
+                                    <option value="phone">Phone call</option>
+                                    <option value="sms">SMS</option>
+                                </select>
+                            </div>
+                            <div class="email-field full-width">
+                                <label for="declineSubject">Subject *</label>
+                                <input type="text" id="declineSubject" name="emailSubject" required>
+                            </div>
+                        </div>
+                        <div class="email-field email-body full-width">
+                            <label for="declineBody">Message *</label>
+                            <textarea id="declineBody" name="emailBody" required></textarea>
+                        </div>
+                        <div class="email-preview-footer">
+                            <span>Sent from WorkSight • Draft only</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer-actions">
+                    <button type="button" class="btn btn-secondary" id="declineCancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Send decline</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- PDF Viewer Modal -->
     <div class="pdf-viewer-modal" id="pdfViewerModal">
         <div class="pdf-viewer-content">
@@ -2101,8 +2406,8 @@
                     <div class="parsed-fields-content" id="parsedFieldsContent">
                         <!-- Fields will be dynamically generated here -->
                     </div>
-                    <div class="field-actions">
-                        <button class="btn btn-primary" id="saveFieldsBtn">Save changes</button>
+                    <div class="field-actions" id="fieldActions">
+                        <button class="btn btn-primary" id="saveFieldsBtn">Finished editing</button>
                     </div>
                 </div>
             </div>
@@ -2120,14 +2425,42 @@
         const pdfViewerClose = document.getElementById('pdfViewerClose');
         const pdfViewerTitle = document.getElementById('pdfViewerTitle');
         const originalPdfFrame = document.getElementById('originalPdfFrame');
-        const backToAdminBtn = document.getElementById('backToAdminBtn');
-        const filterGroups = document.querySelectorAll('.control-options');
-        const sortSelect = document.getElementById('pdfSortSelect');
+        const panelStatusBadge = document.getElementById('panelStatusBadge');
+        const pdfSummaryCount = document.getElementById('pdfSummaryCount');
+        const pdfSummaryLabel = document.getElementById('pdfSummaryLabel');
+        const pdfSummaryWrapper = document.querySelector('.pdf-summary');
+        const requestInfoModal = document.getElementById('requestInfoModal');
+        const requestInfoClose = document.getElementById('requestInfoClose');
+        const requestInfoForm = document.getElementById('requestInfoForm');
+        const requestInfoCancel = document.getElementById('requestInfoCancel');
+        const requestInfoTo = document.getElementById('requestInfoTo');
+        const requestInfoCc = document.getElementById('requestInfoCc');
+        const requestInfoSubject = document.getElementById('requestInfoSubject');
+        const requestInfoBody = document.getElementById('requestInfoBody');
+        const requestInfoNeedBy = document.getElementById('requestInfoNeedBy');
+        const requestInfoChannel = document.getElementById('requestInfoChannel');
+        const requestInfoSummary = document.getElementById('requestInfoSummary');
+        const declineModal = document.getElementById('declineModal');
+        const declineClose = document.getElementById('declineClose');
+        const declineForm = document.getElementById('declineForm');
+        const declineCancel = document.getElementById('declineCancel');
+        const declineTo = document.getElementById('declineTo');
+        const declineCc = document.getElementById('declineCc');
+        const declineSubject = document.getElementById('declineSubject');
+        const declineBody = document.getElementById('declineBody');
+        const declineChannel = document.getElementById('declineChannel');
+        const declineSummary = document.getElementById('declineSummary');
+        let backToAdminBtn, filterGroups, sortSelect;
 
         const STATUS_STORAGE_KEY = 'worksight-statuses-v1';
+        const FIELD_OVERRIDES_STORAGE_KEY = 'worksight-field-overrides-v1';
         let statusState = loadStatusState();
-        let currentEditMode = true;
+        let fieldOverrides = loadFieldOverrides();
+        let isEditing = false;
         let fieldInputs = [];
+        let panelStatusTimer = null;
+        let requestInfoContext = null;
+        let declineContext = null;
 
         const filters = {
             urgency: 'all',
@@ -2173,40 +2506,47 @@
             window.location.href = adminUrl;
         }
 
-        if (backToAdminBtn) {
-            backToAdminBtn.addEventListener('click', redirectToAdminDashboard);
-        }
+        function initializeEventListeners() {
+            // Query DOM elements after DOM is loaded
+            backToAdminBtn = document.getElementById('backToAdminBtn');
+            filterGroups = document.querySelectorAll('.control-options');
+            sortSelect = document.getElementById('pdfSortSelect');
 
-        filterGroups.forEach(group => {
-            group.addEventListener('click', (event) => {
-                const button = event.target.closest('.control-option');
-                if (!button) {
-                    return;
-                }
+            if (backToAdminBtn) {
+                backToAdminBtn.addEventListener('click', redirectToAdminDashboard);
+            }
 
-                const filterType = group.getAttribute('data-filter');
-                const value = button.getAttribute('data-value');
+            filterGroups.forEach(group => {
+                group.addEventListener('click', (event) => {
+                    const button = event.target.closest('.control-option');
+                    if (!button) {
+                        return;
+                    }
 
-                if (!filterType || !value) {
-                    return;
-                }
+                    const filterType = group.getAttribute('data-filter');
+                    const value = button.getAttribute('data-value');
 
-                if (filters[filterType] === value) {
-                    return;
-                }
+                    if (!filterType || !value) {
+                        return;
+                    }
 
-                filters[filterType] = value;
-                renderFilterState();
-                generatePdfHistory();
+                    if (filters[filterType] === value) {
+                        return;
+                    }
+
+                    filters[filterType] = value;
+                    renderFilterState();
+                    generatePdfHistory();
+                });
             });
-        });
 
-        if (sortSelect) {
-            sortSelect.addEventListener('change', (event) => {
-                const value = event.target.value;
-                currentSort = value;
-                generatePdfHistory();
-            });
+            if (sortSelect) {
+                sortSelect.addEventListener('change', (event) => {
+                    const value = event.target.value;
+                    currentSort = value;
+                    generatePdfHistory();
+                });
+            }
         }
 
 
@@ -2725,6 +3065,8 @@
             }
         ];
         referenceWorkOrders.forEach(applyStoredStatus);
+        referenceWorkOrders.forEach(applyStoredOverrides);
+        referenceWorkOrders.forEach(normalizeParsedData);
 
         function loadStatusState() {
             if (typeof localStorage === 'undefined') {
@@ -2747,6 +3089,30 @@
                 localStorage.setItem(STATUS_STORAGE_KEY, JSON.stringify(statusState));
             } catch (error) {
                 console.warn('Failed to persist work order statuses.', error);
+            }
+        }
+
+        function loadFieldOverrides() {
+            if (typeof localStorage === 'undefined') {
+                return {};
+            }
+            try {
+                const raw = localStorage.getItem(FIELD_OVERRIDES_STORAGE_KEY);
+                return raw ? JSON.parse(raw) : {};
+            } catch (error) {
+                console.warn('Failed to load stored field overrides.', error);
+                return {};
+            }
+        }
+
+        function saveFieldOverrides() {
+            if (typeof localStorage === 'undefined') {
+                return;
+            }
+            try {
+                localStorage.setItem(FIELD_OVERRIDES_STORAGE_KEY, JSON.stringify(fieldOverrides));
+            } catch (error) {
+                console.warn('Failed to persist field overrides.', error);
             }
         }
 
@@ -2779,8 +3145,280 @@
             return pdf;
         }
 
+        function applyStoredOverrides(pdf) {
+            const key = getWorkOrderKey(pdf);
+            const overrides = fieldOverrides[key];
+            if (!overrides || !pdf?.parsedFields) {
+                return pdf;
+            }
+
+            for (const [sectionName, fields] of Object.entries(overrides)) {
+                const section = pdf.parsedFields[sectionName];
+                if (!section) continue;
+                for (const [fieldName, value] of Object.entries(fields)) {
+                    if (!section[fieldName]) continue;
+                    section[fieldName].value = value;
+                }
+            }
+            normalizeParsedData(pdf);
+            return pdf;
+        }
+
+        function clearFieldOverrideState(key, sectionName, fieldName) {
+            const overrides = fieldOverrides[key];
+            if (!overrides) {
+                return;
+            }
+
+            if (overrides[sectionName]) {
+                delete overrides[sectionName][fieldName];
+                if (Object.keys(overrides[sectionName]).length === 0) {
+                    delete overrides[sectionName];
+                }
+            }
+
+            if (Object.keys(overrides).length === 0) {
+                delete fieldOverrides[key];
+            }
+        }
+
+        function persistFieldOverride(key, sectionName, fieldName, value) {
+            if (!fieldOverrides[key]) {
+                fieldOverrides[key] = {};
+            }
+            if (!fieldOverrides[key][sectionName]) {
+                fieldOverrides[key][sectionName] = {};
+            }
+            fieldOverrides[key][sectionName][fieldName] = value;
+        }
+
+        function normalizeParsedData(pdf) {
+            if (!pdf || !pdf.parsedFields) {
+                return pdf;
+            }
+
+            const parsed = pdf.parsedFields;
+            const sourceSection = parsed['Source Company'] || (parsed['Source Company'] = {});
+            const workOrderSection = parsed['Work Order Details'] || {};
+            const issuerSection = parsed['Work Order Issuer'] || {};
+
+            const companyCandidate = tidyText(
+                issuerSection.company?.value ||
+                workOrderSection.company_name?.value ||
+                sourceSection.company_name?.value ||
+                ''
+            );
+
+            if (companyCandidate) {
+                const existing = sourceSection.company_name || { confidence: 90 };
+                sourceSection.company_name = {
+                    ...existing,
+                    value: companyCandidate,
+                    confidence: existing.confidence ?? 90
+                };
+            }
+
+            if (issuerSection) {
+                const roleField = issuerSection.role || (issuerSection.role = { value: '', confidence: 0 });
+                if (!roleField.value || !roleField.value.trim() || roleField.value === '-') {
+                    roleField.value = 'Job Contact';
+                    roleField.confidence = Math.max(roleField.confidence || 0, 60);
+                }
+            }
+
+            return pdf;
+        }
+
+        function getDefaultContactEmail(pdf) {
+            if (!pdf || !pdf.parsedFields) {
+                return '';
+            }
+            const fields = pdf.parsedFields;
+            const candidate = tidyText(
+                fields['Site Contact']?.email?.value ||
+                fields['Work Order Issuer']?.email?.value ||
+                fields['Company Details']?.email?.value ||
+                fields['Source Company']?.contact_email?.value ||
+                ''
+            );
+            return candidate || '';
+        }
+
+        function toDateTimeLocalValue(value) {
+            if (!value) {
+                return '';
+            }
+            const date = new Date(value);
+            if (isNaN(date.getTime())) {
+                return '';
+            }
+            const tzOffset = date.getTimezoneOffset();
+            const local = new Date(date.getTime() - tzOffset * 60000);
+            return local.toISOString().slice(0, 16);
+        }
+
+        function fromDateTimeLocalValue(value) {
+            if (!value) {
+                return null;
+            }
+            const local = new Date(value);
+            if (isNaN(local.getTime())) {
+                return null;
+            }
+            return new Date(local.getTime() - local.getTimezoneOffset() * 60000).toISOString();
+        }
+
+        function refreshQuickReview() {
+            const parsedFieldsContent = document.getElementById('parsedFieldsContent');
+            if (!parsedFieldsContent || !currentPdfData) {
+                return;
+            }
+            const existing = parsedFieldsContent.querySelector('.quick-review-section');
+            if (existing) {
+                parsedFieldsContent.removeChild(existing);
+            }
+            generateQuickReview(currentPdfData.parsedFields, currentPdfData);
+        }
+
+        function openRequestInfoModal() {
+            if (!requestInfoModal) {
+                return;
+            }
+            requestInfoModal.style.display = 'block';
+            window.requestAnimationFrame(() => {
+                requestInfoModal.classList.add('show');
+            });
+            document.body.style.overflow = 'hidden';
+            if (requestInfoSubject) {
+                requestInfoSubject.focus({ preventScroll: true });
+            }
+        }
+
+        function closeRequestInfoModal() {
+            if (!requestInfoModal) {
+                return;
+            }
+            requestInfoModal.classList.remove('show');
+            setTimeout(() => {
+                requestInfoModal.style.display = 'none';
+                if (!pdfViewerModal || !pdfViewerModal.classList.contains('show')) {
+                    document.body.style.overflow = '';
+                } else {
+                    document.body.style.overflow = 'hidden';
+                }
+            }, 220);
+            requestInfoContext = null;
+        }
+
+        function resetRequestInfoForm(existingMeta) {
+            if (!requestInfoForm) {
+                return;
+            }
+            requestInfoForm.reset();
+
+            const orderRef = requestInfoContext?.orderNumber || 'this job';
+            const defaultSubject = `Additional details required for ${orderRef}`;
+            const defaultBody = `Hi,\n\nWe need a little more information before we can proceed with ${orderRef}.\n\nCould you please provide the requested details at your earliest convenience?\n\nThanks,\nWorkSight Admin Team`;
+
+            if (requestInfoSummary) {
+                requestInfoSummary.textContent = 'Draft';
+            }
+
+            const fallbackEmail = getDefaultContactEmail(requestInfoContext?.pdf) || '';
+
+            if (requestInfoTo) {
+                requestInfoTo.value = existingMeta?.contact || fallbackEmail;
+            }
+            if (requestInfoCc) {
+                requestInfoCc.value = existingMeta?.cc || '';
+            }
+            if (requestInfoSubject) {
+                requestInfoSubject.value = existingMeta?.subject || defaultSubject;
+            }
+            if (requestInfoBody) {
+                requestInfoBody.value = existingMeta?.note || defaultBody;
+            }
+            if (requestInfoNeedBy) {
+                requestInfoNeedBy.value = existingMeta?.needBy ? toDateTimeLocalValue(existingMeta.needBy) : '';
+            }
+            if (requestInfoChannel) {
+                requestInfoChannel.value = existingMeta?.channel || 'email';
+            }
+            if (existingMeta?.timestamp && requestInfoSummary) {
+                requestInfoSummary.textContent = formatRelativeDate(existingMeta.timestamp);
+            }
+        }
+
+        function openDeclineModal() {
+            if (!declineModal) {
+                return;
+            }
+            declineModal.style.display = 'block';
+            window.requestAnimationFrame(() => {
+                declineModal.classList.add('show');
+            });
+            document.body.style.overflow = 'hidden';
+            if (declineSubject) {
+                declineSubject.focus({ preventScroll: true });
+            }
+        }
+
+        function closeDeclineModal() {
+            if (!declineModal) {
+                return;
+            }
+            declineModal.classList.remove('show');
+            setTimeout(() => {
+                declineModal.style.display = 'none';
+                if (!pdfViewerModal || !pdfViewerModal.classList.contains('show')) {
+                    document.body.style.overflow = '';
+                } else {
+                    document.body.style.overflow = 'hidden';
+                }
+            }, 220);
+            declineContext = null;
+        }
+
+        function resetDeclineForm(existingMeta) {
+            if (!declineForm) {
+                return;
+            }
+            declineForm.reset();
+
+            const orderRef = declineContext?.orderNumber || 'this request';
+            const defaultSubject = `Unable to proceed with ${orderRef}`;
+            const defaultBody = `Hi,\n\nThanks for the request regarding ${orderRef}. After reviewing the details we’re unable to proceed at this time.\n\nSummary of reason:\n- [Add reason here]\n\nPlease reach out if you need more information.\n\nRegards,\nWorkSight Admin Team`;
+
+            if (declineSummary) {
+                declineSummary.textContent = 'Draft';
+            }
+
+            const fallbackEmail = getDefaultContactEmail(declineContext?.pdf) || '';
+
+            if (declineTo) {
+                declineTo.value = existingMeta?.contact || fallbackEmail;
+            }
+            if (declineCc) {
+                declineCc.value = existingMeta?.cc || '';
+            }
+            if (declineSubject) {
+                declineSubject.value = existingMeta?.subject || defaultSubject;
+            }
+            if (declineBody) {
+                declineBody.value = existingMeta?.note || defaultBody;
+            }
+            if (declineChannel) {
+                declineChannel.value = existingMeta?.channel || 'email';
+            }
+            if (existingMeta?.timestamp && declineSummary) {
+                declineSummary.textContent = formatRelativeDate(existingMeta.timestamp);
+            }
+        }
+
         function applyStoredStatusToAll() {
             referenceWorkOrders.forEach(applyStoredStatus);
+            referenceWorkOrders.forEach(applyStoredOverrides);
+            referenceWorkOrders.forEach(normalizeParsedData);
         }
 
         // Mini Client Table for Company Identification and Parsing Rules
@@ -2909,9 +3547,14 @@
             return `${trimmed.slice(0, limit - 1).trim()}…`;
         }
 
-        function formatRelativeDate(date) {
+        function formatRelativeDate(value) {
+            let date = value instanceof Date ? value : new Date(value);
+            if (isNaN(date.getTime())) {
+                return '';
+            }
+
             const now = new Date();
-            const diffInHours = Math.round((now - date) / (1000 * 60 * 60));
+            const diffInHours = Math.round((now.getTime() - date.getTime()) / (1000 * 60 * 60));
 
             if (diffInHours < 1) return 'just now';
             if (diffInHours === 1) return '1 hour ago';
@@ -2931,7 +3574,10 @@
         }
 
         function renderFilterState() {
-            filterGroups.forEach(group => {
+            const currentFilterGroups = document.querySelectorAll('.control-options');
+            const currentSortSelect = document.getElementById('pdfSortSelect');
+
+            currentFilterGroups.forEach(group => {
                 const filterType = group.getAttribute('data-filter');
                 const activeValue = filters[filterType];
 
@@ -2944,8 +3590,8 @@
                 });
             });
 
-            if (sortSelect) {
-                sortSelect.value = currentSort;
+            if (currentSortSelect) {
+                currentSortSelect.value = currentSort;
             }
         }
 
@@ -2986,25 +3632,33 @@
         }
 
         function applyFilters(pdfs) {
-            return pdfs.filter(pdf => {
+            console.log('applyFilters called with pdfs:', pdfs.length);
+            const result = pdfs.filter(pdf => {
                 const urgency = normalizeUrgency(pdf.urgency);
                 const docType = getDocTypeKey(pdf);
                 const normalizedStatus = normalizeStatus(pdf.status);
 
+                console.log(`PDF ${pdf.name}: urgency=${urgency}, docType=${docType}, status=${normalizedStatus}`);
+
                 if (filters.urgency !== 'all' && urgency !== filters.urgency) {
+                    console.log(`Filtered out by urgency: ${urgency} !== ${filters.urgency}`);
                     return false;
                 }
 
                 if (filters.type !== 'all' && docType !== filters.type) {
+                    console.log(`Filtered out by type: ${docType} !== ${filters.type}`);
                     return false;
                 }
 
                 if (filters.status !== 'all' && normalizedStatus !== filters.status) {
+                    console.log(`Filtered out by status: ${normalizedStatus} !== ${filters.status}`);
                     return false;
                 }
 
                 return true;
             });
+            console.log('applyFilters result:', result.length);
+            return result;
         }
 
         function sortPdfs(pdfs) {
@@ -3043,13 +3697,19 @@
 
             container.innerHTML = '<div style="padding: 20px;">Loading PDF records...</div>';
 
+            console.log('referenceWorkOrders:', referenceWorkOrders);
+            console.log('referenceWorkOrders length:', referenceWorkOrders?.length);
+            console.log('Current filters:', filters);
+
             if (!referenceWorkOrders || referenceWorkOrders.length === 0) {
                 container.innerHTML = '<div style="padding: 20px; color: red;">No PDF records found!</div>';
                 return;
             }
 
             // Get sorted PDFs (Critical > Urgent > Standard, then by time)
-        const pdfsToShow = sortPdfs(applyFilters(referenceWorkOrders));
+            const filteredPdfs = applyFilters(referenceWorkOrders);
+            const pdfsToShow = sortPdfs(filteredPdfs);
+            updateSummaryMetrics(filteredPdfs.length);
 
             container.innerHTML = '';
 
@@ -3196,7 +3856,8 @@
         }
 
         function openPdfViewer(pdf) {
-            currentPdfData = pdf;
+            currentPdfData = normalizeParsedData(pdf);
+            isEditing = false;
 
             // Set the title with document context
             if (pdfViewerTitle) {
@@ -3251,6 +3912,9 @@
             const location = parsedFields["Job Location"] || {};
             const contact = parsedFields["Site Contact"] || {};
             const serviceM8 = parsedFields["ServiceM8 API Fields"] || {};
+            const normalizedStatusKey = normalizeStatus(pdf.status || 'review');
+            const statusLabel = STATUS_LABELS[normalizedStatusKey] || STATUS_LABELS.review;
+            const statusMeta = pdf.statusMeta || statusState[getWorkOrderKey(pdf)];
 
             // Derive company details from client table
             const identifiedCompany = identifyCompany(parsedFields);
@@ -3317,7 +3981,6 @@
                             <button class="quick-action info" onclick="requestInfo('${workOrder.order_number?.value || ''}')">Request info</button>
                             <button class="quick-action create" onclick="createJob('${workOrder.order_number?.value || ''}')">Create job</button>
                         </div>
-                        <button class="quick-edit-toggle" id="editModeToggle">Lock fields</button>
                     </div>
                     <div class="quick-review-top">
                         <div class="quick-review-heading">
@@ -3361,7 +4024,11 @@
             `;
 
             quickReviewSection.innerHTML = quickReviewHTML;
-            parsedFieldsContent.appendChild(quickReviewSection);
+            if (parsedFieldsContent.firstChild) {
+                parsedFieldsContent.insertBefore(quickReviewSection, parsedFieldsContent.firstChild);
+            } else {
+                parsedFieldsContent.appendChild(quickReviewSection);
+            }
 
             // Add event listener for urgency field changes
             const urgencySelect = document.getElementById('urgencySelect');
@@ -3471,6 +4138,15 @@
                 const date = new Date(meta.timestamp);
                 if (!isNaN(date.getTime())) {
                     parts.push(date.toLocaleString());
+                }
+            }
+            if (meta.contact) {
+                parts.push(meta.contact);
+            }
+            if (meta.needBy) {
+                const dueText = formatDueSummary(meta.needBy);
+                if (dueText) {
+                    parts.push(dueText);
                 }
             }
             return parts.join(' • ');
@@ -4159,26 +4835,41 @@
         }
 
         function rejectJob(orderNumber) {
-            alert(`Job ${orderNumber} declined. Reason will be logged.`);
-            // TODO: integrate decline flow
+            const pdf = currentPdfData;
+            const key = orderNumber || (pdf ? getWorkOrderKey(pdf) : `pdf-${Math.random().toString(36).slice(2)}`);
+            declineContext = {
+                key,
+                orderNumber: orderNumber || pdf?.parsedFields?.['Work Order Details']?.order_number?.value || key,
+                pdf: pdf || null
+            };
+
+            if (!declineModal) {
+                console.warn('Decline modal not available.');
+                return;
+            }
+
+            const existingMeta = statusState[key]?.status === 'declined' ? statusState[key] : null;
+            resetDeclineForm(existingMeta);
+            openDeclineModal();
         }
 
         function requestInfo(orderNumber) {
-            const reason = prompt(`Request additional info for ${orderNumber || 'this job'}:\nDescribe what is missing or unclear.`);
-            if (!reason) {
+            const pdf = currentPdfData;
+            const key = orderNumber || (pdf ? getWorkOrderKey(pdf) : `pdf-${Math.random().toString(36).slice(2)}`);
+            requestInfoContext = {
+                key,
+                orderNumber: orderNumber || pdf?.parsedFields?.['Work Order Details']?.order_number?.value || key,
+                pdf: pdf || null
+            };
+
+            if (!requestInfoModal) {
+                console.warn('Request info modal not available.');
                 return;
             }
-            const key = orderNumber || `pdf-${Math.random().toString(36).slice(2)}`;
-            statusState[key] = {
-                status: 'info-requested',
-                timestamp: new Date().toISOString(),
-                user: getCurrentUserName(),
-                note: reason
-            };
-            saveStatusState();
-            applyStoredStatusToAll();
-            generatePdfHistory();
-            alert(`Info requested for ${orderNumber || 'job'}:\n${reason}`);
+
+            const existingMeta = statusState[key]?.status === 'info-requested' ? statusState[key] : null;
+            resetRequestInfoForm(existingMeta);
+            openRequestInfoModal();
         }
 
         function createJob(orderNumber) {
@@ -4303,20 +4994,119 @@
                         </div>
                     `;
 
-                    input.addEventListener('input', (e) => handleFieldChange(e, fieldData.value));
+                    const fieldMeta = document.createElement('div');
+                    fieldMeta.className = 'field-meta';
+                    fieldMeta.appendChild(confidenceSpan);
+
+                    if (sectionName !== 'ServiceM8 API Fields') {
+                        const revertButton = document.createElement('button');
+                        revertButton.type = 'button';
+                        revertButton.className = 'field-revert';
+                        revertButton.textContent = 'Revert';
+                        revertButton.addEventListener('click', () => revertFieldValue(sectionName, fieldName, input));
+                        fieldMeta.appendChild(revertButton);
+                    }
+
+                    if (sectionName === 'Job Location' && fieldName === 'site_address') {
+                        const helperButton = document.createElement('button');
+                        helperButton.type = 'button';
+                        helperButton.className = 'field-helper';
+                        helperButton.textContent = 'Validate address';
+                        helperButton.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            validateAndPopulateAddress();
+                        });
+                        fieldMeta.appendChild(helperButton);
+                    }
+
+                    input.addEventListener('input', (e) => handleFieldChange(e));
+                    if (input.tagName === 'SELECT') {
+                        input.addEventListener('change', (e) => handleFieldChange(e));
+                    }
 
                     fieldItem.appendChild(label);
                     fieldItem.appendChild(input);
-                    fieldItem.appendChild(confidenceSpan);
+                    fieldItem.appendChild(fieldMeta);
                     fieldGroup.appendChild(fieldItem);
                 }
 
                 section.appendChild(fieldGroup);
                 parsedFieldsContent.appendChild(section);
             }
+
+            fieldInputs = Array.from(parsedFieldsContent.querySelectorAll('.field-input'));
+            applyEditingStateToInputs();
         }
 
-        function formatFieldLabel(fieldName) {
+        function applyEditingStateToInputs() {
+        const parsedFieldsContent = document.getElementById('parsedFieldsContent');
+        if (parsedFieldsContent) {
+            parsedFieldsContent.classList.toggle('editing-mode', isEditing);
+        }
+
+        if (!fieldInputs || fieldInputs.length === 0) {
+            fieldInputs = Array.from(parsedFieldsContent?.querySelectorAll('.field-input') || []);
+        }
+
+        fieldInputs.forEach((input) => {
+            const sectionName = input.getAttribute('data-section');
+            const isDerivedField = sectionName === 'ServiceM8 API Fields';
+            const shouldDisable = !isEditing || isDerivedField;
+
+            if (input.tagName === 'SELECT') {
+                input.disabled = shouldDisable;
+            } else {
+                input.readOnly = shouldDisable;
+                input.disabled = false;
+            }
+
+            if (!isEditing) {
+                input.classList.remove('modified');
+                const fieldItem = input.closest('.field-item');
+                if (fieldItem) {
+                    fieldItem.classList.remove('modified');
+                }
+            }
+        });
+
+        const fieldActions = document.getElementById('fieldActions');
+        if (fieldActions) {
+            fieldActions.classList.add('editing-visible');
+        }
+
+        const editControlButton = document.getElementById('saveFieldsBtn');
+        if (editControlButton) {
+            editControlButton.textContent = isEditing ? 'Finished editing' : 'Start editing';
+        }
+    }
+
+        function startEditing() {
+        if (isEditing) {
+            return;
+        }
+
+        isEditing = true;
+        applyEditingStateToInputs();
+        updateChangesIndicator();
+    }
+
+        function finishEditing() {
+        if (!isEditing) {
+            return;
+        }
+
+        isEditing = false;
+        applyEditingStateToInputs();
+
+        if (currentPdfData?.parsedFields) {
+            storeOriginalValues(currentPdfData.parsedFields);
+        }
+
+        hasUnsavedChanges = false;
+        updateChangesIndicator();
+    }
+
+    function formatFieldLabel(fieldName) {
             return fieldName
                 .replace(/_/g, ' ')
                 .replace(/\b\w/g, l => l.toUpperCase());
@@ -4341,19 +5131,72 @@
             return dots;
         }
 
-        function handleFieldChange(event, originalValue) {
-            const input = event.target;
-            const currentValue = input.value;
-
-            if (currentValue !== originalValue) {
-                input.classList.add('modified');
-                hasUnsavedChanges = document.querySelectorAll('.field-input.modified').length > 0;
-            } else {
-                input.classList.remove('modified');
-                hasUnsavedChanges = document.querySelectorAll('.field-input.modified').length > 0;
+        function handleFieldChange(event) {
+            if (!isEditing || !currentPdfData) {
+                return;
             }
 
+            const input = event.target;
+            const section = input.getAttribute('data-section');
+            const field = input.getAttribute('data-field');
+
+            if (!section || !field) {
+                return;
+            }
+
+            const currentValue = input.value;
+            const originalSection = originalFieldValues[section] || {};
+            const originalValue = originalSection[field] ?? '';
+            const fieldItem = input.closest('.field-item');
+            const isModified = currentValue !== originalValue;
+
+            if (fieldItem) {
+                fieldItem.classList.toggle('modified', isModified);
+            }
+
+            if (isModified) {
+                input.classList.add('modified');
+
+                if (section !== 'Quick Review' && currentPdfData.parsedFields?.[section]?.[field]) {
+                    currentPdfData.parsedFields[section][field].value = currentValue;
+                    const key = getWorkOrderKey(currentPdfData);
+                    persistFieldOverride(key, section, field, currentValue);
+                    saveFieldOverrides();
+                } else if (section === 'Quick Review' && field === 'urgency') {
+                    currentPdfData.urgency = currentValue;
+                }
+            } else {
+                input.classList.remove('modified');
+
+                if (section !== 'Quick Review' && currentPdfData.parsedFields?.[section]?.[field]) {
+                    currentPdfData.parsedFields[section][field].value = currentValue;
+                    const key = getWorkOrderKey(currentPdfData);
+                    clearFieldOverrideState(key, section, field);
+                    saveFieldOverrides();
+                } else if (section === 'Quick Review' && field === 'urgency') {
+                    currentPdfData.urgency = currentValue;
+                }
+            }
+
+            hasUnsavedChanges = document.querySelectorAll('.field-input.modified').length > 0;
             updateChangesIndicator();
+        }
+
+        function revertFieldValue(sectionName, fieldName, input) {
+            const sectionOriginals = originalFieldValues[sectionName];
+            if (!sectionOriginals || !(fieldName in sectionOriginals)) {
+                return;
+            }
+
+            const originalValue = sectionOriginals[fieldName];
+            if (input.tagName === 'SELECT') {
+                input.value = originalValue;
+                input.dispatchEvent(new Event('change', { bubbles: true }));
+            } else {
+                input.value = originalValue ?? '';
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+            input.focus({ preventScroll: true });
         }
 
         function updateChangesIndicator() {
@@ -4364,6 +5207,152 @@
                 } else {
                     changesIndicator.classList.remove('show');
                 }
+            }
+        }
+
+        function showPanelStatus(message, variant = 'success', duration = 3500) {
+            if (!panelStatusBadge) {
+                return;
+            }
+            if (panelStatusTimer) {
+                clearTimeout(panelStatusTimer);
+            }
+            panelStatusBadge.textContent = message;
+            panelStatusBadge.className = `panel-status ${variant}`;
+            panelStatusTimer = window.setTimeout(() => {
+                panelStatusBadge.textContent = '';
+                panelStatusBadge.className = 'panel-status';
+            }, duration);
+        }
+
+        function updateSummaryMetrics(count) {
+            const hideForNeedsReview = filters.status === 'review';
+            if (pdfSummaryWrapper) {
+                pdfSummaryWrapper.style.display = hideForNeedsReview ? 'none' : 'flex';
+            }
+            if (hideForNeedsReview) {
+                return;
+            }
+            if (pdfSummaryCount) {
+                pdfSummaryCount.textContent = String(count);
+            }
+            if (pdfSummaryLabel) {
+                pdfSummaryLabel.textContent = count === 1 ? 'document' : 'documents';
+            }
+        }
+
+        function formatDueSummary(isoString) {
+            if (!isoString) {
+                return '';
+            }
+            const dueDate = new Date(isoString);
+            if (isNaN(dueDate.getTime())) {
+                return '';
+            }
+            const now = new Date();
+            const diffMs = dueDate.getTime() - now.getTime();
+            if (diffMs <= 0) {
+                return `Overdue since ${formatDateTime(dueDate)}`;
+            }
+            const diffHours = Math.round(diffMs / (1000 * 60 * 60));
+            if (diffHours < 24) {
+                return `Response due in ${diffHours}h`;
+            }
+            const diffDays = Math.round(diffHours / 24);
+            if (diffDays < 7) {
+                return `Response due in ${diffDays}d`;
+            }
+            return `Response due ${dueDate.toLocaleDateString()}`;
+        }
+
+        function parseAddressComponents(address) {
+            if (!address) {
+                return null;
+            }
+            const cleaned = tidyText(address);
+            if (!cleaned) {
+                return null;
+            }
+
+            const primaryPattern = /^(.*?),\s*([^,]+)\s+([A-Za-z]{2,3})\s+(\d{3,4})(?:\s*,?\s*(.*))?$/i;
+            const secondaryPattern = /^(.*?),\s*([^,]+?),\s*([A-Za-z]{2,3})\s+(\d{3,4})(?:\s*,?\s*(.*))?$/i;
+
+            const match = cleaned.match(primaryPattern) || cleaned.match(secondaryPattern);
+            if (!match) {
+                return null;
+            }
+
+            const [, street, city, state, postcode, country] = match;
+            return {
+                street: tidyText(street),
+                city: tidyText(city),
+                state: state.toUpperCase(),
+                postcode: postcode,
+                country: tidyText(country || '') || 'Australia'
+            };
+        }
+
+        function validateAndPopulateAddress() {
+            if (!currentPdfData) {
+                showPanelStatus('Open a work order before validating the address.', 'error');
+                return;
+            }
+            const addressInput = document.querySelector('.field-input[data-section="Job Location"][data-field="site_address"]');
+            if (!addressInput) {
+                showPanelStatus('Site address field not available.', 'error');
+                return;
+            }
+            const address = addressInput.value.trim();
+            if (!address) {
+                showPanelStatus('Enter the site address first.', 'error');
+                if (!isEditing) {
+                    startEditing();
+                }
+                addressInput.focus({ preventScroll: true });
+                return;
+            }
+
+            const components = parseAddressComponents(address);
+            if (!components) {
+                showPanelStatus('Could not parse the address. Please update manually.', 'error');
+                return;
+            }
+
+            if (!isEditing) {
+                startEditing();
+            }
+
+            const updates = [
+                ['site_city', components.city],
+                ['site_state', components.state],
+                ['site_postcode', components.postcode],
+                ['country', components.country]
+            ];
+            let applied = false;
+            const jobLocationSection = currentPdfData.parsedFields?.['Job Location'];
+            const key = getWorkOrderKey(currentPdfData);
+
+            updates.forEach(([field, value]) => {
+                if (!value) return;
+                const inputEl = document.querySelector(`.field-input[data-section=\"Job Location\"][data-field=\"${field}\"]`);
+                if (!inputEl) return;
+                const currentValue = inputEl.value.trim();
+                if (currentValue === value) return;
+                inputEl.value = value;
+                const eventName = inputEl.tagName === 'SELECT' ? 'change' : 'input';
+                inputEl.dispatchEvent(new Event(eventName, { bubbles: true }));
+                applied = true;
+                if (jobLocationSection && jobLocationSection[field]) {
+                    jobLocationSection[field].value = value;
+                }
+                persistFieldOverride(key, 'Job Location', field, value);
+            });
+
+            if (applied) {
+                saveFieldOverrides();
+                showPanelStatus('Address components updated from the full address.', 'success');
+            } else {
+                showPanelStatus('Address components are already up to date.', 'warning');
             }
         }
 
@@ -4378,6 +5367,11 @@
                     }
                     originalFieldValues[sectionName][fieldName] = fieldData.value;
                 }
+            }
+
+            if (currentPdfData) {
+                const quickReviewDefaults = currentPdfData.urgency || currentPdfData.parsedFields?.['Work Order Details']?.urgency?.value || 'STANDARD';
+                originalFieldValues['Quick Review'] = { urgency: quickReviewDefaults };
             }
         }
 
@@ -4398,38 +5392,6 @@
             updateChangesIndicator();
         }
 
-        function saveFields() {
-            if (!currentPdfData || !hasUnsavedChanges) return;
-
-            const inputs = document.querySelectorAll('.field-input.modified');
-            const updates = {};
-
-            inputs.forEach(input => {
-                const section = input.getAttribute('data-section');
-                const field = input.getAttribute('data-field');
-
-                if (!updates[section]) {
-                    updates[section] = {};
-                }
-                updates[section][field] = input.value;
-
-                currentPdfData.parsedFields[section][field].value = input.value;
-                input.classList.remove('modified');
-            });
-
-            storeOriginalValues(currentPdfData.parsedFields);
-            hasUnsavedChanges = false;
-            updateChangesIndicator();
-
-            const jobId = currentPdfData.parsedFields['ServiceM8 API Fields']?.generated_job_id?.value ||
-                         currentPdfData.parsedFields['Work Order Details']?.order_number?.value || 'New Job';
-            const jobType = currentPdfData.parsedFields['Work Order Details']?.document_type?.value || 'Work Order';
-
-            alert(`🚀 ${jobType} "${jobId}" ready for ServiceM8!\n\nFields updated and ready to submit to ServiceM8 API.`);
-
-            console.log('ServiceM8 Job Fields Updated:', updates);
-        }
-
         function closePdfViewer() {
             if (hasUnsavedChanges) {
                 const confirmClose = confirm('You have unsaved changes. Are you sure you want to close?');
@@ -4448,7 +5410,10 @@
                 originalFieldValues = {};
                 hasUnsavedChanges = false;
                 const parsedFieldsContent = document.getElementById('parsedFieldsContent');
-                parsedFieldsContent.innerHTML = '';
+                if (parsedFieldsContent) {
+                    parsedFieldsContent.innerHTML = '';
+                }
+                isEditing = false;
             }, 300);
         }
 
@@ -4456,7 +5421,13 @@
         fabButton.addEventListener('click', openModal);
         modalClose.addEventListener('click', closeModal);
         pdfViewerClose.addEventListener('click', closePdfViewer);
-        document.getElementById('saveFieldsBtn').addEventListener('click', saveFields);
+        document.getElementById('saveFieldsBtn').addEventListener('click', () => {
+            if (isEditing) {
+                finishEditing();
+            } else {
+                startEditing();
+            }
+        });
 
         // Close modals when clicking outside
         pdfModal.addEventListener('click', (e) => {
@@ -4471,6 +5442,147 @@
             }
         });
 
+        if (requestInfoModal) {
+            requestInfoModal.addEventListener('click', (e) => {
+                if (e.target === requestInfoModal) {
+                    closeRequestInfoModal();
+                }
+            });
+        }
+
+        if (requestInfoClose) {
+            requestInfoClose.addEventListener('click', closeRequestInfoModal);
+        }
+
+        if (requestInfoCancel) {
+            requestInfoCancel.addEventListener('click', closeRequestInfoModal);
+        }
+
+        if (declineModal) {
+            declineModal.addEventListener('click', (e) => {
+                if (e.target === declineModal) {
+                    closeDeclineModal();
+                }
+            });
+        }
+
+        if (declineClose) {
+            declineClose.addEventListener('click', closeDeclineModal);
+        }
+
+        if (declineCancel) {
+            declineCancel.addEventListener('click', closeDeclineModal);
+        }
+
+        if (requestInfoForm) {
+            requestInfoForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                if (!requestInfoContext) {
+                    closeRequestInfoModal();
+                    return;
+                }
+
+                const to = requestInfoTo?.value.trim();
+                const subject = requestInfoSubject?.value.trim();
+                const body = requestInfoBody?.value.trim();
+
+                if (!to || !subject || !body) {
+                    if (!to && requestInfoTo) {
+                        requestInfoTo.focus({ preventScroll: true });
+                    } else if (!subject && requestInfoSubject) {
+                        requestInfoSubject.focus({ preventScroll: true });
+                    } else if (!body && requestInfoBody) {
+                        requestInfoBody.focus({ preventScroll: true });
+                    }
+                    return;
+                }
+
+                const cc = requestInfoCc?.value.trim();
+                const needByValue = requestInfoNeedBy?.value;
+                const needByIso = needByValue ? fromDateTimeLocalValue(needByValue) : undefined;
+                const channel = requestInfoChannel?.value || 'email';
+
+                const entry = {
+                    status: 'info-requested',
+                    timestamp: new Date().toISOString(),
+                    user: getCurrentUserName(),
+                    note: body,
+                    contact: to,
+                    cc: cc || undefined,
+                    subject: subject,
+                    needBy: needByIso,
+                    channel
+                };
+
+                statusState[requestInfoContext.key] = entry;
+                saveStatusState();
+                applyStoredStatusToAll();
+                generatePdfHistory();
+
+                if (currentPdfData && getWorkOrderKey(currentPdfData) === requestInfoContext.key) {
+                    currentPdfData.status = 'info-requested';
+                    currentPdfData.statusMeta = entry;
+                    refreshQuickReview();
+                }
+
+                showPanelStatus('Info request logged', 'warning');
+                closeRequestInfoModal();
+            });
+        }
+
+        if (declineForm) {
+            declineForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                if (!declineContext) {
+                    closeDeclineModal();
+                    return;
+                }
+
+                const to = declineTo?.value.trim();
+                const subject = declineSubject?.value.trim();
+                const body = declineBody?.value.trim();
+
+                if (!to || !subject || !body) {
+                    if (!to && declineTo) {
+                        declineTo.focus({ preventScroll: true });
+                    } else if (!subject && declineSubject) {
+                        declineSubject.focus({ preventScroll: true });
+                    } else if (!body && declineBody) {
+                        declineBody.focus({ preventScroll: true });
+                    }
+                    return;
+                }
+
+                const cc = declineCc?.value.trim();
+                const channel = declineChannel?.value || 'email';
+
+                const entry = {
+                    status: 'declined',
+                    timestamp: new Date().toISOString(),
+                    user: getCurrentUserName(),
+                    note: body,
+                    contact: to,
+                    cc: cc || undefined,
+                    subject: subject,
+                    channel
+                };
+
+                statusState[declineContext.key] = entry;
+                saveStatusState();
+                applyStoredStatusToAll();
+                generatePdfHistory();
+
+                if (currentPdfData && getWorkOrderKey(currentPdfData) === declineContext.key) {
+                    currentPdfData.status = 'declined';
+                    currentPdfData.statusMeta = entry;
+                    refreshQuickReview();
+                }
+
+                showPanelStatus('Request declined and noted', 'error');
+                closeDeclineModal();
+            });
+        }
+
         // Close modals with Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
@@ -4478,12 +5590,17 @@
                     closePdfViewer();
                 } else if (pdfModal.classList.contains('show')) {
                     closeModal();
+                } else if (requestInfoModal && requestInfoModal.classList.contains('show')) {
+                    closeRequestInfoModal();
+                } else if (declineModal && declineModal.classList.contains('show')) {
+                    closeDeclineModal();
                 }
             }
         });
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', () => {
+            initializeEventListeners();
             renderFilterState();
             generatePdfHistory();
         });
