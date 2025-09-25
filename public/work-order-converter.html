@@ -1671,6 +1671,10 @@
             content: "🏠";
         }
 
+        .field-section[data-section="Site Information"] .field-section-title::before {
+            content: "📍";
+        }
+
         .field-section[data-section="Work Order Issuer"] .field-section-title::before {
             content: "👨‍💼";
         }
@@ -1693,7 +1697,8 @@
 
         .field-group {
             display: grid;
-            gap: 8px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
             margin-bottom: 0;
             transition: all 0.3s ease;
             overflow: visible;
@@ -1722,6 +1727,10 @@
             border: 1px solid #e2e8f0;
             transition: all 0.2s ease;
             position: relative;
+        }
+
+        .field-item.full-width {
+            grid-column: 1 / -1;
         }
 
         .field-item:hover {
@@ -2140,6 +2149,8 @@
             }
 
             .field-group {
+                grid-template-columns: 1fr;
+                gap: 8px;
                 margin-bottom: 8px;
             }
 
@@ -5069,6 +5080,29 @@
             });
         }
 
+        function reorganizeSections(parsedFields) {
+            const reorganized = {};
+            const siteInformation = {};
+
+            // Process each section
+            for (const [sectionName, fields] of Object.entries(parsedFields)) {
+                if (sectionName === 'Site Contact' || sectionName === 'Job Location') {
+                    // Merge Site Contact and Job Location into Site Information
+                    Object.assign(siteInformation, fields);
+                } else {
+                    // Keep other sections as-is
+                    reorganized[sectionName] = fields;
+                }
+            }
+
+            // Add the consolidated Site Information section
+            if (Object.keys(siteInformation).length > 0) {
+                reorganized['Site Information'] = siteInformation;
+            }
+
+            return reorganized;
+        }
+
         function generateParsedFields(parsedFields, pdf) {
             const parsedFieldsContent = document.getElementById('parsedFieldsContent');
             parsedFieldsContent.innerHTML = '';
@@ -5079,7 +5113,10 @@
             const sectionNames = Object.keys(parsedFields);
             let sectionIndex = 0;
 
-            for (const [sectionName, fields] of Object.entries(parsedFields)) {
+            // Reorganize sections to consolidate site information
+            const reorganizedSections = reorganizeSections(parsedFields);
+
+            for (const [sectionName, fields] of Object.entries(reorganizedSections)) {
                 const section = document.createElement('div');
                 section.className = 'field-section';
 
@@ -5113,6 +5150,16 @@
 
                     const fieldItem = document.createElement('div');
                     fieldItem.className = 'field-item';
+
+                    // Make textarea fields and long description fields full width
+                    if (fieldData.type === 'textarea' ||
+                        fieldName.includes('description') ||
+                        fieldName.includes('notes') ||
+                        fieldName.includes('requirements') ||
+                        fieldName.includes('checklist') ||
+                        fieldName.includes('instructions')) {
+                        fieldItem.classList.add('full-width');
+                    }
 
                     const label = document.createElement('div');
                     label.className = 'field-label';
